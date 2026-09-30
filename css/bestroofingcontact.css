@@ -1,0 +1,193 @@
+/* ==========================================================================
+   Goldenberg Roofing NYC — bestroofingcontact.html
+
+   Loaded after bestroofing2.css. The middle of this page is the homepage's own
+   contact component — .contact__workspace, .contact__side, .contact__map,
+   .contact__form — used unchanged, so the two match by construction rather
+   than by being kept in step by hand.
+
+   What lives here is only what the page adds: the blue head above it, the
+   yellow band below it, and four small additions inside the component (a
+   fourth fact row, a name card on the map, the inline error slots the shared
+   validator writes into, and the sent state).
+   ========================================================================== */
+
+.page-contact { background-color: var(--surface-2); }
+
+/* Off-screen but in the document: the page needs a heading even though the
+   band that carried one has been taken off. */
+.vh {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+
+/* Additions inside the shared component ==================================== */
+
+/* The band is the whole page here rather than the last section of one, so it
+   sits on the page tint and keeps its own rhythm. */
+.page-contact .contact { background: var(--surface-2); }
+
+/* With no band above it the card is the first thing on the page, so it has to
+   clear the floating bar itself. */
+.page-contact .contact {
+  padding-block:
+    calc(var(--bar-h) + var(--bar-gap) * 2 + clamp(1.5rem, 1.2rem + 1.4vw, 2.5rem))
+    clamp(2.5rem, 2rem + 2.4vw, 4rem);
+}
+
+/* Three fact rows rather than the homepage's two, so the panel and the form
+   still bottom out level without the map having to carry the difference.
+   Only while the board is two columns: below that the shared sheet puts the
+   details and the map side by side in one row, and a second row here would
+   leave the map stranded in a half-height cell. */
+@media (min-width: 68.0625em) {
+  .page-contact .contact__side { grid-template-rows: auto minmax(16rem, 1fr); }
+}
+
+/* The hours row goes nowhere, so it is set as text rather than as a link. */
+.page-contact .contact__direct-list strong {
+  color: var(--white);
+  font-size: .9375rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+/* The homepage's fields are labels wrapping a span; here each is a div so it
+   can hold an error paragraph, and the label element takes the span's face. */
+.page-contact .contact-field > label {
+  color: inherit;
+  font: inherit;
+}
+
+/* The error sits under its own field and is wired to the input with
+   aria-describedby, so it is announced with the field rather than alone. */
+.page-contact .field__error {
+  margin: 0;
+  color: #B3261E;
+  font-size: .8125rem;
+  font-weight: 600;
+}
+
+.page-contact .contact-field.is-invalid input {
+  border-color: #B3261E;
+  box-shadow: 0 0 0 3px rgba(179, 38, 30, .12);
+}
+
+
+/* Sent state --------------------------------------------------------------- */
+
+/* Replaces the whole right half once the form is away, so it is placed in the
+   form's own grid cell rather than after it. */
+.page-contact .done {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: .5rem;
+  grid-column: 2;
+  grid-row: 1;
+  padding: clamp(2rem, 1.5rem + 3vw, 4rem) clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  background: var(--surface-2);
+  text-align: center;
+}
+
+.page-contact .done[hidden] { display: none; }
+
+.page-contact .done > i { color: var(--blue); font-size: 2.25rem; }
+
+.page-contact .done__title {
+  margin: .5rem 0 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  color: var(--blue-night);
+}
+
+.page-contact .done__text {
+  max-width: 44ch;
+  margin: 0;
+  color: var(--ink-2);
+  font-size: .9375rem;
+  line-height: 1.65;
+}
+
+.page-contact .done__text a { font-weight: 800; color: var(--blue); }
+
+
+/* Ready ==================================================================== */
+
+.ready {
+  padding-block: clamp(2.75rem, 2.3rem + 2.6vw, 4.5rem);
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+.ready__wrap {
+  display: grid;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  gap: clamp(2rem, 1.5rem + 3vw, 4.5rem);
+  align-items: start;
+}
+
+.ready__title {
+  margin: 0;
+  max-width: 18ch;
+  font-size: clamp(1.625rem, 1.3rem + 1.5vw, 2.375rem);
+  font-weight: 800;
+  letter-spacing: -.04em;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+.ready__text {
+  max-width: 40ch;
+  margin: 1rem 0 0;
+  color: rgba(11, 18, 32, .76);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.ready__cta { margin-top: 1.5rem; }
+
+/* Rows on hairlines rather than four boxes: it is a list of four things, and a
+   card each would have made it look like a feature grid. */
+.ready__list { border-top: 1px solid rgba(11, 18, 32, .22); }
+
+.ready__list li {
+  display: grid;
+  grid-template-columns: minmax(8.5rem, auto) minmax(0, 1fr);
+  gap: .35rem 1.5rem;
+  padding: 1.05rem 0;
+  border-bottom: 1px solid rgba(11, 18, 32, .22);
+  color: rgba(11, 18, 32, .78);
+  font-size: .9375rem;
+  line-height: 1.55;
+}
+
+.ready__list strong {
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -.01em;
+}
+
+
+/* Responsive =============================================================== */
+
+@media (max-width: 68em) {
+  /* One column: the shared sheet already stacks the workspace here, so the
+     sent state has to come off the two-column placement with it. */
+  .page-contact .done { grid-column: 1; grid-row: auto; }
+
+  .ready__wrap { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 48em) {
+  .ready__list li { grid-template-columns: minmax(0, 1fr); }
+}

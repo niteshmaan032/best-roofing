@@ -1,0 +1,313 @@
+/* ==========================================================================
+   Goldenberg Roofing NYC — bestroofingcontact.html
+
+   Loaded after bestroofing2.css. The middle of this page is the homepage's own
+   contact component — .contact__workspace, .contact__side, .contact__map,
+   .contact__form — used unchanged, so the two match by construction rather
+   than by being kept in step by hand.
+
+   What lives here is only what the page adds: the blue head above it, the
+   yellow band below it, and four small additions inside the component (a
+   fourth fact row, a name card on the map, the inline error slots the shared
+   validator writes into, and the sent state).
+   ========================================================================== */
+
+.page-contact { background-color: var(--surface-2); }
+
+/* Off-screen but in the document: the page needs a heading even though the
+   band that carried one has been taken off. */
+.vh {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+
+/* Additions inside the shared component ==================================== */
+
+/* The band is the whole page here rather than the last section of one, so it
+   sits on the page tint and keeps its own rhythm. */
+.page-contact .contact { background: var(--surface-2); }
+
+/* With no band above it the card is the first thing on the page, so it has to
+   clear the floating bar itself. */
+.page-contact .contact {
+  padding-block:
+    calc(var(--bar-h) + var(--bar-gap) * 2 + clamp(1.5rem, 1.2rem + 1.4vw, 2.5rem))
+    clamp(2.5rem, 2rem + 2.4vw, 4rem);
+}
+
+/* Three fact rows rather than the homepage's two, so the panel and the form
+   still bottom out level without the map having to carry the difference.
+   Only while the board is two columns: below that the shared sheet puts the
+   details and the map side by side in one row, and a second row here would
+   leave the map stranded in a half-height cell. */
+@media (min-width: 68.0625em) {
+  .page-contact .contact__side { grid-template-rows: auto minmax(16rem, 1fr); }
+}
+
+/* The hours row goes nowhere, so it is set as text rather than as a link. */
+.page-contact .contact__direct-list strong {
+  color: var(--white);
+  font-size: .9375rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+/* The homepage's fields are labels wrapping a span; here each is a div so it
+   can hold an error paragraph, and the label element takes the span's face. */
+.page-contact .contact-field > label {
+  color: inherit;
+  font: inherit;
+}
+
+/* The error sits under its own field and is wired to the input with
+   aria-describedby, so it is announced with the field rather than alone. */
+.page-contact .field__error {
+  margin: 0;
+  color: #B3261E;
+  font-size: .8125rem;
+  font-weight: 600;
+}
+
+.page-contact .contact-field.is-invalid input {
+  border-color: #B3261E;
+  box-shadow: 0 0 0 3px rgba(179, 38, 30, .12);
+}
+
+
+/* Sent state --------------------------------------------------------------- */
+
+/* Replaces the whole right half once the form is away, so it is placed in the
+   form's own grid cell rather than after it. */
+.page-contact .done {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: .5rem;
+  grid-column: 2;
+  grid-row: 1;
+  padding: clamp(2rem, 1.5rem + 3vw, 4rem) clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  background: var(--surface-2);
+  text-align: center;
+}
+
+.page-contact .done[hidden] { display: none; }
+
+.page-contact .done > i { color: var(--blue); font-size: 2.25rem; }
+
+.page-contact .done__title {
+  margin: .5rem 0 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  color: var(--blue-night);
+}
+
+.page-contact .done__text {
+  max-width: 44ch;
+  margin: 0;
+  color: var(--ink-2);
+  font-size: .9375rem;
+  line-height: 1.65;
+}
+
+.page-contact .done__text a { font-weight: 800; color: var(--blue); }
+
+
+/* Ready ==================================================================== */
+
+.ready {
+  padding-block: clamp(2.75rem, 2.3rem + 2.6vw, 4.5rem);
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+.ready__wrap {
+  display: grid;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  gap: clamp(2rem, 1.5rem + 3vw, 4.5rem);
+  align-items: start;
+}
+
+.ready__title {
+  margin: 0;
+  max-width: 18ch;
+  font-size: clamp(1.625rem, 1.3rem + 1.5vw, 2.375rem);
+  font-weight: 800;
+  letter-spacing: -.04em;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+.ready__text {
+  max-width: 40ch;
+  margin: 1rem 0 0;
+  color: rgba(11, 18, 32, .76);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.ready__cta { margin-top: 1.5rem; }
+
+/* Rows on hairlines rather than four boxes: it is a list of four things, and a
+   card each would have made it look like a feature grid. */
+.ready__list { border-top: 1px solid rgba(11, 18, 32, .22); }
+
+.ready__list li {
+  display: grid;
+  grid-template-columns: minmax(8.5rem, auto) minmax(0, 1fr);
+  gap: .35rem 1.5rem;
+  padding: 1.05rem 0;
+  border-bottom: 1px solid rgba(11, 18, 32, .22);
+  color: rgba(11, 18, 32, .78);
+  font-size: .9375rem;
+  line-height: 1.55;
+}
+
+.ready__list strong {
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -.01em;
+}
+
+
+/* Responsive =============================================================== */
+
+@media (max-width: 68em) {
+  /* One column: the shared sheet already stacks the workspace here, so the
+     sent state has to come off the two-column placement with it. */
+  .page-contact .done { grid-column: 1; grid-row: auto; }
+
+  .ready__wrap { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 48em) {
+  .ready__list li { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* bestroofing3: the bar is attached now, so the card no longer clears a
+   floating header, and the estimate button is centred with its arrow. */
+.page-contact .contact { padding-block: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem) clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem); }
+.page-contact .contact__submit { width: auto; justify-content: center; gap: .6rem; padding-inline: 1.75rem; align-self: center; }
+.page-contact .faq { background: var(--yellow); }
+.page-contact .faq .eyebrow { background: var(--blue); color: var(--white); }
+.page-contact .faq .eyebrow::before { background: var(--yellow); }
+.page-contact .faq__side .h2 { color: var(--ink); }
+.page-contact .faq__lede { color: rgba(11, 18, 32, .78); }
+.page-contact .faq__side .pill--yellow { background: var(--blue); color: var(--white); }
+.page-contact .faq__list, .page-contact .qa { border-color: rgba(11, 18, 32, .22); }
+
+/* Larger message box so the form card does not sit half empty under the button. */
+.page-contact .contact-field textarea { min-height: 9.5rem; }
+.page-contact .contact__submit { margin-top: .75rem; }
+
+
+/* Contact page: every field on its own row, including the email field. */
+.contact__fields { grid-template-columns: minmax(0, 1fr) !important; }
+.contact-field { grid-column: auto !important; }
+
+/* Contact page: no grey frame around the details-and-form block. */
+.contact__workspace { border: 0 !important; }
+
+
+/* ==========================================================================
+   Round 4 (15 Sep call) — bestroofing4-contact
+   ========================================================================== */
+
+/* Less space above the board; the form heading starts level with the
+   contact heading (the eyebrow above it is what pushed them apart). */
+.page-contact .contact {
+  padding-block: clamp(1.25rem, 1rem + 1vw, 2rem) clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
+}
+.page-contact .contact__form-head { padding-top: .85rem; }
+
+/* Two pairs of fields: name + phone, address + email; message full width. */
+.page-contact .contact__fields { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+.page-contact .contact-field--full { grid-column: 1 / -1 !important; }
+
+/* Two fact rows again now the hours are gone, so the map can come up. */
+@media (min-width: 68.0625em) {
+  .page-contact .contact__side { grid-template-rows: auto minmax(20rem, 1fr); }
+}
+
+/* One divider above the first question. */
+.page-contact .faq__list { border-top: 0; }
+.page-contact .faq__lede { margin-block: .75rem 1.25rem; }
+
+/* Icon inside the phone link only shows on the mobile button. */
+.contact__call-icon { display: none; }
+
+/* ---- Mobile: details, then the form, then the map, then the FAQs ---- */
+@media (max-width: 40em) {
+  .page-contact .contact__side { display: contents; }
+  .page-contact .contact__details { order: 1; }
+  .page-contact .contact__form { order: 2; margin: 0; }
+  .page-contact .contact__map { order: 3; }
+  .page-contact .contact__workspace { display: grid; grid-template-columns: minmax(0, 1fr); }
+
+  .page-contact .contact__fields { grid-template-columns: minmax(0, 1fr) !important; }
+  .page-contact .contact-field { grid-column: auto !important; }
+
+  /* The panel is the heading and one full-width yellow phone button. */
+  .page-contact .contact__address { display: none; }
+  .page-contact .contact__direct-list { border-block: 0; }
+  .page-contact .contact__call { grid-template-columns: minmax(0, 1fr); padding-block: .25rem 0; }
+  .page-contact .contact__call > i,
+  .page-contact .contact__call small { display: none; }
+  .page-contact .contact__call a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .65rem;
+    width: 100%;
+    min-height: 3.5rem;
+    border-radius: 100px;
+    background: var(--yellow);
+    color: var(--ink);
+    font-size: 1.125rem;
+    font-weight: 800;
+  }
+  .page-contact .contact__call a:hover { color: var(--ink); }
+  .page-contact .contact__call .contact__call-icon { display: inline; font-size: 1rem; }
+
+  /* The form uses the panel's full width with a little less inner padding. */
+  .page-contact .contact__form { padding: 1.5rem 1rem 1.75rem; border-width: 0; border-radius: 0; }
+  .page-contact .contact__form-head { padding-top: 0; }
+}
+@media (max-width: 40em) {
+  .page-contact .contact__details { padding: 1.5rem 1.25rem 1.5rem; border-radius: .75rem .75rem 0 0; background: var(--blue-night); }
+  .page-contact .contact__map { margin: 0; border-radius: 0 0 .75rem .75rem; }
+}
+
+/* Contact page: form box runs to the end of the section, level with the panel. */
+.page-contact .contact__workspace { align-items: stretch; }
+.page-contact .contact__form { align-self: stretch; }
+
+
+/* Call changes, 23 Sep 2026 ------------------------------------------------ */
+
+/* Desktop: the navy card and the form are two separate square boxes, the same
+   height, with white space between them. */
+@media (min-width: 40.0625em) {
+  .page-contact .contact__workspace { gap: clamp(1.5rem, 2.5vw, 2.5rem); border-radius: 0; overflow: visible; }
+  .page-contact .contact__side { overflow: hidden; }
+  .page-contact .contact__form { margin: 0; border-radius: 0; }
+}
+
+/* FAQs: the first question starts level with the FAQs label. */
+.page-contact .faq__list .qa:first-child .qa__q { min-height: 0; padding-top: 0; }
+
+@media (max-width: 40em) {
+  /* Subtitle on one line, and no big gap above the first question. */
+  .page-contact .faq__lede { font-size: clamp(.75rem, 3.6vw, .9375rem); white-space: nowrap; }
+  .page-contact .faq__grid { row-gap: 0; }
+  .page-contact .faq__side { padding-bottom: 1.25rem; }
+  .page-contact .faq__list .qa:first-child .qa__q { padding-top: 1rem; }
+}
