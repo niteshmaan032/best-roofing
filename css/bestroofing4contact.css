@@ -311,3 +311,40 @@
   .page-contact .faq__side { padding-bottom: 1.25rem; }
   .page-contact .faq__list .qa:first-child .qa__q { padding-top: 1rem; }
 }
+
+
+/* Call changes, 5 Oct 2026 ------------------------------------------------- */
+
+/* The call-back line sits centred under the button on every width. */
+.page-contact .form-callback { margin-top: .625rem; }
+
+/* Desktop: a shorter board so the whole section and the top of the yellow
+   FAQ strip fit on one laptop screen. Both sides start higher, and the form
+   heading lines up with the top of the navy panel's content. */
+@media (min-width: 68.0625em) {
+  .page-contact .contact { padding-block: 1.25rem 1.5rem; }
+
+  .page-contact .contact__details { gap: 1rem; padding: 2rem 2rem 1.25rem; }
+  .page-contact .contact__direct-list li { padding-block: .75rem; }
+  .page-contact .contact__side { grid-template-rows: auto minmax(13rem, 1fr); }
+  .page-contact .contact__side .contact__map { margin: 0 1.5rem 1.5rem; }
+  .page-contact .contact__map,
+  .page-contact .contact__map iframe { min-height: 13rem; }
+
+  .page-contact .contact__form { padding: 2rem clamp(2rem, 4vw, 3.5rem) 1.5rem; }
+  .page-contact .contact__form-head { padding-top: 0; }
+  .page-contact .contact__form-head h3 { margin-bottom: .5rem; line-height: 1; }
+  /* The intro on one line. */
+  .page-contact .contact__form-head p { max-width: none; white-space: nowrap; }
+  .page-contact .contact__fields { gap: .75rem .9rem; margin-top: 1.25rem; }
+  .page-contact .contact-field textarea { min-height: 5rem; }
+
+  /* Submit about twice as wide, grown evenly on both sides. */
+  .page-contact .contact__submit { min-width: 27.5rem; margin-top: 1rem; }
+}
+
+/* 5 Oct call: Name | Phone and Address | Email stay paired on phones. */
+@media (max-width: 40em) {
+  .page-contact .contact__fields { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .page-contact .contact-field--full { grid-column: 1 / -1 !important; }
+}

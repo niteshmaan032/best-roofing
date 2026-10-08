@@ -17,7 +17,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
-  <link rel="stylesheet" href="css/bestroofing4.css?v=10">
+  <link rel="stylesheet" href="css/bestroofing4.css?v=12">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 </head>
 <body>
@@ -137,7 +137,7 @@
 
           <li class="menu__item"><a class="menu__link" href="#projects">Projects</a></li>
           <li class="menu__item"><a class="menu__link" href="#faqs">FAQs</a></li>
-          <li class="menu__item"><a class="menu__link" href="#blog">Blogs</a></li>
+          <li class="menu__item"><a class="menu__link" href="#blog">Blog</a></li>
           <li class="menu__item"><a class="menu__link" href="#about">About Us</a></li>
           <li class="menu__item"><a class="menu__link" href="bestroofing4-contact.html">Contact Us</a></li>
         </ul>
@@ -147,6 +147,7 @@
         <a class="pill pill--yellow bar__call" href="tel:+12124571324">
           <i class="fa-solid fa-phone" aria-hidden="true"></i>(212) 457-1324
         </a>
+        <a class="bar__phone" href="tel:+12124571324" aria-label="Call (212) 457-1324"><i class="fa-solid fa-phone" aria-hidden="true"></i></a>
         <button class="bar__burger" type="button" aria-expanded="false" aria-controls="drawer">
           <span class="bar__burger-bars" aria-hidden="true"><span></span><span></span><span></span></span>
           <span class="bar__burger-word">Menu</span>
@@ -187,7 +188,7 @@
           </li>
           <li><a class="drawer__link" href="#projects">Projects</a></li>
           <li><a class="drawer__link" href="#faqs">FAQs</a></li>
-          <li><a class="drawer__link" href="#blog">Blogs</a></li>
+          <li><a class="drawer__link" href="#blog">Blog</a></li>
           <li><a class="drawer__link" href="#about">About Us</a></li>
           <li><a class="drawer__link" href="bestroofing4-contact.html">Contact Us</a></li>
         </ul>
@@ -225,9 +226,12 @@
             <a class="pill pill--white" href="#estimate">Get A Free Estimate<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
           </div>
           <ul class="hero__proof">
-            <li class="hero__google"><img src="images/Google__G__logo.svg.webp" alt="Google" width="1280" height="1280" decoding="async"><strong>5.0</strong><i class="fa-solid fa-star" aria-hidden="true"></i><span>Google</span></li>
             <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i>24/7 Emergency Response</li>
             <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i>TPO, EPDM &amp; SBS Specialists</li>
+          </ul>
+          <ul class="hero__ratings">
+            <li class="hero__google"><img src="images/Google__G__logo.svg.webp" alt="Google" width="1280" height="1280" decoding="async"><strong>5.0</strong><i class="fa-solid fa-star" aria-hidden="true"></i><span>Google</span></li>
+            <li class="hero__yelp"><img src="images/yelp-badge.png" alt="People love us on Yelp" width="540" height="539" decoding="async"></li>
           </ul>
         </div>
       </div>
@@ -244,17 +248,17 @@
         <p class="glass__title">Get A Free Estimate</p>
         <form class="glass__form" id="estimate-form" action="#" method="post" novalidate>
           <div class="field">
-            <label class="field__label" for="e-name">Full Name</label>
+            <label class="field__label" for="e-name">Name</label>
             <input class="field__input" id="e-name" name="name" type="text" autocomplete="name" placeholder="Jane Alvarez" required>
             <p class="field__error" data-error-for="e-name" hidden></p>
           </div>
           <div class="field">
-            <label class="field__label" for="e-phone">Best Phone Number</label>
+            <label class="field__label" for="e-phone">Phone</label>
             <input class="field__input" id="e-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(212) 555-0148" required>
             <p class="field__error" data-error-for="e-phone" hidden></p>
           </div>
           <div class="field field--wide">
-            <label class="field__label" for="e-address">Property Address</label>
+            <label class="field__label" for="e-address">Address</label>
             <input class="field__input" id="e-address" name="address" type="text" autocomplete="street-address" placeholder="Street address, borough" required>
             <p class="field__error" data-error-for="e-address" hidden></p>
           </div>
@@ -264,8 +268,9 @@
             <p class="field__error" data-error-for="e-message" hidden></p>
           </div>
           <button class="glass__submit" type="submit">
-            Get A Free Estimate<i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            Get My Free Estimate<i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
           </button>
+          <p class="form-callback">We&rsquo;ll call you back within the hour</p>
         </form>
         <div class="glass__done" id="estimate-done" hidden>
           <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
@@ -324,14 +329,6 @@
           </div>
         </div>
 
-        <aside class="about__rail" aria-label="Goldenberg Roofing NYC mission, vision, and values">
-          <p class="about__rail-label">What guides our work</p>
-          <ul class="about__checks">
-            <li><span aria-hidden="true"><i class="fa-solid fa-bullseye"></i></span><strong>Our Mission</strong><small>Protect NYC properties with dependable, long-lasting roofing.</small></li>
-            <li><span aria-hidden="true"><i class="fa-solid fa-eye"></i></span><strong>Our Vision</strong><small>Be Manhattan’s most trusted roofing team.</small></li>
-            <li><span aria-hidden="true"><i class="fa-solid fa-handshake"></i></span><strong>Our Values</strong><small>Honesty, skilled workmanship, and clear communication.</small></li>
-          </ul>
-        </aside>
       </div>
     </section>
 
@@ -514,7 +511,7 @@
         <div class="quote-banner__copy">
           <p class="eyebrow eyebrow--light">Start With A Free Assessment</p>
           <h2 class="quote-banner__title" id="quote-title">Protect your NYC property with a<br>roof built to last.</h2>
-          <p class="quote-banner__text">Tell us what you&rsquo;re seeing: an active leak, aging materials, drainage trouble or a roof that needs replacing. Our Manhattan roofing team will inspect the property and provide a free written quote.</p>
+          <p class="quote-banner__text">What are you seeing? An active leak, aging materials, drainage trouble, or a roof that needs replacing. Our Manhattan roofing team will inspect the property and provide a free written quote.</p>
         </div>
         <div class="quote-banner__actions">
           <a class="pill pill--yellow pill--lg quote-banner__phone" href="tel:+12124571324"><i class="fa-solid fa-phone" aria-hidden="true"></i>(212) 457-1324</a>
@@ -671,8 +668,8 @@
                 <h3>Have Questions About Your Project?</h3>
               </div>
               <ul class="contact__direct-list">
-                <li><i class="fa-solid fa-phone" aria-hidden="true"></i><span><small>Call Our Team</small><a href="tel:+12124571324">(212) 457-1324</a></span></li>
-                <li><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span><small>Our Manhattan Office</small><a href="https://maps.app.goo.gl/6V9xYakSdZoJk9U9A" target="_blank" rel="noopener noreferrer">1274 5th Ave, New York, NY 10029</a></span></li>
+                <li><i class="fa-solid fa-phone" aria-hidden="true"></i><span><small>Call Us</small><a href="tel:+12124571324">(212) 457-1324</a></span></li>
+                <li><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span><small>Our Office</small><a href="https://maps.app.goo.gl/6V9xYakSdZoJk9U9A" target="_blank" rel="noopener noreferrer">1274 5th Ave, New York, NY 10029</a></span></li>
               </ul>
             </div>
             <div class="contact__map">
@@ -685,15 +682,16 @@
           <form class="contact__form" action="#" method="post">
             <div class="contact__form-head">
               <h3>Get A Free Estimate</h3>
-              <p>Tell us what is happening with your roof, and we will contact you immediately.</p>
+              <p>Tell us what is happening with your roof, we&rsquo;ll contact you immediately.</p>
             </div>
             <div class="contact__fields">
-              <label class="contact-field"><span>Your Name</span><input type="text" name="name" autocomplete="name" placeholder="Jane Alvarez" required></label>
-              <label class="contact-field"><span>Best Phone Number</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="(212) 555-0148" required></label>
-              <label class="contact-field contact-field--full"><span>Property Address</span><input type="text" name="address" autocomplete="street-address" placeholder="Street address, borough" required></label>
+              <label class="contact-field"><span>Name</span><input type="text" name="name" autocomplete="name" placeholder="Jane Alvarez" required></label>
+              <label class="contact-field"><span>Phone</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="(212) 555-0148" required></label>
+              <label class="contact-field contact-field--full"><span>Address</span><input type="text" name="address" autocomplete="street-address" placeholder="Street address, borough" required></label>
               <label class="contact-field contact-field--full"><span>How Can We Help?</span><textarea name="message" rows="3" placeholder="Our Harlem brownstone flat roof is leaking, and we need new gutters..." required></textarea></label>
             </div>
-            <button class="contact__submit" type="submit">Get A Free Estimate<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+            <button class="contact__submit" type="submit">Get My Free Estimate<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+            <p class="form-callback">We&rsquo;ll call you back within the hour</p>
           </form>
         </div>
       </div>
@@ -706,24 +704,24 @@
     <div class="wrap foot__top">
       <div class="foot__brand">
         <a class="foot__logo" href="#top" aria-label="Goldenberg Roofing NYC home"><img src="images/goldenberg-footer-logo-white.png" alt="Goldenberg Roofing NYC" width="1774" height="887" loading="lazy"></a>
-        <p class="foot__about">Goldenberg Roofing NYC brings 35+ years of roofing experience to homes and businesses across Manhattan and NYC. Fully licensed and insured, with free estimates and 24/7 emergency service.</p>
+        <p class="foot__about">Goldenberg Roofing NYC is a licensed and insured roofing contractor serving Manhattan and New York City. We specialize in residential and commercial roof repairs, replacements, and installations, including flat and shingle roofing. Free estimates and 24/7 emergency roofing service available.</p>
       </div>
       <div class="foot__cols">
         <nav class="foot__col" aria-label="Roofing"><h2 class="foot__head">Roofing</h2><ul><li class="foot__mobile-hide"><a href="#services">Roof Inspection</a></li><li><a href="#services">Roof Repair</a></li><li><a href="#services">Roof Replacement</a></li><li><a href="#services">Flat Roofing</a></li><li><a href="#services">Shingle Roofing</a></li><li class="foot__mobile-hide"><a href="#services">Commercial Roofing</a></li></ul></nav>
-        <nav class="foot__col" aria-label="Company"><h2 class="foot__head">Company</h2><ul><li><a href="#about">About Us</a></li><li class="foot__mobile-hide"><a href="#projects">Projects</a></li><li><a href="#faqs">FAQs</a></li><li><a href="bestroofing4-contact.html">Contact Us</a></li><li class="foot__mobile-only"><a href="#blog">Blog</a></li></ul></nav>
+        <nav class="foot__col" aria-label="Company"><h2 class="foot__head">Company</h2><ul><li><a href="#about">About Us</a></li><li class="foot__mobile-hide"><a href="#projects">Projects</a></li><li><a href="#faqs">FAQs</a></li><li><a href="#blog">Blog</a></li><li><a href="bestroofing4-contact.html">Contact Us</a></li></ul></nav>
         <div class="foot__col foot__col--contact">
           <h2 class="foot__head">Contact</h2>
           <ul class="foot__contact">
-            <li><span class="foot__fact-icon"><i class="fa-solid fa-phone" aria-hidden="true"></i></span><span><small>Call The Office</small><a href="tel:+12124571324">(212) 457-1324</a><span class="foot__hours-inline">Office hours: Open 24/7</span></span></li>
-            <li><span class="foot__fact-icon"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></span><span><small>Office Address</small><a href="https://maps.google.com/?cid=717909111163095194" target="_blank" rel="noopener">1274 5th Ave<br>New York, NY 10029</a></span></li>
-            <li class="foot__hours-row"><span class="foot__fact-icon"><i class="fa-regular fa-clock" aria-hidden="true"></i></span><span><small>Office Hours</small><strong>Open 24/7</strong></span></li>
+            <li><span class="foot__fact-icon"><i class="fa-solid fa-phone" aria-hidden="true"></i></span><span><small>Call Us</small><a href="tel:+12124571324">(212) 457-1324</a><span class="foot__hours-inline">Hours: Open 24/7</span></span></li>
+            <li><span class="foot__fact-icon"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></span><span><small>Office</small><a href="https://maps.google.com/?cid=717909111163095194" target="_blank" rel="noopener">1274 5th Ave<br>New York, NY 10029</a></span></li>
+            <li class="foot__hours-row"><span class="foot__fact-icon"><i class="fa-regular fa-clock" aria-hidden="true"></i></span><span><small>Hours</small><strong>Open 24/7</strong></span></li>
           </ul>
         </div>
       </div>
     </div>
     <div class="foot__base">
       <div class="wrap foot__base-inner">
-        <div class="foot__rating"><img src="images/Google__G__logo.svg.webp" alt="Google" width="1280" height="1280" loading="lazy"><span><strong>5.0</strong> stars on Google</span></div>
+        <div class="foot__rating"><img src="images/Google__G__logo.svg.webp" alt="Google" width="1280" height="1280" loading="lazy"><span><strong>5.0</strong> stars on Google</span><img class="foot__yelp" src="images/yelp-badge.png" alt="People love us on Yelp" width="540" height="539" loading="lazy"></div>
         <p>&copy; 2026 Goldenberg Roofing NYC. All rights reserved.</p>
         <nav class="foot__legal" aria-label="Legal"><a href="#terms">Terms</a><a href="#privacy">Privacy</a></nav>
       </div>

@@ -2237,3 +2237,108 @@ body { padding-top: var(--bar-h); }
   .foot__mobile-only { display: list-item; }
   .foot__col--contact .foot__head { text-align: center; }
 }
+
+
+/* ==========================================================================
+   Call changes, 5 Oct 2026
+   ========================================================================== */
+
+/* Mobile header: a square yellow call button beside the menu button. */
+.bar__phone { display: none; }
+@media (max-width: 68em) {
+  .bar__actions { gap: .5rem; }
+  .bar__phone {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: .375rem;
+    background: var(--yellow);
+    color: var(--ink);
+    font-size: 1.0625rem;
+    text-decoration: none;
+  }
+  .bar__phone:active { background: var(--yellow-deep); }
+}
+
+/* Hero ratings: Google and Yelp on their own line under the two text chips. */
+.hero__ratings { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.5rem; margin-top: .75rem; }
+.hero__ratings li { display: inline-flex; align-items: center; gap: .375rem; font-size: .875rem; font-weight: 500; white-space: nowrap; color: var(--on-blue); }
+.hero__yelp img { width: 2.5rem; height: 2.5rem; object-fit: contain; }
+
+/* Desktop hero: height comes from the form card, with the same space above
+   and below it, so the yellow marquee shows on first load. The form's top
+   lines up with "Licensed & Insured". */
+@media (min-width: 68.0625em) {
+  .hero {
+    --hero-pad: clamp(1.75rem, 5vh, 3.5rem);
+    min-height: 0 !important;
+  }
+  .hero__panel {
+    grid-row: 1;
+    grid-column: 1;
+    align-items: flex-start;
+    padding-top: var(--hero-pad) !important;
+    padding-bottom: var(--hero-pad) !important;
+  }
+  .hero__media { grid-row: 1; grid-column: 2; }
+  .glass {
+    position: relative;
+    grid-row: 1;
+    grid-column: 2;
+    justify-self: end;
+    align-self: start;
+    top: auto;
+    left: auto;
+    right: auto;
+    margin: var(--hero-pad) clamp(1.5rem, 2.5vw, 2.25rem) var(--hero-pad) 0;
+    transform: none;
+  }
+}
+
+/* "We'll call you back within the hour" under every form button. */
+.form-callback { margin: .625rem 0 0; color: var(--ink-2); font-size: .8125rem; font-weight: 600; text-align: center; }
+.glass .form-callback { grid-column: 1 / -1; margin-top: -.25rem; color: var(--blue); }
+
+/* Homepage contact form: the button is centred, text and arrow together. */
+.contact__submit { align-self: center; justify-content: center; gap: .6rem; }
+
+/* A thin rule between About and Recent Work (the mission/vision/values box
+   that sat there is gone). */
+.about__shell::after {
+  content: "";
+  display: block;
+  height: 1px;
+  margin-top: clamp(1.5rem, 2.5vw, 2.25rem);
+  background: var(--line-strong);
+}
+@media (min-width: 40.0625em) {
+  .work.section { padding-top: clamp(1.5rem, 1.3rem + 1vw, 2.25rem); }
+}
+
+/* Footer bottom bar: the Yelp badge beside the Google rating. */
+.foot__rating .foot__yelp { width: 2rem; height: 2rem; margin-left: .75rem; }
+
+@media (max-width: 40em) {
+  /* 35+ stat: half the white space; every feature row gets the same space
+     under it as above it. */
+  .trusted__stamp { min-height: 0; padding-bottom: 1rem; }
+  .trusted__facts li { padding-bottom: 1rem; }
+
+  /* Reviews: half the space between the heading and the widget. */
+  .reviews__head { margin-bottom: 1rem; }
+
+  /* Footer: no "Contact" heading; the contact rows come up a little. */
+  .foot__col--contact .foot__head { display: none; }
+  .foot__contact { margin-top: 0; padding-top: .75rem; }
+}
+
+/* 5 Oct call: Name | Phone share one line on phones too ("the way we usually do it"). */
+@media (max-width: 40em) {
+  .glass__form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .glass__form > * { grid-column: 1 / -1; }
+  .glass__form > .field:nth-child(-n+2) { grid-column: auto; }
+  .contact__fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .contact-field--full { grid-column: 1 / -1; }
+}
