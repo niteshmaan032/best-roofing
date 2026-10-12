@@ -333,7 +333,8 @@
 
   .page-contact .contact__form { padding: 2rem clamp(2rem, 4vw, 3.5rem) 1.5rem; }
   .page-contact .contact__form-head { padding-top: 0; }
-  .page-contact .contact__form-head h3 { margin-bottom: .5rem; line-height: 1; }
+  .page-contact .contact__form-head h3,
+  .page-contact .contact__form-head .contact__form-h2 { margin-bottom: .5rem; line-height: 1; }
   /* The intro on one line. */
   .page-contact .contact__form-head p { max-width: none; white-space: nowrap; }
   .page-contact .contact__fields { gap: .75rem .9rem; margin-top: 1.25rem; }

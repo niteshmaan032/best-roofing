@@ -11,7 +11,7 @@
   --yellow: #F9D22C;
   --yellow-deep: #E2BC12;
   --ink: #0B1220;
-  --ink-2: #3A4357;
+  --ink-2: #0B1220; /* was slate grey; client wants body text black (Oct 12) */
   --muted: #6B7385;
   --white: #FFFFFF;
   --surface: #FFFFFF;
@@ -965,7 +965,7 @@ button { font: inherit; }
 .call__copy { display: flex; flex-direction: column; justify-content: center; padding: clamp(2rem, 4vw, 4rem); }
 .call__eyebrow { width: fit-content; margin: 0 0 .8rem; color: rgba(11,18,32,.66); font-size: .75rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 .call__title { max-width: 23ch; margin: 0; font-size: clamp(2rem, 3.2vw, 3.4rem); font-weight: 800; letter-spacing: -.055em; line-height: 1.04; text-wrap: balance; }
-.call__text { max-width: 50ch; margin: 1rem 0 0; font-size: 1rem; line-height: 1.6; color: rgba(11, 18, 32, .74); }
+.call__text { max-width: 50ch; margin: 1rem 0 0; font-size: 1rem; line-height: 1.6; color: var(--ink); }
 
 .call__actions { display: grid; align-content: center; justify-items: stretch; gap: 1rem; padding: clamp(2rem, 3.5vw, 3.25rem); background: var(--blue-night); }
 .call__actions .pill { min-width: 100%; min-height: 3.75rem; font-size: 1.0625rem; }
@@ -2341,4 +2341,34 @@ body { padding-top: var(--bar-h); }
   .glass__form > .field:nth-child(-n+2) { grid-column: auto; }
   .contact__fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .contact-field--full { grid-column: 1 / -1; }
+}
+
+
+/* ==========================================================================
+   Oct 12 client email (Sean)
+   ========================================================================== */
+
+/* Hero: "Licensed & Insured" now sits to the right of the Yelp badge. */
+.hero__lic i { color: var(--yellow); }
+
+/* Form intro on one line: "Tell us what's happening with your roof, we'll contact you within the hour." */
+.form-oneline { white-space: nowrap; }
+@media (max-width: 40em) { .form-oneline { white-space: normal; } }
+
+/* Contact page: the visible headings are now the real H1 and H2 (SEO). */
+.contact__details .contact__h1 { margin: .2rem 0 0; font-size: clamp(1.35rem, 2vw, 1.8rem); font-weight: 700; letter-spacing: -.03em; line-height: 1.15; color: inherit; }
+.contact__form-head .contact__form-h2 { margin: 0 0 .65rem; color: var(--blue-night); font-size: clamp(2rem, 3vw, 3rem); font-weight: 700; letter-spacing: -.045em; line-height: 1.08; }
+
+/* Short laptop screens (the client's browser is about 1440 x 630): keep the
+   hero compact so the yellow marquee is fully on the first screen. */
+@media (min-width: 68.0625em) and (max-height: 760px) {
+  .hero { --hero-pad: 1.25rem; }
+  .hero__title { font-size: clamp(2.6rem, 6.2vh, 3.6rem); }
+  .hero__lede { margin-top: .6rem; }
+  .hero__actions { margin-top: 1rem; }
+  .glass { padding-block: 1.1rem 1rem; }
+  .glass__title { margin-bottom: .5rem; }
+  .glass__form { gap: .55rem .9rem; }
+  .glass .field__input { min-height: 2.5rem; padding-block: .5rem; }
+  .glass textarea.field__input { min-height: 3.5rem; height: 3.5rem; }
 }
