@@ -349,3 +349,37 @@
   .page-contact .contact__fields { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
   .page-contact .contact-field--full { grid-column: 1 / -1 !important; }
 }
+
+
+/* ==========================================================================
+   Oct 12 call (Sean)
+   ========================================================================== */
+
+/* Map: zoomed out (z=11, as on the homepage) and at least ~300px tall, so
+   Google shows the place card with the review count. */
+@media (min-width: 68.0625em) {
+  .page-contact .contact__side { grid-template-rows: auto minmax(19.5rem, 1fr); }
+  .page-contact .contact__map,
+  .page-contact .contact__map iframe { min-height: 19.5rem; }
+}
+
+/* FAQ questions are H3s inside the summary (heading outline from Sean's
+   email); they keep the summary's look and the accordion still works. */
+.page-contact .qa__h { margin: 0; font: inherit; letter-spacing: inherit; color: inherit; }
+
+/* Yellow FAQ band: a real crew photo under the phone button. */
+.page-contact .faq__photo { margin: 1.75rem 0 0; overflow: hidden; background: rgba(11, 18, 32, .1); }
+.page-contact .faq__photo img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: center 55%; }
+
+/* Live reviews across the bottom of the band, with the Google + Yelp badge
+   pair beside the title (as on the homepage reviews). */
+.page-contact .faq__reviews { margin-top: clamp(1.5rem, 3vw, 2.5rem); padding-top: clamp(1.5rem, 3vw, 2.25rem); border-top: 1px solid rgba(11, 18, 32, .22); }
+.page-contact .faq__reviews-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem; margin-bottom: 1.25rem; }
+.page-contact .faq__reviews-title { margin: 0; color: var(--ink); font-size: clamp(1.375rem, 1.1rem + 1vw, 1.875rem); font-weight: 800; letter-spacing: -.035em; line-height: 1.15; }
+.page-contact .review-badge { border-color: rgba(11, 18, 32, .18); }
+
+@media (max-width: 40em) {
+  .page-contact .faq__photo { margin-top: 1.5rem; }
+  .page-contact .faq__photo img { aspect-ratio: 16 / 10; }
+  .page-contact .faq__reviews { padding-bottom: .5rem; }
+}
