@@ -389,42 +389,9 @@
    Oct 19 call (Sean)
    ========================================================================== */
 
-/* GB-C1: the team photo moves up into the contact panel, under the phone
-   and office rows, with the map under it. */
-.page-contact .contact__photo { margin: 0; overflow: hidden; background: rgba(255, 255, 255, .08); }
-.page-contact .contact__photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 58%; }
-@media (min-width: 68.0625em) {
-  .page-contact .contact__side { grid-template-rows: auto auto minmax(300px, 1fr); }
-  .page-contact .contact__side .contact__photo { margin: 0 1.5rem 1rem; aspect-ratio: 16 / 6.5; }
-  /* Call Us and Office side by side, to keep the taller panel compact. */
-  .page-contact .contact__direct-list { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); column-gap: 1.25rem; }
-  .page-contact .contact__direct-list li + li { border-top: 0; }
-  .page-contact .contact__map,
-  .page-contact .contact__map iframe { min-height: 300px; }
-  /* The panel is taller now; the message box takes up the extra height so
-     the form still ends level with the panel, with no empty space under the
-     button. */
-  .page-contact .contact__fields { flex: 1; grid-template-rows: auto auto 1fr; }
-  .page-contact .contact-field--full { display: flex; flex-direction: column; gap: .35rem; }
-  .page-contact .contact-field--full textarea { flex: 1; }
-  /* A little more air in the form so the message box does not take all of
-     the extra height. */
-  .page-contact .contact__form { padding-top: 2.5rem; padding-bottom: 2rem; }
-  .page-contact .contact__fields { gap: 1.1rem 1rem; margin-top: 1.75rem; }
-  .page-contact .contact-field input { min-height: 3.25rem; }
-  .page-contact .contact__submit { min-height: 3.5rem; margin-top: 1.5rem; }
-}
-/* Tablet (one column board, panel split in two): photo under the details,
-   map down the right-hand side. */
-@media (min-width: 40.0625em) and (max-width: 68em) {
-  .page-contact .contact__side .contact__photo { grid-column: 1; grid-row: 2; align-self: end; margin: 0 clamp(1rem, 2vw, 1.5rem) clamp(1rem, 2vw, 1.5rem); border-radius: .75rem; aspect-ratio: 16 / 9; }
-  .page-contact .contact__side .contact__map { grid-column: 2; grid-row: 1 / span 2; }
-}
-/* Phones: details, form, photo, map. */
-@media (max-width: 40em) {
-  .page-contact .contact__photo { order: 3; aspect-ratio: 16 / 9; }
-  .page-contact .contact__map { order: 4; }
-}
+/* GB-C1 (team photo, Call/Office and the map stacked in the panel, with the
+   message box stretched to keep the columns level) is replaced by the Oct 22
+   layout at the end of this file. */
 
 /* GB-C2: the FAQ band and the reviews under it are white now. The phone
    button goes back to yellow (the call button is always yellow). */
@@ -440,4 +407,224 @@
    with no border), the same blue frame as the desktop form. */
 @media (max-width: 40em) {
   .page-contact .contact__form { border: 2px solid var(--blue); border-radius: 0; }
+}
+
+
+/* ==========================================================================
+   Oct 22 (Nitesh): photo + tiles | form, then "Visit Our Manhattan Office"
+   The left column is the heading, the team photo and two tiles (Call,
+   Hours). The photo flexes to fill the column, so both columns end level
+   while the form keeps its natural, compact height. The address and the map
+   moved to the office section below.
+   ========================================================================== */
+
+/* Left column ------------------------------------------------------------- */
+.page-contact .contact__side {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding: 1.75rem 1.75rem 1.5rem;
+}
+.page-contact .contact__details { gap: 0; padding: 0; }
+
+.page-contact .contact__photo {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 12rem;
+  margin: 0;
+  overflow: hidden;
+  background: rgba(255, 255, 255, .08);
+}
+.page-contact .contact__photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 58%;
+}
+
+/* Call | Hours: two compact tiles in one row. */
+.page-contact .contact__tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .75rem;
+  border-block: 0;
+}
+.page-contact .contact__tiles li {
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  gap: .8rem;
+  padding: .7rem .9rem;
+  border: 1px solid rgba(255, 255, 255, .16);
+  background: rgba(255, 255, 255, .05);
+}
+.page-contact .contact__tiles li + li { border-top: 1px solid rgba(255, 255, 255, .16); }
+.page-contact .contact__tiles a,
+.page-contact .contact__tiles strong { font-size: 1rem; white-space: nowrap; }
+
+/* Form at its natural height ---------------------------------------------- */
+.page-contact .contact__form { justify-content: center; }
+.page-contact .contact__fields { flex: none; grid-template-rows: none; }
+.page-contact .contact-field--full textarea { flex: none; min-height: 4.75rem; }
+
+/* Desktop: photo column larger (55/45). */
+@media (min-width: 68.0625em) {
+  .page-contact .contact__workspace {
+    grid-template-columns: minmax(0, 11fr) minmax(0, 9fr);
+    align-items: stretch;
+  }
+  .page-contact .contact__side { padding: 1.75rem 1.75rem 1.5rem; }
+  .page-contact .contact__details { padding: 0; }
+
+  .page-contact .contact__form { padding: 1.5rem clamp(1.75rem, 2.6vw, 2.5rem) 1.25rem; }
+  .page-contact .contact__form-head .contact__form-h2 { margin-bottom: .4rem; font-size: clamp(2rem, 2.7vw, 2.5rem); line-height: 1.05; }
+  .page-contact .contact__form-head p { max-width: none; white-space: normal; font-size: .875rem; line-height: 1.5; text-wrap: pretty; }
+  .page-contact .contact__fields { gap: .7rem .9rem; margin-top: 1rem; }
+  .page-contact .contact-field input { min-height: 2.75rem; }
+  .page-contact .contact__submit { min-width: min(24rem, 100%); min-height: 3.25rem; margin-top: 1rem; }
+  .page-contact .form-callback { margin-top: .5rem; }
+}
+
+/* Tablet: one column (the shared sheet stacks the board); the photo keeps a
+   wide crop and the tiles stay side by side above the form. */
+@media (min-width: 40.0625em) and (max-width: 68em) {
+  .page-contact .contact__photo { flex: none; min-height: 0; aspect-ratio: 16 / 7; }
+}
+
+/* Phones: heading, Call + Hours, the form, then the photo. */
+@media (max-width: 40em) {
+  .page-contact .contact__side { display: contents; padding: 0; }
+  .page-contact .contact__details { order: 1; padding: 1.5rem 1.25rem 1rem; border-radius: .75rem .75rem 0 0; background: var(--blue-night); }
+  .page-contact .contact__tiles { order: 2; grid-template-columns: minmax(0, 1fr); gap: .25rem; padding: 0 1.25rem 1.25rem; background: var(--blue-night); }
+  .page-contact .contact__form,
+  .page-contact .done { order: 3; }
+  .page-contact .contact__photo { order: 4; flex: none; min-height: 0; margin-top: 1.25rem; aspect-ratio: 16 / 9; }
+
+  /* Call is the full-width yellow button (as before); Hours one quiet line. */
+  .page-contact .contact__tiles li { padding: 0; border: 0; background: none; }
+  .page-contact .contact__tiles li + li { border-top: 0; }
+  .page-contact .contact__tiles .contact__call { grid-template-columns: minmax(0, 1fr); }
+  /* The board's rounded clip would round only the photo's lower corners. */
+  .page-contact .contact__workspace { border-radius: 0; overflow: visible; }
+  .page-contact .contact__hours {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+    padding-top: .6rem !important;
+  }
+  .page-contact .contact__hours > i { width: auto; height: auto; background: none; color: var(--yellow); }
+  .page-contact .contact__hours > span { display: flex; gap: .4rem; align-items: baseline; }
+  .page-contact .contact__hours small { color: rgba(255, 255, 255, .7); }
+}
+
+/* Office section ---------------------------------------------------------- */
+.page-contact .office {
+  padding-block: clamp(.75rem, .5rem + 1vw, 1.5rem) clamp(2rem, 1.6rem + 2vw, 3.25rem);
+  background: var(--surface-2);
+}
+.page-contact .office__head {
+  display: grid;
+  justify-items: center;
+  margin-bottom: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  text-align: center;
+}
+.page-contact .office__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: clamp(1.5rem, 2.5vw, 2.5rem);
+}
+.page-contact .office__place { display: flex; flex-direction: column; gap: .75rem; }
+
+/* At least ~300px tall so Google keeps its place card (Oct 12 call). */
+.page-contact .office__map {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 20rem;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  background: var(--white);
+}
+.page-contact .office__map iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: saturate(.78);
+}
+
+.page-contact .office__address {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  padding: .85rem 1.1rem;
+  border: 1px solid var(--line-strong);
+  background: var(--white);
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color var(--fast) var(--ease);
+}
+.page-contact .office__address:hover { border-color: var(--blue); }
+.page-contact .office__address-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--yellow);
+  color: var(--ink);
+}
+.page-contact .office__address-body { display: grid; gap: .15rem; min-width: 0; }
+.page-contact .office__address-body small {
+  color: var(--ink-2);
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.page-contact .office__address-value { color: var(--blue-night); font-size: 1rem; font-weight: 700; line-height: 1.35; }
+.page-contact .office__address-go {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: .45rem;
+  margin-left: auto;
+  color: var(--blue);
+  font-size: .8125rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.page-contact .office__address:hover .office__address-go { text-decoration: underline; }
+
+.page-contact .office__photo {
+  position: relative;
+  min-height: 20rem;
+  margin: 0;
+  overflow: hidden;
+  background: var(--white);
+}
+.page-contact .office__photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 45%;
+}
+
+/* Stacked: map, address, photo. */
+@media (max-width: 68em) {
+  .page-contact .office__grid { grid-template-columns: minmax(0, 1fr); }
+  .page-contact .office__map { flex: none; height: 20rem; }
+  .page-contact .office__photo { min-height: 0; aspect-ratio: 16 / 10; }
+}
+@media (max-width: 40em) {
+  .page-contact .office__map { height: 19.5rem; }
+  .page-contact .office__address { padding: .8rem .9rem; }
+  /* Icon only on phones, so the address keeps the width. */
+  .page-contact .office__address-go { font-size: 0; gap: 0; }
+  .page-contact .office__address-go i { font-size: .875rem; }
 }

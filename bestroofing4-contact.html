@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="css/bestroofing4.css?v=15">
   <!-- Page-scoped, loaded after the site sheet so the contact page can diverge
        without touching the homepage. -->
-  <link rel="stylesheet" href="css/bestroofing4contact.css?v=11">
+  <link rel="stylesheet" href="css/bestroofing4contact.css?v=12">
 </head>
 <body class="page-contact">
 
@@ -211,40 +211,32 @@
          heading lives here for the document outline and for screen readers.
          Nothing is drawn. -->
 
-    <!-- ================= Details and form ===================================
-         The homepage's own contact component, unchanged: one bordered
-         workspace, the navy details panel and the map on the left, the form on
-         the right. Same classes, so it inherits the section's styling rather
-         than restating it — the only additions are a third fact row for the
-         hours, a name card on the map, and the error slots the shared
-         validator writes into. -->
+    <!-- ================= Contact: photo + tiles | form =====================
+         Same component classes as the homepage contact block so the form keeps
+         its styling and the shared validator; the layout is page-scoped in
+         bestroofing4contact.css (Oct 22 block). -->
     <section class="contact section" id="contact">
       <div class="wrap contact__wrap">
         <div class="contact__workspace">
 
+          <!-- Oct 22: the left column is the heading, the team photo and two
+               tiles (Call, Hours). The photo flexes to the form's height, so
+               the form keeps its natural size. The address and the map moved
+               down to "Visit Our Manhattan Office". -->
           <aside class="contact__side">
             <div class="contact__details">
               <div class="contact__direct-head">
                 <span class="contact__availability"><i class="fa-solid fa-circle" aria-hidden="true"></i>Roofing Help, 24/7</span>
                 <h1 class="contact__h1">Contact Our Team<br>Goldenberg Roofing NYC</h1>
               </div>
-              <ul class="contact__direct-list">
-                <li class="contact__call"><i class="fa-solid fa-phone" aria-hidden="true"></i><span><small>Call Us</small><a href="tel:+12124571324"><i class="fa-solid fa-phone contact__call-icon" aria-hidden="true"></i>(212) 457-1324</a></span></li>
-                <li class="contact__address"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span><small>Office</small><a href="https://maps.app.goo.gl/6V9xYakSdZoJk9U9A" target="_blank" rel="noopener noreferrer">1274 5th Ave, New York, NY 10029</a></span></li>
-              </ul>
             </div>
-            <!-- Oct 19 call: the team photo sits in the panel, under the contact
-                 details and above the map. -->
             <figure class="contact__photo">
               <img src="https://bestroofingnyc.com/wp-content/uploads/2021/02/11-1.jpg" alt="The Goldenberg Roofing NYC crew on a finished flat roof" width="1000" height="1000" decoding="async">
             </figure>
-            <div class="contact__map">
-              <iframe src="https://maps.google.com/maps?iwloc=near&amp;output=embed&amp;q=Goldenberg+Roofing+NYC%2C1274+5th+Ave%2C+New+York%2C+NY+10029%2C+United+States&amp;t=m&amp;z=11"
-                      title="Map showing Goldenberg Roofing NYC at 1274 5th Ave, New York"
-                      loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-
-              <a class="contact__map-link" href="https://maps.app.goo.gl/6V9xYakSdZoJk9U9A" target="_blank" rel="noopener noreferrer">Open in Google Maps<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
-            </div>
+            <ul class="contact__direct-list contact__tiles">
+              <li class="contact__call"><i class="fa-solid fa-phone" aria-hidden="true"></i><span><small>Call Us</small><a href="tel:+12124571324"><i class="fa-solid fa-phone contact__call-icon" aria-hidden="true"></i>(212) 457-1324</a></span></li>
+              <li class="contact__hours"><i class="fa-regular fa-clock" aria-hidden="true"></i><span><small>Hours</small><strong>Open 24/7</strong></span></li>
+            </ul>
           </aside>
 
           <form class="contact__form" id="estimate-form" action="#" method="post" novalidate>
@@ -298,6 +290,39 @@
             </p>
           </div>
 
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Visit Our Manhattan Office ==========================
+         Oct 22: the map (same embed as before) with the address card under it
+         on the left, a crew photo on the right. Stacks on phones: map,
+         address, photo. -->
+    <section class="office section" id="office" aria-labelledby="office-title">
+      <div class="wrap office__wrap">
+        <div class="office__head">
+          <p class="eyebrow">Visit Us</p>
+          <h2 class="h2" id="office-title">Visit Our Manhattan Office</h2>
+        </div>
+        <div class="office__grid">
+          <div class="office__place">
+            <div class="office__map">
+              <iframe src="https://maps.google.com/maps?iwloc=near&amp;output=embed&amp;q=Goldenberg+Roofing+NYC%2C1274+5th+Ave%2C+New+York%2C+NY+10029%2C+United+States&amp;t=m&amp;z=11"
+                      title="Map showing Goldenberg Roofing NYC at 1274 5th Ave, New York"
+                      loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+            </div>
+            <a class="office__address" href="https://www.google.com/maps/search/?api=1&amp;query=Goldenberg+Roofing+NYC%2C+1274+5th+Ave%2C+New+York%2C+NY+10029" target="_blank" rel="noopener noreferrer">
+              <span class="office__address-icon"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></span>
+              <span class="office__address-body">
+                <small>Office Address</small>
+                <span class="office__address-value">1274 5th Ave, New York, NY 10029</span>
+              </span>
+              <span class="office__address-go">Open in Google Maps<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+            </a>
+          </div>
+          <figure class="office__photo">
+            <img src="images/landing/about-crew-nyc.jpg" alt="A Goldenberg roofer on a ladder at a brick home mid re-roof, with fresh underlayment rolled across the deck" width="1600" height="1200" loading="lazy" decoding="async">
+          </figure>
         </div>
       </div>
     </section>
