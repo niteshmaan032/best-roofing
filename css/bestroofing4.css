@@ -2463,3 +2463,50 @@ body:not(.page-contact) .contact__form { border-radius: 0; }
   .foot__trust--emergency { display: none; }
   .foot__trust--licensed { display: inline-flex; }
 }
+
+/* ==========================================================================
+   Oct 19 call — bestroofing4
+   ========================================================================== */
+
+/* GB-H1: "Manhattan's" bold and pure white, like the title under it. */
+.hero__title-small { font-weight: 800; color: #fff; }
+
+/* GB-H4: the word "Google" in the hero rating row bold and white. */
+.hero__google span { font-weight: 700; color: #fff; }
+
+/* GB-H5: the Yelp badge sits midway between "Google" and "Licensed & Insured"
+   (the gaps either side were 39px and 16px; now about 27px each). */
+@media (min-width: 68.0625em) {
+  .hero__ratings .hero__yelp { margin-right: .72rem; }
+}
+
+/* GB-H8 / GB-H6: new order is What We Do, Reviews, Recent Work, About.
+   Backgrounds alternate (grey, white, grey, white) and the gap between
+   Recent Work and About is kept tight. The hairline that closed About is
+   not needed now that the navy quote banner follows it. */
+.work { background: var(--surface-2); }
+.about__shell::after { display: none; }
+@media (min-width: 40.0625em) {
+  .work.section { padding-block: clamp(1.75rem, 1.5rem + 1vw, 2.5rem); }
+  .about.section { padding-block: clamp(1.75rem, 1.5rem + 1vw, 2.5rem); }
+}
+
+/* GB-H14: footer rating reads "5.0 ★ Google", one yellow star, Google bold. */
+.foot__stars { display: inline-flex; align-items: center; gap: .3rem; white-space: nowrap; }
+.foot__stars strong { font-weight: 700; color: var(--white); }
+.foot__stars i { color: var(--yellow); font-size: .8em; }
+
+/* R4: phone numbers never wrap. */
+a[href^="tel:"] { white-space: nowrap; }
+
+/* GB-H11: homepage contact box ends just under "We'll call you back within
+   the hour". The navy column is trimmed (tighter details, map at the 300px
+   minimum) so both columns end together without empty space in the form. */
+@media (min-width: 68.0625em) {
+  body:not(.page-contact) .contact__details { gap: .5rem; padding: 1.25rem 2.5rem 1rem; }
+  body:not(.page-contact) .contact__direct-list li { padding-block: .5rem; }
+  body:not(.page-contact) .contact__side .contact__map { margin-bottom: 1rem; }
+  body:not(.page-contact) .contact__side { grid-template-rows: auto minmax(300px, 1fr); }
+  body:not(.page-contact) .contact__map,
+  body:not(.page-contact) .contact__map iframe { min-height: 300px; }
+}

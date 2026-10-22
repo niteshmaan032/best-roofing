@@ -1,0 +1,82 @@
+/* ==========================================================================
+   Goldenberg Roofing NYC — bestroofing4-contact-v2.html (variant, GB-V1)
+
+   Oct 19 call: Sean asked for a second version of the contact page to compare.
+   - the form card is filled yellow (as on the NY Roofing contact page);
+   - the left panel is white with a border instead of navy ("so no blue");
+   - FAQs and reviews stay white; only the footer is blue.
+   Loaded after bestroofing4.css and bestroofing4contact.css, scoped to
+   .page-contact--yellow so nothing else changes.
+   ========================================================================== */
+
+/* Left panel: white with a blue frame, dark text. ------------------------- */
+.page-contact--yellow .contact__side {
+  border: 2px solid var(--blue);
+  background: var(--white);
+}
+.page-contact--yellow .contact__details { color: var(--blue-night); }
+.page-contact--yellow .contact__availability { color: var(--blue); }
+.page-contact--yellow .contact__availability i { color: var(--yellow-deep); }
+.page-contact--yellow .contact__details .contact__h1 { color: var(--blue-night); }
+.page-contact--yellow .contact__direct-list { border-block-color: var(--line-strong); }
+.page-contact--yellow .contact__direct-list li + li { border-top-color: var(--line-strong); }
+.page-contact--yellow .contact__direct-list small { color: var(--ink-2); }
+.page-contact--yellow .contact__direct-list a { color: var(--ink); }
+.page-contact--yellow .contact__direct-list a:hover { color: var(--blue); }
+.page-contact--yellow .contact__photo { background: var(--surface-2); }
+
+/* Form: solid yellow, navy frame, white boxed title, white fields. -------- */
+.page-contact--yellow .contact__form {
+  border: 2px solid var(--blue-night);
+  background: var(--yellow);
+  color: var(--ink);
+}
+.page-contact--yellow .contact__form-head .contact__form-h2 { color: var(--ink); }
+.page-contact--yellow .contact__form-h2 .title-box {
+  display: inline-block;
+  padding: .1em .45em .14em;
+  border: 2px solid var(--blue-night);
+  background: var(--white);
+}
+.page-contact--yellow .contact__form-head p { color: var(--ink); }
+.page-contact--yellow .contact-field { color: var(--ink); }
+.page-contact--yellow .contact-field input,
+.page-contact--yellow .contact-field textarea {
+  border-color: rgba(11, 18, 32, .3);
+  background: var(--white);
+}
+.page-contact--yellow .contact-field input::placeholder,
+.page-contact--yellow .contact-field textarea::placeholder { color: #5E636E; }
+.page-contact--yellow .contact-field input:focus,
+.page-contact--yellow .contact-field textarea:focus {
+  border-color: var(--blue-night);
+  box-shadow: 0 0 0 3px rgba(7, 29, 92, .2);
+}
+.page-contact--yellow .field__error { color: #7A0F0A; }
+
+/* Submit: navy pill with white text, the strongest contrast on the yellow. */
+.page-contact--yellow .contact__submit {
+  border-color: var(--blue-night);
+  background: var(--blue-night);
+  color: var(--white);
+}
+.page-contact--yellow .contact__submit:hover {
+  background: var(--blue);
+  box-shadow: 3px 5px 0 var(--ink);
+}
+.page-contact--yellow .contact__submit i { color: var(--yellow); }
+.page-contact--yellow .form-callback { color: var(--ink); }
+
+/* Phones: the panel is white with the frame, the form yellow under it. ---- */
+@media (max-width: 40em) {
+  .page-contact--yellow .contact__side { border: 0; }
+  .page-contact--yellow .contact__details {
+    border: 2px solid var(--blue);
+    border-bottom: 0;
+    background: var(--white);
+  }
+  .page-contact--yellow .contact__form { border: 2px solid var(--blue-night); }
+  .page-contact--yellow .contact__photo,
+  .page-contact--yellow .contact__map { border-inline: 2px solid var(--blue); }
+  .page-contact--yellow .contact__map { border-bottom: 2px solid var(--blue); }
+}

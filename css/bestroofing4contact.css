@@ -383,3 +383,61 @@
   .page-contact .faq__photo img { aspect-ratio: 16 / 10; }
   .page-contact .faq__reviews { padding-bottom: .5rem; }
 }
+
+
+/* ==========================================================================
+   Oct 19 call (Sean)
+   ========================================================================== */
+
+/* GB-C1: the team photo moves up into the contact panel, under the phone
+   and office rows, with the map under it. */
+.page-contact .contact__photo { margin: 0; overflow: hidden; background: rgba(255, 255, 255, .08); }
+.page-contact .contact__photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 58%; }
+@media (min-width: 68.0625em) {
+  .page-contact .contact__side { grid-template-rows: auto auto minmax(300px, 1fr); }
+  .page-contact .contact__side .contact__photo { margin: 0 1.5rem 1rem; aspect-ratio: 16 / 6.5; }
+  /* Call Us and Office side by side, to keep the taller panel compact. */
+  .page-contact .contact__direct-list { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); column-gap: 1.25rem; }
+  .page-contact .contact__direct-list li + li { border-top: 0; }
+  .page-contact .contact__map,
+  .page-contact .contact__map iframe { min-height: 300px; }
+  /* The panel is taller now; the message box takes up the extra height so
+     the form still ends level with the panel, with no empty space under the
+     button. */
+  .page-contact .contact__fields { flex: 1; grid-template-rows: auto auto 1fr; }
+  .page-contact .contact-field--full { display: flex; flex-direction: column; gap: .35rem; }
+  .page-contact .contact-field--full textarea { flex: 1; }
+  /* A little more air in the form so the message box does not take all of
+     the extra height. */
+  .page-contact .contact__form { padding-top: 2.5rem; padding-bottom: 2rem; }
+  .page-contact .contact__fields { gap: 1.1rem 1rem; margin-top: 1.75rem; }
+  .page-contact .contact-field input { min-height: 3.25rem; }
+  .page-contact .contact__submit { min-height: 3.5rem; margin-top: 1.5rem; }
+}
+/* Tablet (one column board, panel split in two): photo under the details,
+   map down the right-hand side. */
+@media (min-width: 40.0625em) and (max-width: 68em) {
+  .page-contact .contact__side .contact__photo { grid-column: 1; grid-row: 2; align-self: end; margin: 0 clamp(1rem, 2vw, 1.5rem) clamp(1rem, 2vw, 1.5rem); border-radius: .75rem; aspect-ratio: 16 / 9; }
+  .page-contact .contact__side .contact__map { grid-column: 2; grid-row: 1 / span 2; }
+}
+/* Phones: details, form, photo, map. */
+@media (max-width: 40em) {
+  .page-contact .contact__photo { order: 3; aspect-ratio: 16 / 9; }
+  .page-contact .contact__map { order: 4; }
+}
+
+/* GB-C2: the FAQ band and the reviews under it are white now. The phone
+   button goes back to yellow (the call button is always yellow). */
+.page-contact .faq { background: var(--white); }
+.page-contact .faq__side .pill--yellow { background: var(--yellow); color: var(--ink); }
+.page-contact .faq__list, .page-contact .qa { border-color: var(--line-strong); }
+.page-contact .faq__reviews { border-top-color: var(--line-strong); }
+
+/* GB-C3: H1 on two lines, "Contact Our Team" / "Goldenberg Roofing NYC". */
+.page-contact .contact__h1 { text-wrap: balance; }
+
+/* GB-C4: phones, a visible edge around the form (it sat on the page tint
+   with no border), the same blue frame as the desktop form. */
+@media (max-width: 40em) {
+  .page-contact .contact__form { border: 2px solid var(--blue); border-radius: 0; }
+}
