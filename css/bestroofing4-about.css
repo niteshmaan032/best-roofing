@@ -6,19 +6,18 @@
 
    Section order and backgrounds (no two neighbours share a colour):
    hero (photo + navy)  > who we are (white) > mission/vision/values (navy)
-   > why Goldenberg (grey) > services (white) > who we serve (grey)
+   > Manhattan roof expertise (grey) > services (white) > who we serve (grey)
    > what to expect (navy) > recent work (grey)
    > where we work (white) > reviews (grey) > FAQs (white)
    > closing CTA (grey, navy card) > footer (navy)
    ========================================================================== */
 
 .page-about {
-  --ab-pad: clamp(3rem, 2.6rem + 2vw, 4.5rem);
+  --ab-pad: clamp(1.5rem, 1.3rem + 1vw, 2.25rem); /* the homepage section rhythm (Sean, 11 Sep) */
   --ab-cred-h: 5.25rem;
 }
 
-/* One vertical rhythm for every section on the page (the homepage halves
-   some of its bands; this page does not). */
+/* One vertical rhythm for every section on the page, the homepage's. */
 .page-about .section,
 .page-about .work.section,
 .page-about .faq.section { padding-block: var(--ab-pad); }
@@ -31,7 +30,7 @@
   align-items: end;
   justify-content: space-between;
   gap: 1rem 3rem;
-  margin-bottom: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+  margin-bottom: clamp(1rem, .8rem + .6vw, 1.375rem);
 }
 .ab-head .h2 { max-width: 20ch; }
 .ab-head__note { max-width: 30rem; margin: 0 0 .35rem; color: var(--ink-2); font-size: 1rem; line-height: 1.65; }
@@ -180,7 +179,7 @@
 .ab-who__grid {
   display: grid;
   grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
-  gap: clamp(2rem, 5vw, 5rem);
+  gap: clamp(1.5rem, 3vw, 3rem);
   align-items: center;
 }
 .ab-who__photo {
@@ -208,14 +207,14 @@
 .ab-who__photo figcaption span { color: var(--yellow); font-size: .6875rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 
 .ab-who__copy .h2 { max-width: 18ch; }
-.ab-who__lede { margin: 1.1rem 0 0; color: var(--ink); font-size: 1.125rem; font-weight: 600; line-height: 1.55; }
-.ab-who__text { margin: .75rem 0 0; color: var(--ink-2); font-size: 1rem; line-height: 1.7; }
+.ab-who__lede { margin: .75rem 0 0; color: var(--ink); font-size: 1.125rem; font-weight: 600; line-height: 1.55; }
+.ab-who__text { margin: .5rem 0 0; color: var(--ink-2); font-size: 1rem; line-height: 1.7; }
 
 .ab-stats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin: 1.5rem 0 0;
-  padding: 1.1rem 0;
+  margin: 1rem 0 0;
+  padding: .8rem 0;
   border-block: 1px solid var(--line-strong);
 }
 .ab-stats li { display: grid; gap: .2rem; padding-inline: 1.25rem; }
@@ -224,37 +223,17 @@
 .ab-stats strong { color: var(--blue); font-size: clamp(1.75rem, 1.4rem + 1vw, 2.375rem); font-weight: 800; letter-spacing: -.04em; line-height: 1; }
 .ab-stats span { color: var(--ink-2); font-size: .8125rem; font-weight: 600; }
 
-.ab-checks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem 1.5rem; margin-top: 1.25rem; }
+.ab-checks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem 1.5rem; margin-top: .9rem; }
 .ab-checks li { display: flex; align-items: center; gap: .55rem; color: var(--ink); font-size: .9375rem; font-weight: 600; }
 .ab-checks i { color: var(--blue); }
-
-/* ==========================================================================
-   Why Goldenberg
-   ========================================================================== */
-.ab-why { background: var(--surface-2); }
-.ab-why__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.125rem; }
-.ab-why__card {
-  display: grid;
-  align-content: start;
-  gap: .75rem;
-  padding: 1.5rem 1.375rem;
-  border: 1px solid var(--line-strong);
-  border-top: 3px solid var(--blue);
-  border-radius: .875rem;
-  background: var(--white);
-  transition: transform var(--fast) var(--ease), box-shadow var(--fast) var(--ease), border-color var(--fast) var(--ease);
-}
-.ab-why__card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(7, 29, 92, .12); border-top-color: var(--yellow); }
-.ab-why__card h3 { margin: .35rem 0 0; color: var(--blue-night); font-size: 1.125rem; font-weight: 800; letter-spacing: -.01em; line-height: 1.25; }
-.ab-why__card p { margin: 0; color: var(--ink-2); font-size: .9375rem; line-height: 1.6; }
 
 .ab-rail {
   display: grid;
   grid-template-columns: 13.5rem minmax(0, 1fr);
   align-items: center;
   gap: 1rem 1.5rem;
-  margin-top: 1.125rem;
-  padding: 1.125rem 1.5rem;
+  margin-top: 1rem;
+  padding: .9rem 1.5rem;
   border-radius: .875rem;
   background: var(--blue-night);
   color: var(--white);
@@ -268,7 +247,7 @@
    Services
    ========================================================================== */
 .ab-svcs { background: var(--white); }
-.ab-svcs__grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.6fr); gap: 1.125rem; align-items: stretch; }
+.ab-svcs__grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.6fr); gap: .875rem; align-items: stretch; }
 
 .ab-svc-feat {
   display: flex;
@@ -281,10 +260,10 @@
   transition: transform var(--fast) var(--ease), box-shadow var(--fast) var(--ease);
 }
 .ab-svc-feat:hover { transform: translateY(-4px); box-shadow: 0 18px 36px -12px rgba(7, 29, 92, .45); }
-.ab-svc-feat__media { position: relative; flex: 1 1 auto; min-height: 12rem; overflow: hidden; border-bottom: 4px solid var(--yellow); }
+.ab-svc-feat__media { position: relative; flex: 1 1 auto; min-height: 10rem; overflow: hidden; border-bottom: 4px solid var(--yellow); }
 .ab-svc-feat__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease); }
 .ab-svc-feat:hover .ab-svc-feat__media img { transform: scale(1.04); }
-.ab-svc-feat__body { display: grid; gap: .5rem; padding: 1.375rem 1.5rem 1.5rem; }
+.ab-svc-feat__body { display: grid; gap: .4rem; padding: 1.125rem 1.25rem 1.25rem; }
 .ab-svc-feat__kicker { color: var(--yellow); font-size: .6875rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 .ab-svc-feat__title { margin: 0; font-size: 1.625rem; font-weight: 800; letter-spacing: -.03em; line-height: 1.1; }
 .ab-svc-feat__text { color: rgba(255, 255, 255, .8); font-size: .9375rem; line-height: 1.6; }
@@ -292,14 +271,14 @@
 .ab-svc-feat__more i { transition: transform var(--fast) var(--ease); }
 .ab-svc-feat:hover .ab-svc-feat__more i { transform: translateX(4px); }
 
-.ab-svcs__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.125rem; }
+.ab-svcs__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .875rem; }
 .ab-svc {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: start;
   gap: 1rem;
   height: 100%;
-  padding: 1.25rem 1.25rem 1.25rem 1.125rem;
+  padding: 1rem 1.125rem 1rem 1rem;
   border: 1px solid var(--line-strong);
   border-radius: .875rem;
   background: var(--white);
@@ -318,7 +297,7 @@
    What to expect when you call
    ========================================================================== */
 .ab-expect { position: relative; overflow: hidden; background: var(--blue-night); color: var(--white); }
-.ab-expect__head { display: grid; justify-items: center; margin-bottom: clamp(2rem, 1.6rem + 1.5vw, 3rem); text-align: center; }
+.ab-expect__head { display: grid; justify-items: center; margin-bottom: clamp(1.125rem, .9rem + .8vw, 1.625rem); text-align: center; }
 .ab-expect__head .h2 { max-width: 22ch; }
 
 .ab-steps {
@@ -345,7 +324,7 @@
   place-items: center;
   width: 3.5rem;
   height: 3.5rem;
-  margin-bottom: .6rem;
+  margin-bottom: .35rem;
   border-radius: 50%;
   background: var(--yellow);
   color: var(--ink);
@@ -356,13 +335,14 @@
 .ab-step__title { margin: 0; font-size: 1.1875rem; font-weight: 800; letter-spacing: -.01em; line-height: 1.25; }
 .ab-step__text { max-width: 24ch; margin: 0; color: rgba(255, 255, 255, .74); font-size: .9375rem; line-height: 1.55; }
 
-.ab-expect__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; margin-top: clamp(2rem, 1.6rem + 1.5vw, 2.75rem); }
+.ab-expect__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; margin-top: clamp(1.125rem, .9rem + .8vw, 1.625rem); }
 
 /* ==========================================================================
    Recent work (homepage work cards, four across)
    ========================================================================== */
 .page-about .ab-work { background: var(--surface-2); }
-.ab-work .work__aside { display: grid; justify-items: start; gap: 1rem; }
+.ab-work .work__aside { display: grid; justify-items: start; gap: .75rem; }
+.page-about .ab-work .work__head--split { margin-bottom: 1rem; }
 .ab-work__all { min-height: 3rem; }
 .ab-work__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .ab-work .work__body { padding: .875rem 1rem; }
@@ -378,14 +358,14 @@
   align-items: stretch;
 }
 .ab-areas__card {
-  padding: clamp(1.75rem, 3vw, 2.75rem);
+  padding: clamp(1.375rem, 2.2vw, 2rem);
   border-radius: var(--r-lg);
   background: var(--blue-night);
   color: var(--white);
 }
 .ab-areas__card .h2 { max-width: 16ch; font-size: clamp(2rem, 1.4rem + 1.8vw, 3rem); }
-.ab-areas__lede { max-width: 34rem; margin: 1rem 0 0; color: rgba(255, 255, 255, .78); font-size: 1rem; line-height: 1.65; }
-.ab-areas__label { margin: 1.5rem 0 .75rem; color: var(--yellow); font-size: .75rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+.ab-areas__lede { max-width: 34rem; margin: .6rem 0 0; color: rgba(255, 255, 255, .78); font-size: 1rem; line-height: 1.65; }
+.ab-areas__label { margin: 1rem 0 .55rem; color: var(--yellow); font-size: .75rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 .ab-chips { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0; padding: 0; list-style: none; }
 .ab-chips li {
   display: inline-flex;
@@ -429,6 +409,10 @@
    Reviews and FAQs (homepage components, page colours)
    ========================================================================== */
 .page-about .ab-reviews { background: var(--surface-2); }
+.page-about .ab-reviews .reviews__head { margin-bottom: 1rem; }
+.page-about .ab-faq .faq__grid { gap: clamp(1.5rem, 4vw, 4rem); }
+.page-about .ab-faq .faq__lede { margin: .5rem 0 .875rem; }
+.page-about .ab-faq .qa__q { min-height: 4rem; padding: .85rem 0; }
 .page-about .ab-faq { background: var(--white); }
 .ab-faq .faq__side .h2 { max-width: 13ch; }
 .ab-faq .faq__list { border-top: 0; }
@@ -451,15 +435,15 @@
   color: var(--white);
   box-shadow: 0 30px 60px -36px rgba(7, 29, 92, .7);
 }
-.ab-cta__copy { padding: clamp(2rem, 4vw, 3.5rem); }
+.ab-cta__copy { padding: clamp(1.5rem, 3vw, 2.5rem); }
 .ab-cta__title { max-width: 18ch; margin: 0; font-size: clamp(2rem, 1.4rem + 2vw, 3.25rem); font-weight: 800; letter-spacing: -.04em; line-height: 1.08; text-wrap: balance; }
 .ab-cta__title span { display: block; }
-.ab-cta__text { max-width: 34rem; margin: 1rem 0 0; color: rgba(255, 255, 255, .8); font-size: 1.0625rem; line-height: 1.6; }
-.ab-cta__actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.75rem; }
-.ab-cta__trust { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 1.5rem; color: rgba(255, 255, 255, .86); font-size: .875rem; font-weight: 600; }
+.ab-cta__text { max-width: 34rem; margin: .6rem 0 0; color: rgba(255, 255, 255, .8); font-size: 1.0625rem; line-height: 1.6; }
+.ab-cta__actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.125rem; }
+.ab-cta__trust { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 1rem; color: rgba(255, 255, 255, .86); font-size: .875rem; font-weight: 600; }
 .ab-cta__trust li { display: inline-flex; align-items: center; gap: .45rem; white-space: nowrap; }
 .ab-cta__trust i { color: var(--yellow); }
-.ab-cta__photo { position: relative; min-height: 18rem; margin: 0; overflow: hidden; border-left: 4px solid var(--yellow); }
+.ab-cta__photo { position: relative; min-height: 15rem; margin: 0; overflow: hidden; border-left: 4px solid var(--yellow); }
 /* The source photo has thin black bars top and bottom; the slight scale
    crops them out. */
 .ab-cta__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 42% 55%; transform: scale(1.06); }
@@ -468,23 +452,23 @@
    Mission, vision, values (navy band, three cards)
    ========================================================================== */
 .ab-mvv { background: var(--blue-night); color: var(--white); }
-.ab-mvv__head { display: grid; justify-items: center; margin-bottom: clamp(2rem, 1.6rem + 1.5vw, 3rem); text-align: center; }
+.ab-mvv__head { display: grid; justify-items: center; margin-bottom: clamp(1.125rem, .9rem + .8vw, 1.625rem); text-align: center; }
 .ab-mvv__head .h2 { max-width: 22ch; }
-.ab-mvv__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; margin: 0; padding: 0; list-style: none; }
+.ab-mvv__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin: 0; padding: 0; list-style: none; }
 .ab-mvv__card {
   display: grid;
   align-content: start;
-  gap: .75rem;
-  padding: 1.75rem 1.5rem;
+  gap: .55rem;
+  padding: 1.25rem 1.375rem;
   border: 1px solid rgba(255, 255, 255, .14);
   border-top: 3px solid var(--yellow);
   border-radius: .875rem;
   background: rgba(255, 255, 255, .06);
 }
-.ab-mvv__icon { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: .75rem; background: var(--yellow); color: var(--blue-night); font-size: 1.125rem; }
-.ab-mvv__title { margin: .25rem 0 0; color: var(--white); font-size: 1.25rem; font-weight: 800; letter-spacing: -.01em; line-height: 1.25; }
+.ab-mvv__icon { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: .75rem; background: var(--yellow); color: var(--blue-night); font-size: 1.125rem; }
+.ab-mvv__title { margin: .15rem 0 0; color: var(--white); font-size: 1.25rem; font-weight: 800; letter-spacing: -.01em; line-height: 1.25; }
 .ab-mvv__text { margin: 0; color: var(--on-blue); font-size: .9375rem; line-height: 1.65; }
-.ab-mvv__list { display: grid; gap: .45rem; margin: .25rem 0 0; padding: .9rem 0 0; border-top: 1px solid rgba(255, 255, 255, .14); list-style: none; }
+.ab-mvv__list { display: grid; gap: .35rem; margin: .15rem 0 0; padding: .7rem 0 0; border-top: 1px solid rgba(255, 255, 255, .14); list-style: none; }
 .ab-mvv__list li { display: flex; align-items: center; gap: .55rem; color: var(--white); font-size: .9375rem; font-weight: 700; }
 .ab-mvv__list i { color: var(--yellow); font-size: .8125rem; }
 
@@ -492,19 +476,19 @@
    Who we serve (grey): photo | six client types, building rail below
    ========================================================================== */
 .ab-serve { background: var(--surface-2); }
-.ab-serve__grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: stretch; gap: clamp(1.75rem, 1rem + 3vw, 3.5rem); }
-.ab-serve__photo { position: relative; min-height: 22rem; margin: 0; overflow: hidden; border-radius: var(--r-lg); border-bottom: 4px solid var(--yellow); }
+.ab-serve__grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: stretch; gap: clamp(1.25rem, .8rem + 2vw, 2.5rem); }
+.ab-serve__photo { position: relative; min-height: 18rem; margin: 0; overflow: hidden; border-radius: var(--r-lg); border-bottom: 4px solid var(--yellow); }
 .ab-serve__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; }
-.ab-serve__copy { display: grid; align-content: center; gap: .9rem; }
+.ab-serve__copy { display: grid; align-content: center; gap: .65rem; }
 .ab-serve__copy .eyebrow, .ab-serve__copy .h2 { margin: 0; }
 .ab-serve__copy .eyebrow { justify-self: start; }
 .ab-serve__lede { margin: 0; color: var(--ink-2); font-size: 1rem; line-height: 1.65; }
-.ab-serve__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; margin: .4rem 0 0; padding: 0; list-style: none; }
+.ab-serve__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .625rem; margin: .25rem 0 0; padding: 0; list-style: none; }
 .ab-serve__list li {
   display: flex;
   align-items: center;
-  gap: .85rem;
-  padding: .85rem 1rem;
+  gap: .75rem;
+  padding: .7rem .875rem;
   border: 1px solid var(--line-strong);
   border-radius: .875rem;
   background: var(--white);
@@ -512,7 +496,49 @@
 .ab-serve__list .ab-icon { flex: none; }
 .ab-serve__list strong { display: block; color: var(--blue-night); font-size: 1rem; font-weight: 800; line-height: 1.3; }
 .ab-serve__list small { display: block; color: var(--ink-2); font-size: .8125rem; line-height: 1.45; }
-.ab-serve .ab-rail { margin-top: clamp(1.5rem, 1.2rem + 1vw, 2rem); }
+.ab-serve .ab-rail { margin-top: 1rem; }
+
+/* ==========================================================================
+   Manhattan roof expertise (grey): copy + six points | photo
+   ========================================================================== */
+.ab-exp { background: var(--surface-2); }
+.ab-exp__grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); align-items: stretch; gap: clamp(1.25rem, .8rem + 2vw, 2.5rem); }
+.ab-exp__copy { display: grid; align-content: center; gap: .65rem; }
+.ab-exp__copy .eyebrow, .ab-exp__copy .h2 { margin: 0; }
+.ab-exp__copy .eyebrow { justify-self: start; }
+.ab-exp__copy .h2 { max-width: 20ch; }
+.ab-exp__lede { max-width: 38rem; margin: 0; color: var(--ink-2); font-size: 1rem; line-height: 1.6; }
+.ab-exp__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .625rem; margin: .25rem 0 0; padding: 0; list-style: none; }
+.ab-exp__list li {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .7rem .875rem;
+  border: 1px solid var(--line-strong);
+  border-left: 3px solid var(--blue);
+  border-radius: .875rem;
+  background: var(--white);
+}
+.ab-exp__list .ab-icon { flex: none; }
+.ab-exp__list strong { display: block; color: var(--blue-night); font-size: 1rem; font-weight: 800; line-height: 1.3; }
+.ab-exp__list small { display: block; color: var(--ink-2); font-size: .8125rem; line-height: 1.45; }
+.ab-exp__photo { position: relative; min-height: 18rem; margin: 0; overflow: hidden; border-radius: var(--r-lg); border-bottom: 4px solid var(--yellow); }
+.ab-exp__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
+.ab-exp__photo figcaption {
+  position: absolute;
+  left: .875rem;
+  bottom: .875rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .5rem .8rem;
+  border-radius: .625rem;
+  background: var(--blue-night);
+  color: var(--white);
+  font-size: .8125rem;
+  font-weight: 700;
+}
+.ab-exp__photo figcaption i { color: var(--yellow); }
 
 /* ==========================================================================
    Tablet
@@ -524,7 +550,8 @@
   .ab-creds-wrap { margin-bottom: calc(var(--ab-cred-h) / -2); }
   .ab-who__grid { grid-template-columns: minmax(0, 1fr); }
   .ab-who__photo { max-width: 40rem; }
-  .ab-why__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ab-exp__grid { grid-template-columns: minmax(0, 1fr); }
+  .ab-exp__photo { min-height: 16rem; max-width: 40rem; order: -1; }
   .ab-rail { grid-template-columns: minmax(0, 1fr); }
   .ab-mvv__grid { grid-template-columns: minmax(0, 1fr); max-width: 40rem; margin-inline: auto; }
   .ab-serve__grid { grid-template-columns: minmax(0, 1fr); }
@@ -533,7 +560,7 @@
   .ab-svcs__grid { grid-template-columns: minmax(0, 1fr); }
   .ab-svc-feat { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .ab-svc-feat__media { border-bottom: 0; border-right: 4px solid var(--yellow); }
-  .ab-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 2.25rem; }
+  .ab-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 1.5rem; }
   .ab-steps::before { display: none; }
   .ab-work__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ab-areas__grid { grid-template-columns: minmax(0, 1fr); }
@@ -547,7 +574,7 @@
    Phones
    ========================================================================== */
 @media (max-width: 40em) {
-  .page-about { --ab-pad: 2.75rem; }
+  .page-about { --ab-pad: 1.75rem; }
   .ab-hero__shade {
     background:
       linear-gradient(180deg, rgba(7, 29, 92, .9) 0%, rgba(7, 29, 92, .86) 55%, rgba(7, 29, 92, .7) 100%);
@@ -573,17 +600,15 @@
   .ab-checks { grid-template-columns: minmax(0, 1fr); }
   .ab-who__photo figcaption { padding: .7rem 1rem; }
 
-  .ab-why__grid { grid-template-columns: minmax(0, 1fr); gap: .75rem; }
-  .ab-why__card { grid-template-columns: auto minmax(0, 1fr); column-gap: 1rem; row-gap: .25rem; padding: 1.125rem; }
-  .ab-why__card .ab-icon { grid-row: span 2; width: 2.75rem; height: 2.75rem; }
-  .ab-why__card h3 { margin: 0; font-size: 1.0625rem; }
-  .ab-rail { padding: 1.125rem; }
+  .ab-exp__photo { min-height: 12rem; }
+  .ab-exp__list { grid-template-columns: minmax(0, 1fr); gap: .5rem; }
+  .ab-rail { padding: 1rem; }
   .ab-rail__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem 1rem; }
   .ab-rail__list li { white-space: normal; font-size: .875rem; }
 
   .ab-mvv__head { justify-items: start; text-align: left; }
-  .ab-mvv__card { padding: 1.375rem 1.25rem; }
-  .ab-serve__photo { min-height: 13rem; }
+  .ab-mvv__card { padding: 1.125rem 1.125rem; }
+  .ab-serve__photo { min-height: 12rem; }
   .ab-serve__list { grid-template-columns: minmax(0, 1fr); gap: .6rem; }
 
   .ab-svc-feat { display: flex; }
@@ -593,7 +618,7 @@
 
   .ab-steps { grid-template-columns: minmax(0, 1fr); row-gap: 0; }
   /* Phones: a vertical timeline, dots on the left. */
-  .ab-step { grid-template-columns: 3rem minmax(0, 1fr); justify-items: start; column-gap: 1rem; row-gap: .2rem; padding-bottom: 1.5rem; text-align: left; }
+  .ab-step { grid-template-columns: 3rem minmax(0, 1fr); justify-items: start; column-gap: 1rem; row-gap: .2rem; padding-bottom: 1.125rem; text-align: left; }
   .ab-step::before { content: ""; position: absolute; top: 3.25rem; bottom: .25rem; left: 1.5rem; border-left: 2px dashed rgba(249, 210, 44, .45); }
   .ab-step:last-child { padding-bottom: 0; }
   .ab-step:last-child::before { display: none; }
@@ -614,8 +639,8 @@
   .ab-pair { display: grid; grid-template-columns: minmax(0, 1fr); }
   .ab-pair .pill { width: 100%; min-height: 3.25rem; }
 
-  .ab-cta__copy { padding: 1.75rem 1.25rem; }
+  .ab-cta__copy { padding: 1.375rem 1.125rem; }
   .ab-cta__actions { display: grid; grid-template-columns: minmax(0, 1fr); }
   .ab-cta__actions .pill { width: 100%; }
-  .ab-cta__photo { min-height: 13rem; }
+  .ab-cta__photo { min-height: 11rem; }
 }
