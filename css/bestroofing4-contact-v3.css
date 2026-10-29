@@ -1,0 +1,346 @@
+/* ==========================================================================
+   Goldenberg Roofing NYC: bestroofing4-contact-v3.html (Oct 27 call)
+
+   Loaded after bestroofing4.css and bestroofing4contact.css. It styles only
+   the new top of the page (navy hero with the estimate card, the 3-step
+   strip) and the Trustindex reviews band that now sits above the office and
+   the FAQs. Everything below it (office, FAQs, footer) keeps the existing
+   page styles. Every class here starts with ct- so nothing else on the site
+   is affected.
+   ========================================================================== */
+
+/* Hero ===================================================================== */
+
+.ct-hero {
+  position: relative;
+  padding-block: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+  overflow: hidden;
+  /* Navy with faint diagonal hairlines, as in the mockup. */
+  background:
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, .025) 0 1px, transparent 1px 46px),
+    linear-gradient(120deg, var(--blue-night) 0%, #0A2470 55%, var(--blue-night) 100%);
+  color: var(--white);
+}
+
+.ct-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "intro"
+    "side"
+    "photo"
+    "checks";
+  gap: 1.25rem;
+}
+
+.ct-hero__intro  { grid-area: intro; }
+.ct-hero__photo  { grid-area: photo; }
+.ct-hero__checks { grid-area: checks; }
+.ct-hero__side   { grid-area: side; }
+
+.ct-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  margin: 0;
+  color: var(--yellow);
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.ct-hero__eyebrow i { font-size: .5rem; }
+
+/* Two lines, "Let's talk about" / "your roof", and no full stop (Sean). */
+.ct-hero__h1 {
+  margin: .6rem 0 0;
+  color: var(--white);
+  font-size: clamp(2.375rem, 1.5rem + 3.2vw, 4.25rem);
+  font-weight: 800;
+  letter-spacing: -.04em;
+  line-height: 1.02;
+}
+.ct-hero__h1-line { display: block; }
+
+.ct-hero__sub {
+  margin: .75rem 0 0;
+  color: var(--on-blue);
+  font-size: clamp(1rem, .9rem + .4vw, 1.25rem);
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.ct-hero__call {
+  min-height: 3.5rem;
+  margin-top: 1.25rem;
+  padding-inline: 1.75rem;
+  font-size: clamp(1.125rem, 1rem + .5vw, 1.4375rem);
+  font-weight: 800;
+  letter-spacing: -.01em;
+}
+.ct-hero__call i { font-size: .9em; }
+
+/* The crew photo fills whatever height the card leaves on the left. */
+.ct-hero__photo {
+  position: relative;
+  margin: 0;
+  min-height: 12rem;
+  overflow: hidden;
+  border-radius: .5rem;
+  background: rgba(255, 255, 255, .08);
+  aspect-ratio: 16 / 9;
+}
+.ct-hero__photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 24%;
+}
+
+.ct-hero__checks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .6rem 1.75rem;
+}
+.ct-hero__checks li {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  color: var(--white);
+  font-size: .9375rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.ct-hero__tick {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--yellow);
+  color: var(--blue-night);
+  font-size: .8125rem;
+}
+
+/* Estimate card ------------------------------------------------------------ */
+
+.ct-card {
+  border-top: 6px solid var(--yellow);
+  border-radius: .375rem;
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: 0 1.25rem 2.5rem rgba(3, 12, 40, .35);
+}
+
+.ct-form { padding: 1.5rem clamp(1rem, .6rem + 2vw, 2rem) 1.1rem; }
+
+.ct-form__head { text-align: center; }
+.ct-form__title {
+  margin: 0;
+  color: var(--blue-night);
+  font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.375rem);
+  font-weight: 800;
+  letter-spacing: -.04em;
+  line-height: 1.08;
+}
+.ct-form__sub {
+  margin: .35rem 0 0;
+  color: var(--muted);
+  font-size: .9375rem;
+  line-height: 1.45;
+}
+
+.ct-form__fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .8rem 1rem;
+  margin-top: 1.1rem;
+}
+.ct-field { display: grid; gap: .3rem; align-content: start; }
+.ct-field--full { grid-column: 1 / -1; }
+
+.ct-field label {
+  color: var(--ink);
+  font-size: .8125rem;
+  font-weight: 700;
+}
+
+.ct-field input,
+.ct-field textarea {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: .6rem .8rem;
+  border: 1px solid #CDD5E3;
+  border-radius: .3rem;
+  outline: 0;
+  background: var(--white);
+  color: var(--ink);
+  font: inherit;
+  font-size: .875rem;
+  font-weight: 500;
+  transition: border-color var(--fast) var(--ease), box-shadow var(--fast) var(--ease);
+}
+.ct-field textarea { min-height: 5.25rem; resize: vertical; }
+.ct-field input::placeholder,
+.ct-field textarea::placeholder { color: #8B93A5; }
+.ct-field input:focus,
+.ct-field textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(1, 51, 178, .12); }
+
+.ct-field.is-invalid input,
+.ct-field.is-invalid textarea { border-color: #B3261E; box-shadow: 0 0 0 3px rgba(179, 38, 30, .12); }
+
+.ct-form__submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .65rem;
+  width: 100%;
+  min-height: 3.25rem;
+  margin-top: 1.1rem;
+  padding: .7rem 1.25rem;
+  border: 0;
+  border-radius: 100px;
+  background: var(--yellow);
+  color: var(--ink);
+  font-size: 1.0625rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background-color var(--fast) var(--ease), transform var(--fast) var(--ease);
+}
+.ct-form__submit:hover { background: var(--yellow-deep); }
+.ct-form__submit:active { transform: translateY(1px); }
+
+.ct-form__callback { margin-top: .55rem; color: var(--ink); font-size: .875rem; font-weight: 700; }
+
+.ct-form__private {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .45rem;
+  margin: .2rem 0 0;
+  color: var(--muted);
+  font-size: .75rem;
+  font-weight: 500;
+}
+.ct-form__private i { font-size: .7rem; }
+
+/* Sent state: sits in the card in place of the form. */
+.page-contact .ct-card .done {
+  grid-column: auto;
+  grid-row: auto;
+  padding: clamp(2rem, 1.5rem + 3vw, 3.5rem) 1.5rem;
+  background: none;
+}
+
+/* "Google 5-Stars" under the card. */
+.ct-hero__google {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: .3rem .6rem;
+  margin: 1rem 0 0;
+  color: var(--white);
+  font-size: clamp(1.125rem, 1rem + .4vw, 1.3125rem);
+  font-weight: 800;
+  letter-spacing: -.01em;
+}
+.ct-hero__stars { display: inline-flex; gap: .2rem; color: var(--yellow); font-size: .95em; }
+
+/* Desktop: copy, photo and checks on the left; the card on the right,
+   spanning all three rows so the photo takes up the slack. */
+@media (min-width: 60em) {
+  .ct-hero__grid {
+    grid-template-columns: minmax(0, 1.18fr) minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "intro  side"
+      "photo  side"
+      "checks side";
+    column-gap: clamp(1.75rem, 3vw, 3rem);
+    row-gap: 1.25rem;
+  }
+  .ct-hero__photo { aspect-ratio: auto; }
+  .ct-hero__side { display: flex; flex-direction: column; }
+}
+
+/* Phones: everything stacks, and the phone button runs full width. */
+@media (max-width: 40em) {
+  .ct-hero { padding-block: 1.5rem 1.75rem; }
+  .ct-hero__grid { gap: 1.1rem; }
+  .ct-hero__h1 { font-size: clamp(2.25rem, 10vw, 2.75rem); }
+  .ct-hero__call { display: flex; width: 100%; }
+  .ct-hero__checks { justify-content: center; gap: .6rem 1.1rem; }
+  .ct-hero__checks li { font-size: .875rem; }
+  .ct-hero__google { margin-top: .9rem; }
+  .ct-form { padding: 1.25rem 1rem 1rem; }
+}
+
+
+/* Steps strip ============================================================== */
+
+.ct-steps {
+  border-bottom: 1px solid var(--line);
+  background: var(--white);
+}
+
+.ct-steps__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding-block: clamp(1rem, .8rem + .8vw, 1.5rem);
+  counter-reset: none;
+}
+
+.ct-steps__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .9rem;
+  padding: .35rem 1rem;
+  color: var(--blue-night);
+  font-size: clamp(1.0625rem, .9rem + .55vw, 1.375rem);
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1.2;
+}
+.ct-steps__item + .ct-steps__item { border-left: 1px solid var(--line-strong); }
+
+.ct-steps__num {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: var(--yellow);
+  color: var(--ink);
+  font-size: 1.125rem;
+  font-weight: 800;
+}
+
+/* Phones: one step per row, the numbers in a column. */
+@media (max-width: 40em) {
+  .ct-steps__list { grid-template-columns: minmax(0, 1fr); padding-block: .75rem; }
+  .ct-steps__item { justify-content: flex-start; padding: .55rem 0; font-size: 1.0625rem; }
+  .ct-steps__item + .ct-steps__item { border-left: 0; border-top: 1px solid var(--line); }
+  .ct-steps__num { width: 2.25rem; height: 2.25rem; font-size: 1rem; }
+}
+
+
+/* Reviews band (Trustindex), before the office and the FAQs ================ */
+
+.page-contact .ct-reviews {
+  padding-block: clamp(1.5rem, 1.3rem + 1vw, 2.25rem);
+  background: var(--white);
+}
+/* The block used to close the FAQ band and carried a rule above it. */
+.page-contact .ct-reviews__wrap { margin-top: 0; padding-top: 0; border-top: 0; }
+
+
+/* Office: same tight top padding as the other bands now that it follows the
+   white reviews band instead of the old contact block. */
+.page-contact .office { padding-top: clamp(1.5rem, 1.3rem + 1vw, 2.25rem); }
