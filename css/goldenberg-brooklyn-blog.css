@@ -1,0 +1,168 @@
+/* ==========================================================================
+   Goldenberg Roofing Brooklyn: Blog page (goldenberg-brooklyn-blog.html)
+   Loaded after css/goldenberg-brooklyn.css (the kit) and built only from its
+   tokens. Reused as-is from the kit: page hero panel, crumbs, badges, field
+   input, section heads, blog post card (gk-post), reviews slot, CTA band,
+   buttons. Everything here is prefixed gk-bl-.
+
+   Sections, as on bestroofing4-blog.html:
+     1. Hero (blue panel): title left, search card right
+     2. Topics + featured article (white)
+     3. All articles (pale): grid, empty state, "Show more"
+     4. Ask the team (navy over a crew photo)
+     5. Reviews (white): kit slot
+     6. CTA (pale): kit CTA band as a card
+   ========================================================================== */
+
+
+/* 1. Hero: title left, search card right ----------------------------------- */
+.gk-bl-hero { padding-block: clamp(1.75rem, 1.3rem + 2vw, 3rem); }
+.gk-bl-hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); align-items: center; gap: 24px clamp(2rem, 5vw, 5rem); }
+.gk-bl-hero .gk-hero__title { font-size: clamp(1.9rem, 1.2rem + 2.2vw, 3rem); }
+
+.gk-bl-search {
+  padding: 20px 22px; background: #fff; color: var(--gk-text);
+  border-radius: var(--gk-radius); border-top: 6px solid var(--gk-yellow); box-shadow: var(--gk-shadow-lg);
+}
+.gk-bl-search__label { display: block; margin-bottom: 10px; color: var(--gk-ink); font-size: 1.2rem; font-weight: 800; line-height: 1.2; }
+.gk-bl-search__field { position: relative; }
+.gk-bl-search__icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--gk-blue); font-size: 15px; pointer-events: none; }
+.gk-bl-search__input { height: 50px; padding: 0 46px 0 40px; font-size: 15.5px; }
+.gk-bl-search__input::-webkit-search-cancel-button { display: none; }
+.gk-bl-search__clear {
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  display: grid; place-items: center; width: 36px; height: 36px; padding: 0;
+  border: 0; border-radius: var(--gk-radius-sm); background: var(--gk-pale); color: var(--gk-ink); cursor: pointer;
+}
+.gk-bl-search__clear:hover { background: var(--gk-yellow); }
+.gk-bl-search__stat { margin-top: 10px; color: var(--gk-muted); font-size: 14px; font-weight: 600; }
+.gk-bl-search__stat strong { color: var(--gk-ink); font-weight: 800; }
+
+
+/* 2. Topics + featured article --------------------------------------------- */
+.gk-bl-topics { display: flex; align-items: center; gap: 10px 16px; margin-bottom: 18px; }
+.gk-bl-topics__label { flex: none; color: var(--gk-muted); font-size: 12.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.gk-bl-topics__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.gk-bl-chip {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 42px; padding: 0 6px 0 14px;
+  border: 1px solid var(--gk-line-strong); border-radius: var(--gk-radius); background: #fff;
+  color: var(--gk-ink); font-size: 14.5px; font-weight: 700; white-space: nowrap; cursor: pointer;
+  transition: background-color .18s ease, border-color .18s ease, color .18s ease;
+}
+.gk-bl-chip:hover { border-color: var(--gk-blue); color: var(--gk-blue); }
+.gk-bl-chip__n {
+  display: inline-grid; place-items: center; min-width: 28px; height: 28px; padding: 0 6px;
+  border-radius: var(--gk-radius-sm); background: var(--gk-pale); color: var(--gk-blue); font-size: 12.5px; font-weight: 800;
+}
+.gk-bl-chip[aria-pressed="true"] { border-color: var(--gk-blue); background: var(--gk-blue); color: #fff; }
+.gk-bl-chip[aria-pressed="true"] .gk-bl-chip__n { background: var(--gk-yellow); color: var(--gk-ink); }
+
+.gk-bl-feature {
+  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); overflow: hidden;
+  background: #fff; border: 1px solid var(--gk-line); border-radius: var(--gk-radius); box-shadow: var(--gk-shadow-sm);
+}
+.gk-bl-feature__media { position: relative; min-height: 320px; background: var(--gk-navy); }
+.gk-bl-feature__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.gk-bl-feature__body { display: grid; align-content: center; justify-items: start; gap: 12px; padding: clamp(20px, 1rem + 2vw, 40px); border-left: 6px solid var(--gk-yellow); }
+.gk-bl-feature__flag { display: inline-flex; align-items: center; gap: 8px; padding: 5px 10px; border-radius: var(--gk-radius-sm); background: var(--gk-yellow-soft); color: var(--gk-ink); font-size: 12.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.gk-bl-feature__flag i { color: #9A7B00; }
+.gk-bl-feature__title { color: var(--gk-ink); font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem); font-weight: 800; line-height: 1.18; letter-spacing: -.02em; }
+.gk-bl-feature__excerpt { max-width: 52ch; color: var(--gk-muted); font-size: 16px; line-height: 1.6; }
+.gk-bl-feature__btn { margin-top: 4px; }
+
+
+/* 3. All articles ----------------------------------------------------------- */
+.gk-bl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; list-style: none; }
+.gk-bl-item { display: flex; }
+.gk-bl-item > .gk-post { width: 100%; }
+.gk-bl-card .gk-post__media { aspect-ratio: 16 / 9; }
+.gk-bl-card__excerpt { color: var(--gk-muted); font-size: 14.5px; line-height: 1.55; }
+
+.gk-bl-empty { padding: 28px 20px; border: 1px dashed var(--gk-line-strong); border-radius: var(--gk-radius); background: #fff; text-align: center; }
+.gk-bl-empty__title { color: var(--gk-ink); font-size: 1.15rem; font-weight: 800; }
+.gk-bl-empty__text { margin-top: 6px; color: var(--gk-muted); }
+.gk-bl-empty__reset { padding: 0; border: 0; background: none; color: var(--gk-blue); font-weight: 700; text-decoration: underline; cursor: pointer; }
+.gk-bl-more { display: flex; justify-content: center; margin-top: 20px; }
+
+
+/* 4. Ask the team: navy over a crew photo ---------------------------------- */
+.gk-bl-ask {
+  position: relative; isolation: isolate; overflow: hidden;
+  padding-block: clamp(1.75rem, 1.4rem + 1.6vw, 3rem); background: var(--gk-navy); color: #fff;
+}
+.gk-bl-ask__bg { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; }
+.gk-bl-ask::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(90deg, rgba(7, 29, 92, .95) 0%, rgba(7, 29, 92, .88) 45%, rgba(0, 54, 172, .74) 100%);
+}
+.gk-bl-ask__inner { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); align-items: center; gap: 24px clamp(2rem, 5vw, 5rem); }
+.gk-bl-ask__title { color: #fff; font-size: clamp(1.75rem, 1.2rem + 2vw, 2.7rem); font-weight: 800; line-height: 1.1; letter-spacing: -.025em; }
+.gk-bl-ask__title em { font-style: normal; color: var(--gk-yellow); }
+.gk-bl-ask .gk-actions { margin-top: 20px; }
+.gk-bl-ask__facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; list-style: none; }
+.gk-bl-ask__facts li { display: flex; }
+.gk-bl-ask__fact {
+  display: flex; align-items: center; gap: 12px; width: 100%; padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, .2); border-radius: var(--gk-radius); background: rgba(5, 15, 51, .45); color: #fff;
+}
+a.gk-bl-ask__fact:hover { border-color: #fff; color: #fff; background: rgba(5, 15, 51, .6); }
+.gk-bl-ask__icon { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: var(--gk-radius); background: var(--gk-yellow); color: var(--gk-ink); font-size: 17px; }
+.gk-bl-ask__icon--g { border-radius: 50%; background: #fff; }
+.gk-bl-ask__icon--g img { width: 22px; height: 22px; }
+.gk-bl-ask__fact strong, .gk-bl-ask__strong { display: block; color: #fff; font-size: 16.5px; font-weight: 800; line-height: 1.25; }
+.gk-bl-ask__strong.gk-greview { display: inline-flex; }
+.gk-bl-ask__fact .gk-greview__star { color: var(--gk-yellow); }
+.gk-bl-ask__fact small { display: block; margin-top: 2px; color: var(--gk-on-dark); font-size: 13px; line-height: 1.35; }
+
+
+/* 6. CTA: the kit band as a card (pale section around it) ------------------ */
+.gk-bl-cta .gk-cta-band { border-radius: var(--gk-radius); box-shadow: var(--gk-shadow); }
+.gk-bl-cta .gk-cta-band__inner { padding-inline: clamp(1.25rem, 1rem + 1.6vw, 2.5rem); }
+
+
+/* Responsive ---------------------------------------------------------------- */
+@media (max-width: 1023px) {
+  .gk-bl-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gk-bl-ask__inner { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 959px) {
+  .gk-bl-hero__grid { grid-template-columns: minmax(0, 1fr); }
+  .gk-bl-search { max-width: 640px; }
+  .gk-bl-topics { flex-direction: column; align-items: flex-start; }
+  .gk-bl-feature { grid-template-columns: minmax(0, 1fr); }
+  .gk-bl-feature__media { min-height: 0; aspect-ratio: 16 / 9; }
+  .gk-bl-feature__body { border-left: 0; border-top: 6px solid var(--gk-yellow); }
+}
+@media (max-width: 559px) {
+  .gk-bl-hero .gk-badges { gap: 6px; }
+  .gk-bl-hero .gk-badge { min-height: 34px; padding: 5px 10px; font-size: 13px; }
+  .gk-bl-search { padding: 16px; }
+
+  /* Chips scroll sideways inside their own row; the page never does. */
+  .gk-bl-topics { gap: 8px; }
+  .gk-bl-topics__chips {
+    flex-wrap: nowrap; width: calc(100% + var(--gk-edge)); margin-right: calc(-1 * var(--gk-edge));
+    padding: 0 var(--gk-edge) 4px 0; overflow-x: auto; scrollbar-width: none;
+  }
+  .gk-bl-topics__chips::-webkit-scrollbar { display: none; }
+  .gk-bl-chip { min-height: 40px; font-size: 14px; }
+
+  /* Compact list: photo left, text right (as the homepage blog list). */
+  .gk-bl-grid { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .gk-bl-card { flex-direction: row; }
+  .gk-bl-card .gk-post__media { flex: none; width: 112px; aspect-ratio: auto; }
+  .gk-bl-card .gk-post__body { padding: 10px 12px; gap: 5px; }
+  .gk-bl-card .gk-post__title { font-size: 15px; }
+  .gk-bl-card__excerpt { display: none; }
+  .gk-bl-card .gk-post__more { font-size: 13.5px; }
+  .gk-bl-more .gk-btn { width: 100%; }
+
+  .gk-bl-ask__facts { gap: 8px; }
+  /* Icon stays beside the text, so the Google tile keeps [G] ★ 5.0 Reviews on one line. */
+  .gk-bl-ask__fact { gap: 9px; padding: 10px; }
+  .gk-bl-ask__icon { width: 34px; height: 34px; font-size: 14px; }
+  .gk-bl-ask__icon--g img { width: 20px; height: 20px; }
+  .gk-bl-ask__fact strong, .gk-bl-ask__strong { font-size: 14.5px; }
+  .gk-bl-ask__fact small { font-size: 12.5px; }
+  .gk-bl-ask .gk-actions .gk-btn { flex: 1 1 100%; }
+}

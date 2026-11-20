@@ -1,0 +1,121 @@
+/* ==========================================================================
+   Goldenberg Roofing Bronx: contact page (goldenberg-bronx-contact.html)
+   Loads after css/goldenberg-bronx.css and only uses its tokens and
+   components. Prefix: gx-ct-
+   The approved sister-site contact pattern:
+     hero      light tint; copy + call line + badge row + job photo with a
+               caption chip left, white estimate card right (whole form
+               above the fold at 1440 x 630; phones: copy, form, photo)
+     strip     3 numbered steps directly under the hero
+     reviews   kit .gx-reviews with the Trustindex slot
+     office    map left, thin info box right (button scrolls to the form)
+     faq       kit .gx-faq, centred, one answer open at a time
+   ========================================================================== */
+
+/* Current page in the footer. */
+.page-gx-contact .bkf__links a[aria-current="page"] { color: #fff; font-weight: 700; }
+
+/* Hero ---------------------------------------------------------------------- */
+.gx-ct-hero {
+  padding: calc(var(--nav-h) + var(--header-line) + clamp(1rem, .6rem + 1vw, 1.75rem)) 0 clamp(1.5rem, 1.3rem + 1vw, 2.25rem);
+  background: var(--navy-50);
+  border-bottom: 1px solid var(--line);
+}
+.gx-ct-hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.32fr) minmax(0, 1fr);
+  grid-template-areas: "copy form" "photo form";
+  grid-template-rows: auto 1fr;
+  gap: 1.1rem clamp(1.5rem, .75rem + 2vw, 2.75rem);
+}
+.gx-ct-hero__copy { grid-area: copy; min-width: 0; }
+.gx-ct-eyebrow { margin-bottom: .7rem; }
+.gx-ct-hero h1 { max-width: 15ch; font-size: clamp(2.3rem, 1.2rem + 2.7vw, 3.6rem); line-height: 1.04; letter-spacing: -.028em; }
+.gx-ct-hero__sub { max-width: 54ch; margin-top: .75rem; color: var(--ink); font-size: var(--fs-lede); font-weight: 400; line-height: 1.5; }
+
+/* Phone line: big number with a solid phone icon, note under it. */
+.gx-ct-call { display: flex; align-items: center; gap: .8rem; margin-top: 1.1rem; }
+.gx-ct-call__icon { width: 2rem; height: 2rem; flex: none; fill: var(--blue); stroke: var(--blue); stroke-width: 1; stroke-linejoin: round; }
+.gx-ct-call__phone { display: inline-block; color: var(--navy); font-family: var(--font-display); font-size: clamp(1.75rem, 1.4rem + .9vw, 2.25rem); font-weight: 700; line-height: 1.1; letter-spacing: -.01em; text-decoration: none; white-space: nowrap; }
+.gx-ct-call__phone:hover { text-decoration: underline; text-decoration-color: var(--brand); text-underline-offset: .15em; }
+.gx-ct-call__note { margin-top: .15rem; color: var(--muted); font-size: .875rem; line-height: 1.3; }
+
+/* Badge row: [G] ★ 5.0 Reviews | Licensed & Insured | Open 24/7, hairline dividers. */
+.gx-ct-proof { display: flex; flex-wrap: wrap; align-items: center; row-gap: .5rem; margin-top: 1.1rem; }
+.gx-ct-proof li { display: inline-flex; align-items: center; gap: .45rem; padding: .1rem 1.1rem; color: var(--navy); font-size: .9375rem; font-weight: 600; line-height: 1.2; white-space: nowrap; }
+.gx-ct-proof li:first-child { padding-left: 0; }
+.gx-ct-proof li + li { border-left: 1px solid var(--line-strong); }
+.gx-ct-proof img { width: 1.4rem; height: 1.4rem; object-fit: contain; }
+.gx-ct-proof .gx-greview { font-size: .9375rem; gap: .3rem; }
+.gx-ct-proof__icon { width: 1.35rem; height: 1.35rem; flex: none; fill: none; stroke: var(--blue); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Job photo with a small dark caption chip. */
+.gx-ct-photo { position: relative; grid-area: photo; align-self: start; min-width: 0; }
+.gx-ct-photo img { width: 100%; aspect-ratio: 2.45 / 1; object-fit: cover; object-position: center 42%; border-radius: var(--radius-media); box-shadow: var(--shadow-sm); }
+.gx-ct-photo figcaption { position: absolute; left: .9rem; bottom: .9rem; max-width: calc(100% - 1.8rem); padding: .4rem .8rem; border-radius: var(--radius-sm); background: rgba(5, 22, 74, .86); color: #fff; font-size: var(--fs-xs); font-weight: 700; line-height: 1.3; }
+
+/* Form card: white, 4px yellow top rule (kit), sized to its content. */
+.gx-ct-form {
+  grid-area: form; align-self: start;
+  gap: .6rem;
+  padding: clamp(1rem, .7rem + .6vw, 1.25rem) clamp(1.25rem, .9rem + 1vw, 1.9rem) clamp(1rem, .7rem + .6vw, 1.3rem);
+  box-shadow: 0 18px 44px rgba(5, 22, 74, .10);
+}
+.gx-ct-form .quote-card__title { text-align: left; font-size: clamp(1.5rem, 1.2rem + .8vw, 1.9rem); letter-spacing: -.02em; }
+.gx-ct-form .quote-card__sub { margin-top: .25rem; font-size: 1rem; }
+.gx-ct-form .field label { color: var(--navy); font-size: .8125rem; font-weight: 700; letter-spacing: 0; text-transform: none; }
+.gx-ct-form .field input, .gx-ct-form .field textarea { background: #fff; }
+.gx-ct-form__submit { min-height: 3.25rem; }
+.gx-ct-form__submit .btn__icon { width: 1.15rem; height: 1.15rem; }
+.gx-ct-form .form-callback { margin-top: -.3rem; font-size: .8125rem; }
+
+/* 3-step strip ------------------------------------------------------------- */
+.gx-ct-strip { border-bottom: 1px solid var(--line); background: #fff; }
+.gx-ct-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding-block: .9rem; }
+.gx-ct-steps li { display: flex; align-items: center; justify-content: center; gap: .85rem; min-width: 0; padding-inline: 1rem; color: var(--navy); font-size: 1rem; font-weight: 700; line-height: 1.3; }
+.gx-ct-steps li + li { border-left: 1px solid var(--line); }
+.gx-ct-steps__num { display: inline-flex; align-items: center; justify-content: center; flex: none; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--brand); color: var(--navy); font-size: 1rem; font-weight: 800; }
+
+/* Office: map left, thin info box right ------------------------------------- */
+.gx-ct-office__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 23rem); gap: 1.25rem; align-items: stretch; }
+.gx-ct-office__map { position: relative; min-height: 23rem; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--navy-50); }
+.gx-ct-office__map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.gx-ct-office__info { display: flex; flex-direction: column; min-width: 0; padding: 1.25rem 1.5rem 1.5rem; border: 1px solid var(--line); border-top: 4px solid var(--brand); border-radius: var(--radius-card); background: #fff; }
+.gx-ct-office__title { font-size: var(--fs-h3); }
+.gx-ct-office__info .gx-details { margin-top: .35rem; margin-bottom: 1rem; }
+.gx-ct-office__cta { margin-top: auto; }
+
+/* Responsive ---------------------------------------------------------------- */
+@media (max-width: 75rem) {
+  .gx-ct-hero__inner { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+}
+@media (max-width: 60rem) {
+  /* Phones/tablets: copy, then the form, then the photo. */
+  .gx-ct-hero__inner { grid-template-columns: minmax(0, 1fr); grid-template-areas: "copy" "form" "photo"; grid-template-rows: none; gap: 1.25rem; }
+  .gx-ct-hero h1 { max-width: none; }
+  .gx-ct-photo img { aspect-ratio: 16 / 10; }
+  .gx-ct-office__grid { grid-template-columns: minmax(0, 1fr); }
+  .gx-ct-office__map { min-height: 19rem; }
+}
+@media (max-width: 40rem) {
+  .gx-ct-hero { padding-top: calc(var(--nav-h) + var(--header-line) + 1.1rem); }
+  .gx-ct-hero__sub { font-size: 1.0625rem; }
+  .gx-ct-proof li { gap: .35rem; padding-inline: .6rem; font-size: .875rem; }
+  .gx-ct-proof .gx-greview { font-size: .875rem; gap: .25rem; }
+  .gx-ct-proof li:nth-child(3) { flex-basis: 100%; padding-left: 0; border-left: 0; }   /* own line under the first two */
+  .gx-ct-form .field-row { grid-template-columns: minmax(0, 1fr); }
+  .gx-ct-steps { padding-block: .75rem; }
+  .gx-ct-steps li { flex-direction: column; gap: .4rem; padding-inline: .35rem; font-size: var(--fs-xs); text-align: center; }
+  .gx-ct-steps__num { width: 2rem; height: 2rem; font-size: .9375rem; }
+  .gx-ct-office__info { padding: 1rem 1rem 1.25rem; }
+}
+
+/* Kit gap (reported): in the footer, ".bkf__rating span { color: #fff }" turns the
+   Google badge star white. The brief wants one yellow star everywhere. */
+.bkf__rating .gx-greview__star { color: var(--brand); }
+
+/* Nitesh, Nov 20: the office map was too wide (about 70% of the row).
+   Desktop split is now about 55/45 so the info box gets more room. */
+@media (min-width: 64.0625rem) {
+  .gx-ct-office__grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+}

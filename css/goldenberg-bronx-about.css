@@ -1,0 +1,218 @@
+/* ==========================================================================
+   Goldenberg Roofing Bronx: About page (goldenberg-bronx-about.html)
+   Loads after css/goldenberg-bronx.css and only uses its tokens and
+   components. Prefix: gx-abt-
+   Same sections and design as the approved sister-site About page:
+   hero (light ground + crew photo), intro (two framed photos),
+   specialties (flat roofing feature + 6 equal cards), owners & apartment
+   buildings (navy), approach (.gx-steps 2 x 2), why choose us (photo +
+   6 reasons), areas (.gx-areas), reviews (.gx-reviews), FAQ (.gx-faq),
+   CTA (.gx-ctaband).
+   Button colours are never set here: they come from the kit.
+   ========================================================================== */
+
+/* Shared small parts ------------------------------------------------------- */
+.gx-abt-eyebrow { display: flex; align-items: center; gap: .45rem; color: var(--brand-ink); font-size: var(--fs-label); font-weight: 700; letter-spacing: .14em; line-height: 1.3; text-transform: uppercase; }
+.gx-abt-eyebrow svg { width: 1rem; height: 1rem; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* 1. Hero: light ground, copy left, real crew photo right. ----------------- */
+.gx-abt-hero {
+  position: relative; overflow: hidden;
+  padding: calc(var(--nav-h) + var(--header-line) + clamp(1.25rem, .5rem + 2.2vh, 2.5rem)) 0 clamp(1.5rem, .75rem + 2.2vh, 2.75rem);
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, var(--grey-50) 0%, #fff 100%);
+}
+.gx-abt-hero__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); gap: var(--col-gap); align-items: center; }
+.gx-abt-hero__copy { min-width: 0; }
+.gx-abt-hero .gx-crumbs { margin-bottom: var(--space-5); }
+.gx-abt-hero .gx-crumbs li { color: var(--muted); }
+.gx-abt-hero .gx-crumbs a { color: var(--navy); font-weight: 700; }
+.gx-abt-hero h1 { max-width: none; font-size: var(--fs-h1); line-height: 1.06; letter-spacing: -.022em; }
+.gx-abt-hero .gx-lede { max-width: 54ch; margin-top: var(--space-4); }
+.gx-abt-hero__actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: var(--space-5); }
+.gx-abt-hero__facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: var(--space-6); border-block: 1px solid var(--line); }
+.gx-abt-hero__facts li { min-width: 0; padding: .8rem 1rem; }
+.gx-abt-hero__facts li:first-child { padding-left: 0; }
+.gx-abt-hero__facts li + li { border-left: 1px solid var(--line); }
+.gx-abt-hero__facts strong { display: block; color: var(--navy); font-size: 1rem; line-height: 1.3; }
+.gx-abt-hero__facts span { display: block; margin-top: .15rem; color: var(--muted); font-size: var(--fs-xs); line-height: 1.4; }
+
+.gx-abt-hero__media { position: relative; z-index: 0; min-width: 0; margin: 0 0 .75rem .75rem; }
+/* Yellow block offset behind the photo. */
+.gx-abt-hero__media::before { content: ""; position: absolute; z-index: -1; left: -.75rem; bottom: -.75rem; width: 42%; height: 46%; background: var(--brand); }
+.gx-abt-hero__media img {
+  width: 100%; height: clamp(17rem, calc(100svh - var(--nav-h) - 12rem), 31rem);
+  object-fit: cover; object-position: 50% 45%; border-radius: var(--radius-media); box-shadow: var(--shadow-card);
+}
+.gx-abt-hero__media figcaption { position: absolute; right: 1rem; bottom: 1rem; padding: .4rem .75rem; border-radius: var(--radius-xs); background: var(--navy); color: #fff; font-size: var(--fs-xs); font-weight: 700; line-height: 1.3; }
+
+/* 2. Intro: lead photo with an inset photo, copy right. -------------------- */
+.gx-abt-intro__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: var(--col-gap); align-items: center; }
+.gx-abt-intro__media { position: relative; min-width: 0; padding: 0 16% 11% 0; }
+.gx-abt-frame { overflow: hidden; border-radius: var(--radius-media); background: var(--navy-50); }
+.gx-abt-frame img { width: 100%; height: 100%; object-fit: cover; }
+.gx-abt-frame--lead { aspect-ratio: 4 / 3; max-height: 26rem; }
+.gx-abt-frame--inset { position: absolute; right: 0; bottom: 0; width: 44%; aspect-ratio: 4 / 3; border: 6px solid #fff; box-shadow: var(--shadow-card); }
+.gx-abt-frame--inset::after { content: ""; position: absolute; top: 0; left: 0; width: 3rem; height: 3px; background: var(--brand); }
+.gx-abt-intro__copy { min-width: 0; }
+.gx-abt-intro__text { max-width: 62ch; margin-top: var(--space-3); color: var(--muted); }
+.gx-abt-intro__checks { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem 1.5rem; margin-top: var(--space-5); padding-block: var(--space-4); border-block: 1px solid var(--line); }
+.gx-abt-intro__checks li { font-size: var(--fs-small); line-height: 1.45; }
+.gx-abt-intro__checks svg { margin-top: .15rem; }
+.gx-abt-intro__actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.5rem; margin-top: var(--space-5); }
+
+/* 3. Specialties: flat roofing feature left, 2 x 3 equal cards right. ------ */
+.gx-abt-spec .gx-head { margin-bottom: var(--space-5); }
+.gx-abt-spec__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 1.25rem; align-items: stretch; }
+.gx-abt-feature { position: relative; display: flex; flex-direction: column; min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-card); background: #fff; }
+.gx-abt-feature__media { position: relative; flex: 1 1 auto; min-height: 9rem; overflow: hidden; background: var(--navy-50); }
+/* Absolute so the photo fills whatever height the card rows give it, never sets it. */
+.gx-abt-feature__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.gx-abt-feature__body { display: flex; flex-direction: column; gap: .55rem; padding: 1.15rem 1.35rem 1.35rem; border-top: 3px solid var(--brand); }
+.gx-abt-feature__title { font-size: clamp(1.25rem, 1.05rem + .5vw, 1.55rem); }
+.gx-abt-feature__text { color: var(--muted); font-size: var(--fs-small); line-height: 1.55; }
+.gx-abt-feature .gx-tags { margin-top: .15rem; }
+.gx-abt-feature__btn { align-self: flex-start; margin-top: .5rem; }
+
+.gx-abt-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 1.25rem; }
+.gx-abt-card { position: relative; display: flex; flex-direction: column; gap: .5rem; min-width: 0; padding: 1.05rem 1.25rem .6rem; border: 1px solid var(--line); border-radius: var(--radius-card); background: #fff; transition: border-color .2s, box-shadow .2s; }
+.gx-abt-card::before { content: ""; position: absolute; top: -1px; left: -1px; width: 3rem; height: 3px; background: var(--brand); }
+.gx-abt-card:hover { border-color: var(--line-strong); box-shadow: var(--shadow-card); }
+.gx-abt-card__head { display: flex; align-items: center; gap: .85rem; }
+.gx-abt-card__head .gx-ico { width: 2.5rem; height: 2.5rem; }
+.gx-abt-card h3 { font-size: var(--fs-h3); }
+.gx-abt-card p { color: var(--muted); font-size: var(--fs-small); line-height: 1.55; }
+.gx-abt-card .gx-link { align-self: flex-start; margin-top: auto; min-height: 2.25rem; }
+.gx-abt-card .gx-link::after { content: ""; position: absolute; inset: 0; }   /* whole card is clickable */
+.gx-abt-card:has(.gx-link:focus-visible) { outline: 3px solid var(--focus); outline-offset: 2px; }
+.gx-abt-card .gx-link:focus-visible { outline: 0; }
+
+/* 4. Owners, managers & apartment buildings (navy). ------------------------ */
+.gx-abt-owners__inner { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: var(--col-gap); align-items: center; }
+.gx-abt-owners__media { position: relative; min-width: 0; }
+.gx-abt-owners__media img { width: 100%; height: clamp(20rem, 52vh, 28rem); object-fit: cover; border-radius: var(--radius-media); }
+.gx-abt-owners__media figcaption { position: absolute; left: 1rem; bottom: 1rem; padding: .4rem .75rem; border-radius: var(--radius-xs); background: var(--navy-deep); color: #fff; font-size: var(--fs-xs); font-weight: 700; box-shadow: inset 0 -2px 0 var(--brand); }
+.gx-abt-owners__copy { min-width: 0; }
+.gx-abt-owners .gx-title { color: #fff; }
+.gx-abt-owners__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2rem; margin-top: var(--space-5); border-top: 1px solid var(--line-dark); }
+.gx-abt-owners__list li { display: flex; align-items: flex-start; gap: .9rem; min-width: 0; padding: .95rem 0; border-bottom: 1px solid var(--line-dark); }
+.gx-abt-owners__list h3 { color: #fff; font-size: 1.0625rem; line-height: 1.3; }
+.gx-abt-owners__list p { margin-top: .2rem; font-size: var(--fs-small); line-height: 1.5; }
+
+/* 5. Approach: copy left, 2 x 2 numbered steps right. ---------------------- */
+.gx-abt-approach__inner { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: var(--col-gap); align-items: center; }
+.gx-abt-approach__copy { min-width: 0; }
+.gx-abt-approach__text { max-width: 60ch; margin-top: var(--space-3); color: var(--muted); }
+.gx-abt-approach__copy .btn { margin-top: var(--space-5); }
+.gx-abt-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-6) var(--space-7); }
+.gx-abt-steps .gx-step p { display: block; overflow: visible; -webkit-line-clamp: unset; }   /* copy written to fit; never cut */
+.gx-abt-approach__hint { grid-column: 1 / -1; }
+
+/* 6. Why choose us: photo left, 2 x 3 reasons right. ----------------------- */
+.gx-abt-why .gx-head { margin-bottom: var(--space-5); }
+.gx-abt-why .gx-title { max-width: none; }
+.gx-abt-why__inner { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: var(--col-gap); align-items: stretch; }
+.gx-abt-why__media { position: relative; min-width: 0; min-height: 18rem; overflow: hidden; border-radius: var(--radius-media); background: var(--navy-50); }
+.gx-abt-why__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+.gx-abt-why__media figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 2.5rem 1.25rem 1rem; background: linear-gradient(180deg, transparent, rgba(5, 22, 74, .88)); color: #fff; line-height: 1.35; }
+.gx-abt-why__media figcaption strong { display: block; font-size: 1.0625rem; }
+.gx-abt-why__media figcaption span { display: block; color: var(--on-dark-muted); font-size: var(--fs-xs); font-weight: 500; }
+.gx-abt-reasons { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2rem; border-top: 2px solid var(--navy); }
+.gx-abt-reasons li { display: flex; align-items: flex-start; gap: .9rem; min-width: 0; padding: 1.1rem 0; border-bottom: 1px solid var(--line-strong); }
+.gx-abt-reasons h3 { font-size: 1.0625rem; line-height: 1.3; }
+.gx-abt-reasons p { margin-top: .2rem; color: var(--muted); font-size: var(--fs-small); line-height: 1.5; }
+
+/* 9. FAQ: head left, shared accordion right. ------------------------------- */
+.gx-abt-faq__inner { display: grid; grid-template-columns: minmax(0, 24rem) minmax(0, 1fr); gap: var(--col-gap); align-items: start; }
+.gx-abt-faq__head { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+.gx-abt-faq__head .gx-lede { margin-bottom: var(--space-4); }
+.gx-abt-faq__call { font-size: 1.25rem; }
+.gx-abt-faq__call svg { stroke: var(--brand-ink); }
+
+/* Short laptop screens (1366 x 650): hero copy tightens so the hero fits. -- */
+@media (min-width: 60.01rem) and (max-height: 780px) {
+  .gx-abt-hero .gx-crumbs { margin-bottom: var(--space-3); }
+  .gx-abt-hero .gx-kicker { margin-bottom: .5rem; }
+  .gx-abt-hero .gx-lede { margin-top: .75rem; font-size: 1rem; }
+  .gx-abt-hero__actions { margin-top: 1rem; }
+  .gx-abt-hero__actions .btn { min-height: 2.85rem; padding-block: .55rem; }
+  .gx-abt-hero__facts { margin-top: 1.1rem; }
+  .gx-abt-hero__facts li { padding-block: .6rem; }
+}
+
+/* Responsive ---------------------------------------------------------------- */
+@media (max-width: 75rem) {
+  .gx-abt-spec__grid { grid-template-columns: minmax(0, 1fr); }
+  .gx-abt-feature { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
+  .gx-abt-feature__media { min-height: 16rem; }
+  .gx-abt-feature__body { border-top: 0; border-left: 3px solid var(--brand); }
+  .gx-abt-reasons { grid-template-columns: minmax(0, 1fr); }
+  .gx-abt-reasons li { padding-block: .8rem; }
+}
+
+@media (max-width: 60rem) {
+  .gx-abt-hero__inner, .gx-abt-intro__inner, .gx-abt-owners__inner, .gx-abt-approach__inner, .gx-abt-why__inner, .gx-abt-faq__inner { grid-template-columns: minmax(0, 1fr); }
+  /* The photo leads on tablets and phones so it is the first thing seen. */
+  .gx-abt-hero__media { order: -1; margin: 0 0 .75rem .75rem; }
+  .gx-abt-hero__media img { height: auto; aspect-ratio: 16 / 9; }
+  .gx-abt-hero h1 { max-width: none; }
+  .gx-abt-intro__media { max-width: 40rem; }
+  .gx-abt-owners__media img { height: auto; aspect-ratio: 16 / 9; }
+  .gx-abt-why__media { min-height: 0; aspect-ratio: 16 / 9; }
+  .gx-abt-reasons { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 48rem) {
+  .gx-abt-feature { display: flex; }
+  .gx-abt-feature__media { flex: none; min-height: 0; aspect-ratio: 16 / 9; }
+  .gx-abt-feature__body { border-left: 0; border-top: 3px solid var(--brand); }
+  .gx-abt-reasons { grid-template-columns: minmax(0, 1fr); }
+  .gx-abt-owners__list { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 40rem) {
+  .gx-abt-hero { padding-top: calc(var(--nav-h) + var(--header-line) + 1rem); }
+  .gx-abt-hero .gx-crumbs { margin-bottom: var(--space-3); }
+  .gx-abt-hero__actions .btn { flex: 1 1 12rem; }
+  .gx-abt-hero__facts { grid-template-columns: minmax(0, 1fr); }
+  .gx-abt-hero__facts li, .gx-abt-hero__facts li:first-child { padding: .6rem 0; }
+  .gx-abt-hero__facts li + li { border-left: 0; border-top: 1px solid var(--line); }
+  .gx-abt-hero__media::before { left: -.75rem; bottom: -.75rem; }
+  /* On phones the photo is short and the caption would sit over the crew. */
+  .gx-abt-hero__media figcaption { display: none; }
+
+  .gx-abt-intro__checks { grid-template-columns: minmax(0, 1fr); }
+  .gx-abt-intro__actions .btn { flex: 1 1 12rem; }
+
+  .gx-abt-spec__grid { gap: 1rem; }
+  .gx-abt-cards.slider { grid-auto-rows: auto; }
+  .gx-abt-cards.slider > .gx-abt-card { flex-basis: 78%; }
+
+  .gx-abt-owners__list li { padding-block: .8rem; }
+
+  .gx-abt-approach__copy .btn { width: 100%; }
+  .gx-abt-steps.slider { gap: .85rem; }
+
+  .gx-abt-faq__head .gx-lede { margin-bottom: .5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gx-abt-card { transition: none; }
+}
+
+/* Kit gap (reported): in the footer, ".bkf__rating span { color: #fff }" turns the
+   Google badge star white. The brief wants one yellow star everywhere. */
+.bkf__rating .gx-greview__star { color: var(--brand); }
+
+/* Closing CTA: light warm band (same as the Projects page), not navy, so it
+   never sits directly on the navy footer. */
+.gx-abt-cta__inner { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-5) var(--col-gap); align-items: center; }
+.gx-abt-cta__copy { padding-left: var(--space-5); border-left: 4px solid var(--brand); }
+.gx-abt-cta .gx-title { max-width: none; }
+.gx-abt-cta__text { max-width: 60ch; margin-top: var(--space-3); color: var(--ink); font-size: var(--fs-lede); font-weight: 300; line-height: 1.55; }
+.gx-abt-cta__actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+@media (max-width: 64rem) { .gx-abt-cta__inner { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 40rem) {
+  .gx-abt-cta__copy { padding-left: var(--space-4); }
+  .gx-abt-cta__actions .btn { flex: 1 1 100%; }
+}

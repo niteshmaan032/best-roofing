@@ -2510,3 +2510,137 @@ a[href^="tel:"] { white-space: nowrap; }
   body:not(.page-contact) .contact__map,
   body:not(.page-contact) .contact__map iframe { min-height: 300px; }
 }
+
+/* ===========================================================================
+   About ("Expert Roofing for Manhattan Properties"), redesigned Nov 20
+   (Nitesh: too empty, too much white space). Photo pair on the left, a full
+   right column: title, intro, the four problems we fix as a 2x2 grid, the
+   inspection note and the usual button pair (call in yellow on the right).
+   =========================================================================== */
+.ab2__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  gap: clamp(1.75rem, 3.5vw, 3.5rem);
+  align-items: center;
+}
+.ab2__media { position: relative; min-width: 0; padding: 0 clamp(2.5rem, 6vw, 5.5rem) clamp(2.5rem, 5vw, 4rem) 0; }
+.ab2__main { margin: 0; overflow: hidden; border-radius: var(--r-xl); aspect-ratio: 5 / 4; background: var(--surface-2); }
+.ab2__main img { width: 100%; height: 100%; object-fit: cover; object-position: center 60%; }
+.ab2__inset {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 46%;
+  margin: 0;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border: 6px solid var(--white);
+  border-radius: var(--r-lg);
+  box-shadow: 0 18px 40px -18px rgba(7, 29, 92, .45);
+  background: var(--surface-2);
+}
+.ab2__inset img { width: 100%; height: 100%; object-fit: cover; }
+.ab2__tag {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  margin: 0;
+  padding: .5rem .85rem;
+  border-radius: 999px;
+  background: var(--yellow);
+  color: var(--blue-night);
+  font-size: .875rem;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 8px 20px -10px rgba(7, 29, 92, .5);
+}
+
+.ab2__content { min-width: 0; }
+.ab2__title { max-width: none; }
+.ab2__intro { max-width: 40rem; margin: 1rem 0 0; color: var(--ink-2); font-size: 1.0625rem; line-height: 1.65; text-wrap: pretty; }
+.ab2__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .75rem;
+  margin: 1.4rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.ab2__list li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: .85rem;
+  align-items: start;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--blue);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+}
+.ab2__ico {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--r-sm);
+  background: var(--blue);
+  color: var(--yellow);
+  font-size: 1.05rem;
+}
+.ab2__list strong { display: block; color: var(--ink); font-size: 1.0625rem; line-height: 1.3; }
+.ab2__list li span:not(.ab2__ico) { display: block; margin-top: .25rem; color: var(--ink-2); font-size: .9375rem; line-height: 1.5; }
+.ab2__note {
+  display: flex;
+  gap: .6rem;
+  align-items: flex-start;
+  margin: 1.1rem 0 0;
+  color: var(--ink-2);
+  font-size: .9875rem;
+  line-height: 1.55;
+}
+.ab2__note i { margin-top: .2rem; color: var(--blue); }
+.ab2__actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.4rem; }
+.ab2__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .65rem;
+  min-height: 3.25rem;
+  padding: .7rem 1.4rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform var(--fast) var(--ease), background-color var(--fast) var(--ease);
+}
+.ab2__btn:hover { transform: translateY(-2px); }
+.ab2__btn--estimate { background: var(--blue); color: var(--white); }
+.ab2__btn--estimate:hover { background: var(--blue-deep); }
+.ab2__btn--call { background: var(--yellow); color: var(--blue-night); }
+.ab2__btn--call:hover { background: var(--yellow-deep); }
+.ab2__tel { white-space: nowrap; }
+
+@media (max-width: 64rem) {
+  .ab2__grid { grid-template-columns: minmax(0, 1fr); }
+  .ab2__media { order: 2; max-width: 40rem; }
+}
+@media (max-width: 40rem) {
+  .ab2__media { padding: 0 0 2.25rem; }
+  .ab2__inset { width: 52%; border-width: 4px; }
+  .ab2__list { grid-template-columns: minmax(0, 1fr); gap: .6rem; }
+  .ab2__list li { padding: .85rem .95rem; }
+  .ab2__actions .ab2__btn { flex: 1 1 auto; }
+}
+/* Phones: the four problems as a compact 2x2 (icon + title) so the section stays short. */
+@media (max-width: 40rem) {
+  .ab2__list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; margin-top: 1.1rem; }
+  .ab2__list li { grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: .6rem; padding: .7rem .75rem; }
+  .ab2__list li span:not(.ab2__ico) { display: none; }
+  .ab2__list strong { font-size: .9375rem; }
+  .ab2__ico { width: 2.1rem; height: 2.1rem; font-size: .95rem; }
+  .ab2__note { margin-top: .9rem; font-size: .9375rem; }
+  .ab2__actions { margin-top: 1.1rem; }
+}

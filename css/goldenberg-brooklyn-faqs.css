@@ -1,0 +1,159 @@
+/* ==========================================================================
+   Goldenberg Roofing Brooklyn: FAQs page (goldenberg-brooklyn-faqs.html)
+   Loaded after css/goldenberg-brooklyn.css (the kit) and built only from its
+   tokens. Reused as-is from the kit: page hero panel, crumbs, badges, field
+   input, FAQ accordion (gk-faq), reviews slot, CTA band, buttons.
+   Everything here is prefixed gk-fq-.
+
+   Sections, as on bestroofing4-faqs.html:
+     1. Hero (blue panel): title left, search card right
+     2. Questions (white): sticky topic rail + grouped accordions
+     3. Still have questions? (pale, navy panel)
+     4. Reviews (white): kit slot
+     5. CTA (pale): kit CTA band as a card
+   ========================================================================== */
+
+
+/* 1. Hero: title left, search card right ----------------------------------- */
+.gk-fq-hero { padding-block: clamp(1.75rem, 1.3rem + 2vw, 3rem); }
+.gk-fq-hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); align-items: center; gap: 24px clamp(2rem, 5vw, 5rem); }
+.gk-fq-hero .gk-hero__title { font-size: clamp(1.9rem, 1.2rem + 2.2vw, 3rem); }
+
+.gk-fq-search {
+  padding: 20px 22px; background: #fff; color: var(--gk-text);
+  border-radius: var(--gk-radius); border-top: 6px solid var(--gk-yellow); box-shadow: var(--gk-shadow-lg);
+}
+.gk-fq-search__top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.gk-fq-search__badge { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: var(--gk-radius); background: var(--gk-blue); color: var(--gk-yellow); font-size: 17px; }
+.gk-fq-search__label { color: var(--gk-ink); font-size: 1.2rem; font-weight: 800; line-height: 1.2; }
+.gk-fq-search__field { position: relative; }
+.gk-fq-search__icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--gk-blue); font-size: 15px; pointer-events: none; }
+.gk-fq-search__input { height: 50px; padding: 0 46px 0 40px; font-size: 15.5px; }
+.gk-fq-search__input::-webkit-search-cancel-button { display: none; }
+.gk-fq-search__clear {
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  display: grid; place-items: center; width: 36px; height: 36px; padding: 0;
+  border: 0; border-radius: var(--gk-radius-sm); background: var(--gk-pale); color: var(--gk-ink); cursor: pointer;
+}
+.gk-fq-search__clear:hover { background: var(--gk-yellow); }
+.gk-fq-search__status { margin-top: 10px; color: var(--gk-muted); font-size: 14px; font-weight: 600; }
+.gk-fq-search__status strong { color: var(--gk-ink); font-weight: 800; }
+.gk-fq-search__try { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--gk-line); }
+.gk-fq-search__try-label { margin-right: 2px; color: var(--gk-muted); font-size: 13px; font-weight: 700; }
+.gk-fq-try {
+  min-height: 32px; padding: 0 10px; border: 1px solid var(--gk-line); border-radius: var(--gk-radius-sm);
+  background: var(--gk-pale); color: var(--gk-blue); font-size: 13px; font-weight: 700; cursor: pointer;
+  transition: background-color .18s ease, border-color .18s ease;
+}
+.gk-fq-try:hover { border-color: var(--gk-yellow-deep); background: var(--gk-yellow-soft); color: var(--gk-ink); }
+
+
+/* 2. Questions: sticky topic rail + grouped accordions --------------------- */
+.gk-fq-body__grid { display: grid; grid-template-columns: 300px minmax(0, 1fr); align-items: start; gap: 24px clamp(24px, 4vw, 56px); }
+
+.gk-fq-rail { position: sticky; top: calc(var(--gk-header-h) + 16px); display: grid; gap: 14px; }
+.gk-fq-rail__title { color: var(--gk-muted); font-size: 12.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.gk-fq-chips { display: grid; gap: 4px; list-style: none; }
+.gk-fq-chip {
+  display: flex; align-items: center; gap: 10px; width: 100%; min-height: 46px; padding: 6px 10px 6px 6px;
+  border: 1px solid transparent; border-radius: var(--gk-radius); background: transparent;
+  color: var(--gk-ink); font-size: 15px; font-weight: 700; text-align: left; cursor: pointer;
+  transition: background-color .18s ease, border-color .18s ease, color .18s ease;
+}
+.gk-fq-chip:hover { background: var(--gk-pale); }
+.gk-fq-chip__icon { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: var(--gk-radius-sm); background: var(--gk-pale); color: var(--gk-blue); font-size: 14px; }
+.gk-fq-chip__name { flex: 1; line-height: 1.25; }
+.gk-fq-chip__count { flex: none; min-width: 26px; padding: 2px 6px; border-radius: var(--gk-radius-sm); background: var(--gk-pale); color: var(--gk-blue); font-size: 12.5px; font-weight: 800; text-align: center; }
+.gk-fq-chip[aria-pressed="true"] { border-color: var(--gk-blue); background: var(--gk-blue); color: #fff; }
+.gk-fq-chip[aria-pressed="true"] .gk-fq-chip__icon { background: var(--gk-yellow); color: var(--gk-ink); }
+.gk-fq-chip[aria-pressed="true"] .gk-fq-chip__count { background: rgba(255, 255, 255, .16); color: #fff; }
+.gk-fq-chip.is-empty:not([aria-pressed="true"]) { opacity: .5; }
+
+.gk-fq-rail__help { padding: 16px; border-radius: var(--gk-radius); border-top: 4px solid var(--gk-yellow); background: var(--gk-navy); color: var(--gk-on-dark); }
+.gk-fq-rail__help-title { color: #fff; font-size: 1.05rem; font-weight: 800; }
+.gk-fq-rail__help-text { margin: 4px 0 12px; font-size: 14.5px; }
+
+.gk-fq-groups { display: grid; gap: 22px; min-width: 0; }
+.gk-fq-group__head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--gk-line); }
+.gk-fq-group__icon { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: var(--gk-radius); background: var(--gk-blue); color: var(--gk-yellow); font-size: 16px; }
+.gk-fq-group__title { flex: 1; display: flex; align-items: baseline; gap: 10px; color: var(--gk-ink); font-size: clamp(1.2rem, 1.05rem + .5vw, 1.45rem); font-weight: 800; }
+.gk-fq-group__num { color: var(--gk-yellow-deep); font-size: .8em; font-weight: 800; letter-spacing: .04em; }
+.gk-fq-group__count { flex: none; color: var(--gk-muted); font-size: 13.5px; font-weight: 700; }
+
+/* Question number before the kit summary text. */
+.gk-fq-num { flex: none; min-width: 24px; color: var(--gk-blue); font-size: 13px; font-weight: 800; letter-spacing: .04em; }
+.gk-fq-label { flex: 1; }
+.gk-faq__a a { font-weight: 700; }
+.gk-fq-mark { padding: 0 .1em; border-radius: 2px; background: var(--gk-yellow-soft); color: inherit; box-shadow: inset 0 -2px 0 var(--gk-yellow); }
+
+.gk-fq-empty { display: grid; justify-items: center; gap: 6px; padding: 28px 20px; border: 1px dashed var(--gk-line-strong); border-radius: var(--gk-radius); background: var(--gk-pale-2); text-align: center; }
+.gk-fq-empty__icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: var(--gk-pale); color: var(--gk-blue); font-size: 18px; }
+.gk-fq-empty__title { color: var(--gk-ink); font-size: 1.15rem; font-weight: 800; }
+.gk-fq-empty__text { color: var(--gk-muted); }
+.gk-fq-empty .gk-actions { margin-top: 8px; }
+
+
+/* 3. Still have questions? (navy panel on pale) ---------------------------- */
+.gk-fq-ask {
+  display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); overflow: hidden;
+  border-radius: var(--gk-radius); background: var(--gk-navy); color: var(--gk-on-dark); box-shadow: var(--gk-shadow);
+}
+.gk-fq-ask__photo { position: relative; min-height: 300px; margin: 0; }
+.gk-fq-ask__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.gk-fq-ask__body { padding: clamp(22px, 1rem + 2.4vw, 44px); border-left: 6px solid var(--gk-yellow); }
+.gk-fq-ask__title { color: #fff; font-size: clamp(1.6rem, 1.15rem + 1.6vw, 2.4rem); font-weight: 800; line-height: 1.12; letter-spacing: -.02em; }
+.gk-fq-ask__title em { font-style: normal; color: var(--gk-yellow); }
+.gk-fq-ask__facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 18px; margin-top: 18px; list-style: none; }
+.gk-fq-ask__facts li { display: flex; align-items: flex-start; gap: 10px; color: #fff; font-size: 15px; font-weight: 700; line-height: 1.4; }
+.gk-fq-ask__facts i { flex: none; display: grid; place-items: center; width: 28px; height: 28px; border-radius: var(--gk-radius-sm); background: var(--gk-yellow); color: var(--gk-ink); font-size: 12px; }
+.gk-fq-ask .gk-actions { margin-top: 22px; }
+
+
+/* 5. CTA: the kit band as a card (pale section around it) ------------------ */
+.gk-fq-cta .gk-cta-band { border-radius: var(--gk-radius); box-shadow: var(--gk-shadow); }
+.gk-fq-cta .gk-cta-band__inner { padding-inline: clamp(1.25rem, 1rem + 1.6vw, 2.5rem); }
+
+
+/* Responsive ---------------------------------------------------------------- */
+@media (min-width: 960px) and (max-height: 820px) {
+  .gk-fq-rail { gap: 10px; }
+  .gk-fq-chip { min-height: 42px; }
+  .gk-fq-rail__help { padding: 12px 14px; }
+}
+@media (max-width: 959px) {
+  .gk-fq-hero__grid { grid-template-columns: minmax(0, 1fr); }
+  .gk-fq-search { max-width: 640px; }
+
+  .gk-fq-body__grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  /* The topics become one sticky, sideways-scrolling chip row under the header. */
+  .gk-fq-rail {
+    top: var(--gk-header-h); z-index: 20; display: block;
+    margin-inline: calc(-1 * var(--gk-edge)); padding: 8px 0;
+    background: #fff; border-bottom: 1px solid var(--gk-line); box-shadow: 0 8px 14px -12px rgba(8, 25, 77, .35);
+  }
+  .gk-fq-rail__title, .gk-fq-rail__help { display: none; }
+  .gk-fq-chips {
+    display: flex; gap: 6px; padding: 0 var(--gk-edge); overflow-x: auto;
+    scrollbar-width: none; scroll-snap-type: x proximity; scroll-padding-inline: var(--gk-edge);
+  }
+  .gk-fq-chips::-webkit-scrollbar { display: none; }
+  .gk-fq-chips li { flex: none; scroll-snap-align: start; }
+  .gk-fq-chip { min-height: 40px; padding: 4px 6px 4px 4px; gap: 8px; border-color: var(--gk-line-strong); font-size: 14px; white-space: nowrap; }
+  .gk-fq-chip__icon { width: 30px; height: 30px; font-size: 13px; }
+
+  .gk-fq-ask { grid-template-columns: minmax(0, 1fr); }
+  .gk-fq-ask__photo { min-height: 0; aspect-ratio: 16 / 9; }
+  .gk-fq-ask__body { border-left: 0; border-top: 6px solid var(--gk-yellow); }
+}
+@media (max-width: 559px) {
+  .gk-fq-hero__copy .gk-actions .gk-btn { flex: 1 1 100%; }
+  .gk-fq-hero .gk-badges { gap: 6px; }
+  .gk-fq-hero .gk-badge { min-height: 34px; padding: 5px 10px; font-size: 13px; }
+  .gk-fq-search { padding: 16px; }
+  .gk-fq-group__head { gap: 10px; }
+  .gk-fq-group__icon { width: 34px; height: 34px; font-size: 14px; }
+  .gk-fq-group__count { font-size: 12.5px; }
+  .gk-fq-num { display: none; }
+  .gk-fq-ask__facts { grid-template-columns: minmax(0, 1fr); }
+  .gk-fq-ask .gk-actions .gk-btn { flex: 1 1 100%; }
+}

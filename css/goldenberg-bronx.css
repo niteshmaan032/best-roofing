@@ -1,0 +1,1364 @@
+/* ==========================================================================
+   Goldenberg Roofing Bronx: design system + homepage
+   --------------------------------------------------------------------------
+   Built 1:1 from an approved sister-site homepage design (see KIT notes):
+   same sections, layout, spacing, cards and responsive rules. Only the
+   brand changes:
+     - colours: Goldenberg logo blue #0036AC, navy #071D5C, yellow #F9D22C
+     - type: Inter (400-800) from Google Fonts
+     - container: identical to bestroofing4's .wrap (max 92rem, gutter
+       clamp(1.25rem, 4vw, 4.375rem)), so side spacing matches the main site
+   Shared by every Goldenberg Bronx page; page CSS loads after this file and
+   only uses its tokens and components.
+
+   CONTENTS
+     1.  Fonts (Inter is linked in <head>; nothing to load here)
+     2.  Tokens (colour, type, space, shape, shadow, layout)
+     3.  Base + reset
+     4.  Layout: container, section rhythm, backgrounds
+     5.  Section heads: kicker, title, lede
+     6.  Buttons + text link
+     7.  Small parts: icon, checks, tags, review badges, breadcrumb, details
+     8.  Forms (estimate card)
+     9.  Cards (.gx-card) for blog / listing pages
+     10. FAQ accordion (.gx-faq), ruled, single column
+     11. Index list (.gx-index) and numbered steps (.gx-steps)
+     12. Mobile swipe rows (.slider)
+     13. Header (white bar, 4px yellow strip, dropdowns, mobile drawer)
+     14. Compact page hero for inner pages (.gx-pagehero)
+     15. Footer ("bkf" markup)
+     16. Homepage sections (.gx-trust ... .gx-contact) + Trustindex slot
+     17. Responsive
+     18. Reduced motion
+     19. Homepage only (body.page-gx-home): photo-slider hero, marquee,
+         about, service cards, building types, FAQ box
+
+   NAMING
+     Header, drawer, dropdowns, buttons, forms and footer use plain names
+     (header, nav__*, drawer__*, btn, quote-card, field, bkf__*) so the
+     sister-site inner-page markup maps 1:1. Every section/component class
+     is prefixed gx- (block__element--modifier).
+
+   COLOUR RULES (Goldenberg)
+     Yellow #F9D22C carries dark navy text (call buttons, form submit,
+     marquee). Yellow is never used for text on white; small labels and
+     kickers on white use logo blue (--brand-ink). Estimate buttons are blue
+     (.btn--navy.btn--solid) on light grounds and white (.btn--white) on
+     dark grounds; call buttons are yellow (.btn--solid) and sit on the right.
+   ========================================================================== */
+
+/* 1. Fonts ---------------------------------------------------------------- */
+/* Inter only (the main Goldenberg site's family), linked in <head>:
+   https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap */
+
+/* 2. Tokens --------------------------------------------------------------- */
+:root {
+  /* Brand: Goldenberg yellow #F9D22C, logo blue #0036AC, navy #071D5C.
+     The amber-* token names are kept so every component rule maps 1:1
+     to the sister-site system; they hold Goldenberg yellows. */
+  --amber-50:  #FEF9E3;    /* warm wash: hover rows, light panel */
+  --amber-100: #FBEDAE;    /* borders on warm panels, chips */
+  --amber-200: #FAE27A;
+  --amber-300: #F9D22C;    /* yellow text on navy */
+  --amber-500: #F9D22C;    /* BRAND: call buttons, header strip, rules, dots */
+  --amber-600: #E2BC12;    /* pressed yellow */
+  --amber-700: #0036AC;    /* "brand text on white" = logo blue (yellow is unreadable on white) */
+
+  --blue: #0036AC;         /* Goldenberg logo blue: estimate buttons, icons, kickers */
+  --blue-hover: #002A88;
+
+  --navy-50:  #EEF3FC;     /* light section background */
+  --navy-100: #DCE6F8;     /* fills in line drawings, borders on tint */
+  --navy-200: #B7C8EE;
+  --navy-600: #0036AC;     /* menu icons */
+  --navy-700: #0036AC;     /* raised surface on navy, focus ring */
+  --navy-800: #071D5C;     /* BRAND NAVY: headings, dark panels */
+  --navy-900: #05164A;     /* footer, hero overlay, deep bands */
+
+  /* Neutrals, biased slightly toward navy. */
+  --grey-25:  #F8F9FB;
+  --grey-50:  #F3F5F8;
+  --grey-100: #E5E9EF;
+  --grey-200: #CED6E0;
+  --grey-400: #8B96A6;     /* placeholders, disabled */
+  --grey-600: #566273;     /* muted body text (5.9:1 on white) */
+  --grey-800: #1F2B3A;     /* body text */
+
+  /* Semantic aliases: use these in components. */
+  --brand: var(--amber-500);
+  --brand-hover: var(--amber-600);
+  --brand-ink: var(--amber-700);
+  --on-brand: var(--navy-800);          /* text on small amber labels/chips */
+  --on-brand-cta: var(--navy-800);      /* dark text + icons on yellow buttons */
+  --cta-shadow: none;
+  --navy: var(--navy-800);
+  --navy-deep: var(--navy-900);
+  --ink: var(--grey-800);
+  --muted: var(--grey-600);
+  --surface: #fff;
+  --surface-alt: var(--grey-50);
+  --surface-tint: var(--navy-50);
+  --surface-warm: var(--amber-50);
+  --line: rgba(7, 29, 92, .12);
+  --line-strong: rgba(7, 29, 92, .24);
+  --line-dark: rgba(255, 255, 255, .14);
+  --on-dark: #fff;
+  --on-dark-muted: rgba(255, 255, 255, .8);
+  --focus: var(--navy-700);
+
+  /* Type: Inter everywhere (Goldenberg). */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  --font-display: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  --fs-h1: clamp(2.2rem, 1.2rem + 2.2vw, 3.25rem);
+  --fs-h2: clamp(1.7rem, 1.2rem + 1.25vw, 2.4rem);
+  --fs-h3: clamp(1.15rem, 1rem + .35vw, 1.35rem);
+  --fs-lede: clamp(1.0625rem, 1rem + .2vw, 1.1875rem);
+  --fs-body: 1rem;
+  --fs-small: .9375rem;
+  --fs-xs: .8125rem;
+  --fs-label: .75rem;          /* uppercase labels, kickers */
+
+  /* Space: one gap scale, one section padding. */
+  --space-1: .25rem; --space-2: .5rem; --space-3: .75rem; --space-4: 1rem;
+  --space-5: 1.5rem; --space-6: 2rem; --space-7: 2.5rem; --space-8: 3rem;
+  --section-pad: clamp(2rem, 1.2rem + 1.6vw, 2.75rem);
+  --head-gap: var(--space-6);  /* section head -> content */
+  --col-gap: clamp(1.5rem, 1rem + 2.4vw, 4rem);
+
+  /* Shape: square and crisp. */
+  --radius-xs: 3px;
+  --radius-sm: 4px;            /* buttons, inputs */
+  --radius-card: 4px;
+  --radius-media: 4px;
+
+  --shadow-sm: 0 2px 10px rgba(5, 22, 74, .06);
+  --shadow-card: 0 14px 34px rgba(5, 22, 74, .10);
+  --shadow-float: 0 26px 60px rgba(5, 22, 74, .22);
+  --shadow-header: 0 2px 14px rgba(5, 22, 74, .10);
+  --shadow-menu: 0 18px 44px rgba(5, 22, 74, .18);
+
+  /* Layout: container identical to bestroofing4's .wrap (Nitesh):
+     max 92rem (= 80rem + 12rem), gutter clamp(1.25rem, 4vw, 4.375rem)
+     -> content edge 57.6px at 1440, 70px at 1920, 20px at 412. */
+  --container-max: 92rem;
+  --edge: clamp(1.25rem, 4vw, 4.375rem);
+  --nav-h: 6.25rem;
+  --header-line: 4px;
+  --z-header: 50;
+}
+@media (max-width: 88rem) { :root { --nav-h: 5.75rem; } }
+@media (max-width: 48rem) { :root { --nav-h: 4.75rem; } }
+@media (max-width: 40rem) { :root { --section-pad: 2.25rem; --head-gap: 1.25rem; } }
+
+/* 3. Base + reset ---------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+section[id], form[id] { scroll-margin-top: calc(var(--nav-h) + var(--header-line) + .75rem); }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--surface);
+  overflow-x: clip;
+}
+img { max-width: 100%; height: auto; display: block; }
+h1, h2, h3, h4 { margin: 0; color: var(--navy); font-family: var(--font-display); font-weight: 700; line-height: 1.15; letter-spacing: -.012em; text-wrap: balance; }
+p { margin: 0; }
+a { color: inherit; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+figure { margin: 0; }
+dl, dd { margin: 0; }
+button { font: inherit; color: inherit; }
+svg { display: inline-block; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.gx-dark :focus-visible, .footer :focus-visible, .gx-pagehero :focus-visible { outline-color: var(--brand); }
+.skip-link { position: absolute; left: -999px; top: 0; z-index: 100; padding: .5rem 1rem; background: var(--navy); color: #fff; }
+.skip-link:focus { left: 1rem; top: 1rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* 4. Layout ---------------------------------------------------------------- */
+.container { width: 100%; max-width: var(--container-max); margin-inline: auto; padding-inline: var(--edge); }
+
+/* Every content section: <section class="gx-section [gx-section--alt|--tint|--warm|--navy]"> */
+.gx-section { padding-block: var(--section-pad); background: var(--surface); }
+.gx-section--alt  { background: var(--surface-alt); }
+.gx-section--tint { background: var(--surface-tint); }
+.gx-section--warm { background: var(--surface-warm); }
+.gx-section--navy { background: var(--navy-deep); color: var(--on-dark-muted); }
+.gx-section--navy h2, .gx-section--navy h3 { color: #fff; }
+.gx-section + .gx-section:not([class*="--"]) { border-top: 1px solid var(--line); }
+
+/* 5. Section heads ---------------------------------------------------------
+   <div class="gx-head [gx-head--split|gx-head--center] [gx-head--rule]">
+     <div>
+       <p class="gx-kicker">Eyebrow</p>
+       <h2 class="gx-title">Title</h2>
+     </div>
+     <p class="gx-lede">Lede</p>          (or inside the first div)
+   </div>
+   The kicker -> title -> lede spacing is identical in every section.       */
+.gx-head { margin-bottom: var(--head-gap); }
+.gx-head--center { text-align: center; }
+.gx-head--center .gx-title, .gx-head--center .gx-lede { margin-inline: auto; }
+.gx-head--center .gx-kicker { justify-content: center; }
+.gx-head--split { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: var(--space-4) var(--space-8); align-items: end; }
+.gx-head--split .gx-lede { margin-top: 0; justify-self: end; max-width: 52ch; }
+.gx-head--rule { padding-bottom: var(--space-5); border-bottom: 1px solid var(--line); }
+.gx-head__aside { justify-self: end; display: flex; flex-wrap: wrap; gap: var(--space-3); }
+
+.gx-kicker {
+  display: flex; align-items: center; gap: .6rem;
+  margin-bottom: var(--space-3);
+  color: var(--brand-ink);
+  font-family: var(--font-sans); font-size: var(--fs-label); font-weight: 700; line-height: 1.2; letter-spacing: .16em; text-transform: uppercase;
+}
+/* Small amber square: a nod to the window in the logo. */
+.gx-kicker::before { content: ""; width: .5rem; height: .5rem; flex: none; background: var(--brand); }
+.gx-kicker--light { color: var(--amber-300); }
+
+.gx-title { max-width: 28ch; font-size: var(--fs-h2); letter-spacing: -.018em; line-height: 1.12; }
+.gx-title--light { color: #fff; }
+.gx-lede { max-width: 62ch; margin-top: var(--space-3); color: var(--ink); font-size: var(--fs-lede); font-weight: 300; line-height: 1.6; text-wrap: pretty; }
+.gx-section--navy .gx-lede, .gx-dark .gx-lede { color: var(--on-dark-muted); }
+
+/* 6. Buttons ---------------------------------------------------------------
+   .btn                       base (navy outline)
+   .btn--solid                amber fill, white bold text (default CTA)
+   .btn--navy                 navy outline; with .btn--solid: navy fill
+   .btn--white                white fill, navy text (on dark backgrounds)
+   .btn--ghost-light          white outline on dark backgrounds
+   .btn--block / .btn--sm     full width / compact
+   .btn__icon                 leading svg icon                               */
+.btn {
+  --bg: transparent; --fg: var(--navy); --bd: var(--navy);
+  --hbg: var(--navy); --hfg: #fff; --hbd: var(--navy);
+  display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
+  min-height: 3.125rem; margin: 0; padding: .7rem 1.5rem;
+  border: 2px solid var(--bd); border-radius: var(--radius-sm);
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-sans); font-size: 1.0625rem; font-weight: 700; line-height: 1.2; letter-spacing: .005em;
+  text-decoration: none; white-space: nowrap; cursor: pointer;
+  transition: background-color .2s ease, border-color .2s ease, color .2s ease, transform .2s ease;
+}
+.btn:hover, .btn:focus-visible { background: var(--hbg); border-color: var(--hbd); color: var(--hfg); }
+.btn:active { transform: translateY(1px); }
+.btn--solid { --bg: var(--brand); --fg: var(--on-brand-cta); --bd: var(--brand); --hbg: var(--navy); --hfg: #fff; --hbd: var(--navy); }
+.btn--navy { --bg: transparent; --fg: var(--blue); --bd: var(--blue); --hbg: var(--blue); --hfg: #fff; --hbd: var(--blue); }
+.btn--navy.btn--solid { --bg: var(--blue); --fg: #fff; --bd: var(--blue); --hbg: var(--navy); --hfg: #fff; --hbd: var(--navy); }
+.btn--white { --bg: #fff; --fg: var(--navy); --bd: #fff; --hbg: var(--navy-50); --hfg: var(--navy); --hbd: var(--navy-50); }
+.btn--ghost-light { --bg: transparent; --fg: #fff; --bd: rgba(255, 255, 255, .7); --hbg: #fff; --hfg: var(--navy); --hbd: #fff; }
+.btn--solid:not(.btn--navy) { --hbg: var(--amber-600); --hfg: var(--on-brand-cta); --hbd: var(--amber-600); }
+.btn--solid:not(.btn--navy), .btn--navy.btn--solid:hover, .btn--white:hover, .btn--navy.btn--solid:focus-visible, .btn--white:focus-visible { font-weight: 700; text-shadow: var(--cta-shadow); }
+.btn--solid:not(.btn--navy) .btn__icon { filter: drop-shadow(var(--cta-shadow)); }
+.btn--block { width: 100%; }
+.btn--sm { min-height: 2.75rem; padding: .55rem 1.1rem; font-size: 1rem; }
+.btn__icon { width: 1.05rem; height: 1.05rem; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Text link with arrow: <a class="gx-link">Label <svg><use href="#i-arrow"/></svg></a> */
+.gx-link { display: inline-flex; align-items: center; gap: .45rem; min-height: 2.75rem; color: var(--navy); font-size: var(--fs-small); font-weight: 700; text-decoration: none; }
+.gx-link svg { width: 1.05rem; height: 1.05rem; fill: none; stroke: var(--brand-ink); stroke-width: 2.2; transition: transform .2s; }
+.gx-link:hover { color: var(--brand-ink); text-decoration: underline; text-underline-offset: .2em; }
+.gx-link:hover svg { transform: translateX(3px); }
+
+/* 7. Small parts ----------------------------------------------------------- */
+/* Icon: <span class="gx-ico"><svg><use href="#i-roof"/></svg></span>
+   A square navy-tint tile with a navy line icon (amber is too light for
+   icons on white). .gx-ico--dark for navy backgrounds (amber icon). */
+.gx-ico {
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  width: 2.75rem; height: 2.75rem; border-radius: var(--radius-sm);
+  background: var(--navy-50); color: var(--navy); box-shadow: inset 0 -2px 0 var(--brand);
+}
+.gx-ico svg { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.gx-ico--dark { background: rgba(255, 255, 255, .07); color: var(--brand); box-shadow: inset 0 0 0 1px var(--line-dark); }
+.gx-ico--amber { background: var(--brand); color: var(--on-brand); box-shadow: none; }
+
+/* Check list: <ul class="gx-checks"><li><svg><use href="#i-check"/></svg>Text</li></ul> */
+.gx-checks { display: grid; gap: .5rem; }
+.gx-checks li { display: flex; align-items: flex-start; gap: .55rem; color: var(--navy); font-weight: 500; }
+.gx-checks svg { width: 1.1rem; height: 1.1rem; flex: none; margin-top: .25rem; fill: none; stroke: var(--brand-ink); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Tags: <ul class="gx-tags"><li>EPDM</li></ul> */
+.gx-tags { display: flex; flex-wrap: wrap; gap: .35rem; }
+.gx-tags li { padding: .18rem .55rem; border: 1px solid var(--line); border-radius: var(--radius-xs); background: #fff; color: var(--navy); font-size: var(--fs-xs); font-weight: 500; line-height: 1.4; white-space: nowrap; }
+
+/* Review badges (Google only for Goldenberg Bronx): no rating numbers.
+   <ul class="gx-badges"><li class="gx-badge"><img ...><span><strong>Google</strong><small>Reviews</small></span></li></ul> */
+.gx-badges { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; }
+.gx-badge {
+  display: inline-flex; align-items: center; gap: .6rem;
+  min-height: 3.25rem; padding: .45rem .95rem .45rem .6rem;
+  border: 1px solid var(--line); border-radius: var(--radius-sm); background: #fff;
+  color: var(--navy); line-height: 1.1;
+}
+.gx-badge img { width: 2rem; height: 2rem; object-fit: contain; }
+.gx-badge strong { display: block; font-size: 1rem; }
+.gx-badge small { display: block; margin-top: .15rem; color: var(--muted); font-size: .6875rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+
+/* Breadcrumb for inner pages (on the navy page hero):
+   <nav class="gx-crumbs" aria-label="Breadcrumb"><ol><li><a href="goldenberg-bronx.html">Home</a></li><li aria-current="page">FAQ</li></ol></nav> */
+.gx-crumbs ol { display: flex; flex-wrap: wrap; gap: .4rem; font-size: var(--fs-xs); font-weight: 500; letter-spacing: .02em; }
+.gx-crumbs li { display: flex; align-items: center; gap: .4rem; color: var(--on-dark-muted); }
+.gx-crumbs li + li::before { content: "/"; color: var(--brand); }
+.gx-crumbs a { color: #fff; text-decoration: none; }
+.gx-crumbs a:hover { text-decoration: underline; text-underline-offset: .2em; }
+
+/* Detail rows (call / office / hours), shared by the homepage + contact page:
+   <ul class="gx-details [gx-details--row]"><li><span class="gx-ico">svg</span><div>
+     <p class="gx-details__label">Call</p><p class="gx-details__value"><a href="tel:+17186634786">(718) 663-4786</a></p>
+   </div></li></ul>                                                          */
+.gx-details li { display: flex; align-items: center; gap: .85rem; min-width: 0; padding: .8rem 0; }
+.gx-details li + li { border-top: 1px solid var(--line); }
+.gx-details .gx-ico { width: 2.5rem; height: 2.5rem; }
+.gx-details .gx-ico svg { width: 1.1rem; height: 1.1rem; }
+.gx-details__label { color: var(--muted); font-size: .6875rem; font-weight: 700; letter-spacing: .12em; line-height: 1.3; text-transform: uppercase; }
+.gx-details__value { margin-top: .1rem; color: var(--navy); font-size: var(--fs-small); font-weight: 700; line-height: 1.4; }
+.gx-details__value a { color: inherit; text-decoration: none; }
+.gx-details__value a:hover { color: var(--brand-ink); text-decoration: underline; text-underline-offset: .2em; }
+.gx-details__value--lg { font-family: var(--font-display); font-size: 1.375rem; font-weight: 600; letter-spacing: -.005em; }
+.gx-details--row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-block: 1px solid var(--line); }
+.gx-details--row li { align-items: flex-start; padding: .9rem 1rem; }
+.gx-details--row li:first-child { padding-left: 0; }
+.gx-details--row li + li { border-top: 0; border-left: 1px solid var(--line); }
+
+/* 8. Forms -----------------------------------------------------------------
+   <form class="quote-card" novalidate>
+     <h2 class="quote-card__title">Get a Free Estimate</h2>
+     <div class="field-row"> <div class="field">label+input</div> x2 </div>
+     <div class="field">...</div>
+     <button class="btn btn--solid btn--block">Get My Free Estimate</button>
+     <p class="form-callback">We’ll call you back within the hour</p>
+   </form>
+   js/goldenberg-bronx.js validates every form.quote-card (name, phone, email, address).
+   The amber top rule is the card's signature.                              */
+.quote-card {
+  display: grid; gap: .8rem;
+  padding: clamp(1.2rem, .9rem + .8vw, 1.65rem);
+  border: 1px solid var(--line); border-top: 4px solid var(--brand); border-radius: var(--radius-sm);
+  background: #fff; color: var(--ink); box-shadow: var(--shadow-card);
+}
+.quote-card__title { font-size: clamp(1.4rem, 1.2rem + .5vw, 1.65rem); letter-spacing: -.012em; }
+.quote-card__sub { margin-top: -.45rem; color: var(--muted); font-size: var(--fs-small); }
+.field-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; align-items: start; }
+.field { display: grid; gap: .3rem; min-width: 0; }
+.field label { color: var(--navy); font-size: .6875rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.field input, .field textarea {
+  width: 100%; min-height: 2.75rem; padding: .6rem .8rem;
+  border: 1px solid var(--grey-200); border-radius: var(--radius-sm); background: var(--grey-25);
+  font: inherit; font-size: 1rem; font-weight: 500; color: var(--ink);
+  transition: border-color .15s, background-color .15s;
+}
+.field textarea { height: 6rem; min-height: 6rem; max-height: 12rem; resize: vertical; }   /* Sean: message box about 6rem, never stretched */
+.field input:hover, .field textarea:hover { border-color: var(--grey-400); }
+.field input:focus, .field textarea:focus { outline: 2px solid var(--navy); outline-offset: 0; border-color: var(--navy); background: #fff; }
+.field input::placeholder, .field textarea::placeholder { color: var(--grey-400); font-size: .875rem; }
+.field-error { color: #A4281B; font-size: var(--fs-xs); font-weight: 700; }
+.has-error input, .has-error textarea { border-color: #A4281B; }
+.form-callback { margin-top: -.35rem; color: var(--navy); font-size: var(--fs-xs); line-height: 1.3; text-align: center; }
+.form-thanks { padding: .75rem 0 0; text-align: center; }
+.form-thanks strong { display: block; margin-bottom: .35rem; color: var(--navy); font-size: 1.125rem; }
+.form-thanks a { color: var(--brand-ink); font-weight: 700; }
+
+/* 9. Cards -----------------------------------------------------------------
+   <article class="gx-card">
+     <div class="gx-card__media"><img ...></div>    (optional, fixed 3:2)
+     <div class="gx-card__body">
+       <p class="gx-card__tag">Tag</p>
+       <h3 class="gx-card__title">One-line title</h3>
+       <p class="gx-card__text">Three lines max (clamped)</p>
+       <div class="gx-card__foot">button / link (pinned to the bottom)</div>
+     </div>
+   </article>
+   Cards in a row share structure; text is clamped so rows stay level. The
+   yellow hairline on top is the card signature.                                */
+.gx-card { position: relative; display: flex; flex-direction: column; min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-card); background: #fff; transition: border-color .2s, box-shadow .2s; }
+.gx-card::before { content: ""; position: absolute; z-index: 1; top: 0; left: 0; width: 3rem; height: 3px; background: var(--brand); }
+.gx-card:hover { border-color: var(--line-strong); box-shadow: var(--shadow-card); }
+.gx-card__media { aspect-ratio: 3 / 2; overflow: hidden; background: var(--navy-50); }
+.gx-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.gx-card:hover .gx-card__media img { transform: scale(1.04); }
+.gx-card__body { display: flex; flex-direction: column; flex: 1; gap: .45rem; padding: 1.15rem 1.25rem 1.25rem; }
+.gx-card__tag { color: var(--brand-ink); font-size: var(--fs-label); font-weight: 700; letter-spacing: .1em; line-height: 1.35; text-transform: uppercase; }
+.gx-card__title { font-size: var(--fs-h3); display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.gx-card__text { color: var(--muted); font-size: var(--fs-small); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.gx-card__foot { margin-top: auto; padding-top: .5rem; }
+
+/* 10. FAQ accordion ---------------------------------------------------------
+   Ruled list, no boxes. Use .gx-faq--center for the single centered column.
+   <div class="gx-faq gx-faq--center">
+     <details class="gx-faq__item"><summary>Question</summary><div class="gx-faq__a"><p>Answer</p></div></details>
+   </div>                                                                     */
+.gx-faq { border-top: 2px solid var(--navy); }
+.gx-faq--center { max-width: 54rem; margin-inline: auto; }
+.gx-faq__item { border-bottom: 1px solid var(--line-strong); }
+.gx-faq__item summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+  min-height: 3.75rem; padding: .85rem 0;
+  color: var(--navy); font-size: 1.0625rem; font-weight: 700; line-height: 1.35;
+  list-style: none; cursor: pointer; transition: color .15s;
+}
+.gx-faq__item summary::-webkit-details-marker { display: none; }
+.gx-faq__item summary::after {
+  content: ""; flex: none; width: 2rem; height: 2rem; border: 1.5px solid var(--line-strong); border-radius: 50%;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23071D5C' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M12 6v12M6 12h12'/%3E%3C/svg%3E") center / .95rem no-repeat;
+  transition: background-color .2s, border-color .2s;
+}
+.gx-faq__item[open] summary::after { border-color: var(--brand); background-color: var(--brand); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23071D5C' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M6 12h12'/%3E%3C/svg%3E"); }
+.gx-faq__item summary:hover { color: var(--brand-ink); }
+.gx-faq__a { max-width: 70ch; padding: 0 3.5rem 1.1rem 0; color: var(--muted); font-size: var(--fs-small); line-height: 1.65; }
+.gx-faq__a a { color: var(--brand-ink); font-weight: 700; }
+.gx-faq__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; margin-top: var(--space-5); }
+
+/* 11. Index list + numbered steps -------------------------------------------
+   Index: a 2-column list of large numbered entries with a thin amber rule and
+   a small thumbnail (homepage services; reuse for any "list of offers").
+   <ol class="gx-index">
+     <li class="gx-index__item">
+       <div class="gx-index__body">
+         <h3 class="gx-index__title">Title</h3>
+         <p class="gx-index__text">Two lines (clamped)</p>
+         <a class="gx-link gx-index__link" href="...">Learn more <svg><use href="#i-arrow"/></svg></a>
+       </div>
+       <div class="gx-index__thumb"><img ...></div>
+     </li>
+   </ol>                                                                    */
+.gx-index { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--col-gap); counter-reset: idx; }
+.gx-index__item {
+  position: relative; counter-increment: idx;
+  display: grid; grid-template-columns: 3.25rem minmax(0, 1fr) 9rem; gap: 1.25rem; align-items: start;
+  padding: 1.1rem 0 1.15rem; border-top: 1px solid var(--line-strong);
+}
+.gx-index__item:nth-last-child(-n+2) { border-bottom: 1px solid var(--line-strong); }
+.gx-index__item::before { content: counter(idx, decimal-leading-zero); padding-top: .1rem; color: var(--brand-ink); font-family: var(--font-display); font-size: 1.75rem; font-weight: 600; line-height: 1; letter-spacing: -.02em; }
+.gx-index__item::after { content: ""; position: absolute; top: -1px; left: 0; width: 3.25rem; height: 3px; background: var(--brand); transition: width .3s ease; }
+.gx-index__item:hover::after, .gx-index__item:focus-within::after { width: 100%; }
+.gx-index__body { display: flex; flex-direction: column; min-width: 0; }
+.gx-index__title { font-size: var(--fs-h3); white-space: nowrap; overflow: hidden; text-overflow: clip; }
+.gx-index__text { margin-top: .35rem; color: var(--muted); font-size: var(--fs-small); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.gx-index__link { align-self: flex-start; min-height: 2.25rem; margin-top: .3rem; }
+.gx-index__link::after { content: ""; position: absolute; inset: 0; }     /* whole entry is clickable */
+.gx-index__thumb { aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--radius-media); background: var(--navy-50); }
+.gx-index__thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.gx-index__item:hover .gx-index__thumb img { transform: scale(1.05); }
+.gx-index__item:hover .gx-index__title { color: var(--brand-ink); }
+
+/* Steps: numbered columns with an amber rule on top (contact "what happens
+   next", shingle "our process").
+   <ol class="gx-steps slider" data-slider><li class="gx-step"><h3>Title</h3><p>Text</p></li> x4</ol> */
+.gx-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-6); counter-reset: step; }
+.gx-step { position: relative; counter-increment: step; display: flex; flex-direction: column; gap: .45rem; padding-top: 1.1rem; border-top: 1px solid var(--line-strong); }
+.gx-step::before { content: counter(step, decimal-leading-zero); color: var(--brand-ink); font-family: var(--font-display); font-size: 2.25rem; font-weight: 600; line-height: 1; letter-spacing: -.02em; }
+.gx-step::after { content: ""; position: absolute; top: -2px; left: 0; width: 3.25rem; height: 3px; background: var(--brand); }
+.gx-step h3 { margin-top: .35rem; font-size: var(--fs-h3); }
+.gx-step p { color: var(--muted); font-size: var(--fs-small); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* 12. Mobile swipe rows -----------------------------------------------------
+   Add class "slider" (and data-slider) to any grid that should become a
+   horizontal swipe row under 40rem, plus <p class="swipe-hint">.            */
+.swipe-hint { display: none; margin-top: .6rem; color: var(--muted); font-size: var(--fs-xs); text-align: center; }
+
+/* 13. Header ----------------------------------------------------------------
+   Markup: copy <header class="header is-scrolled" id="top"> ... </header>
+   from goldenberg-bronx.html. Solid white from the top, amber line underneath.    */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: var(--z-header);
+  background: #fff; border-bottom: var(--header-line) solid var(--brand); box-shadow: var(--shadow-header);
+}
+.header__inner { position: relative; display: flex; align-items: center; gap: var(--space-4); height: var(--nav-h); }
+.brand { display: block; flex: none; line-height: 0; }
+.brand img { width: auto; height: 4.5rem; }   /* Goldenberg Bronx logo (476 x 273): 72px tall on desktop */
+.nav { display: flex; flex: 1; align-items: center; justify-content: center; min-width: 0; }
+.nav__list { display: flex; align-items: stretch; gap: .5rem; height: var(--nav-h); }
+.nav__item { position: relative; display: flex; }
+.nav__item + .nav__item { background: linear-gradient(var(--line), var(--line)) left center / 1px 1.5rem no-repeat; }
+.nav__link {
+  display: inline-flex; align-items: center; justify-content: center; gap: .375rem;
+  height: 100%; padding-inline: 1.1875rem; border: 0; background: none; cursor: pointer;
+  color: var(--navy); font-family: var(--font-sans); font-size: 1.0625rem; font-weight: 500; letter-spacing: .005em; text-decoration: none; white-space: nowrap;
+  transition: color .2s, background-color .2s, box-shadow .2s;
+}
+.nav__link:hover, .nav__link[aria-expanded="true"] { color: var(--navy); background: var(--amber-50); box-shadow: inset 0 -3px 0 var(--brand); }
+.nav__link[aria-current="page"] { color: var(--navy); font-weight: 700; box-shadow: inset 0 -3px 0 var(--brand); }
+.nav__chevron { width: .75rem; height: .75rem; fill: none; stroke: currentColor; stroke-width: 2.5; transition: transform .2s; }
+.nav__link[aria-expanded="true"] .nav__chevron { transform: rotate(180deg); }
+.header__cta { display: flex; flex: none; align-items: center; gap: var(--space-4); }
+.header__btn { padding-inline: 1.1rem; }
+
+.dropdown {
+  position: absolute; top: 100%; left: 0; min-width: 14rem; padding: .75rem;
+  border: 1px solid var(--line); border-radius: var(--radius-sm); background: #fff; box-shadow: var(--shadow-menu);
+}
+.dropdown::before { content: ""; position: absolute; top: -1px; left: 0; right: 0; height: 3px; background: var(--brand); }
+.dropdown[hidden] { display: none; }
+.dropdown--mega {
+  position: fixed; top: calc(var(--nav-h) + var(--header-line)); left: 50%;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem 1.5rem;
+  width: min(62rem, calc(100vw - var(--edge) - var(--edge))); padding: 1.25rem 1.5rem 1rem; transform: translateX(-50%);
+}
+.mega__heading { margin: 0 0 .5rem; padding-bottom: .5rem; border-bottom: 1px solid var(--line); color: var(--muted); font-size: var(--fs-label); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.menu-list a {
+  display: flex; align-items: center; gap: .75rem; padding: .55rem .75rem; border-radius: var(--radius-sm);
+  color: var(--navy); font-size: 1.0625rem; font-weight: 500; text-decoration: none; white-space: nowrap;
+  transition: background-color .15s, color .15s;
+}
+.menu-list a svg { width: 1.125rem; height: 1.125rem; flex: none; fill: none; stroke: var(--navy-600); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.menu-list a:hover { background: var(--amber-50); color: var(--navy); }
+.menu-list a:hover svg { stroke: var(--brand-ink); }
+.menu-list a.is-urgent { color: var(--brand-ink); font-weight: 700; }
+.menu-list a.is-urgent svg { stroke: var(--brand-ink); }
+
+.menu-btn { display: none; flex-direction: column; align-items: center; justify-content: center; gap: 5px; width: 2.75rem; height: 2.75rem; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: #fff; cursor: pointer; }
+.menu-btn span { width: 1.25rem; height: 2px; border-radius: 2px; background: var(--navy); transition: transform .2s, opacity .2s; }
+.menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.drawer {
+  position: absolute; top: 100%; left: 0; right: 0; max-height: calc(100vh - var(--nav-h)); overflow-y: auto; overscroll-behavior: contain;
+  padding: .5rem var(--edge) 1.25rem; border-top: var(--header-line) solid var(--brand); background: #fff; box-shadow: var(--shadow-menu);
+}
+.drawer[hidden] { display: none; }
+.drawer__list > li + li { border-top: 1px solid var(--line); }
+.drawer__link, .drawer__group {
+  display: flex; align-items: center; justify-content: space-between; width: 100%; padding: .875rem 0;
+  border: 0; background: none; color: var(--navy); font-size: 1.125rem; font-weight: 500; text-align: left; text-decoration: none; cursor: pointer;
+}
+.drawer__link[aria-current="page"] { font-weight: 700; }
+.drawer__group svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 2.2; transition: transform .2s; }
+.drawer__group[aria-expanded="true"] svg { transform: rotate(180deg); }
+.drawer__sub { padding: 0 0 .75rem .75rem; }
+.drawer__sub[hidden] { display: none; }
+.drawer__sub a { display: block; padding: .5rem 0; color: var(--ink); font-size: 1.0625rem; font-weight: 300; text-decoration: none; }
+.drawer__sub a.is-urgent { color: var(--brand-ink); font-weight: 700; }
+.drawer__label { margin-top: .5rem; padding: .25rem 0; color: var(--muted); font-size: var(--fs-label); font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.drawer__actions { display: grid; gap: .75rem; margin-top: 1rem; }
+
+@media (max-width: 88rem) {
+  .nav { display: none; }
+  .brand img { height: 4.25rem; }
+  .header__cta { margin-left: auto; }
+  .menu-btn { display: inline-flex; }
+  .header__btn { min-height: 3rem; padding: .6rem 1.2rem; font-size: 1rem; }
+}
+@media (min-width: 88.01rem) { .drawer { display: none; } }
+@media (max-width: 48rem) {
+  .brand img { height: 3.6rem; }
+  /* Mobile: the phone button becomes an amber square icon button. */
+  .header__btn { width: 2.75rem; min-width: 2.75rem; height: 2.75rem; min-height: 2.75rem; padding: 0; }
+  .header__btn .btn__label { display: none; }
+  .header__btn .btn__icon { width: 1.25rem; height: 1.25rem; }
+  .header__cta { gap: .5rem; }
+}
+
+/* 14. Compact page hero (inner pages) ---------------------------------------
+   <section class="gx-pagehero" aria-labelledby="page-title">
+     <div class="gx-pagehero__bg" aria-hidden="true"><img src="images/landing/project-commercial-tpo.jpg" alt=""></div>
+     <div class="container gx-pagehero__inner">
+       <div class="gx-pagehero__copy">
+         <nav class="gx-crumbs" aria-label="Breadcrumb">...</nav>
+         <h1 id="page-title">Title</h1>
+         <p>One or two lines</p>
+       </div>
+       <div class="gx-pagehero__aside">optional card / buttons</div>
+     </div>
+   </section>
+   Deep navy with a skyline photo fading in on the right. About 16-17rem
+   tall on desktop, starts under the fixed header. Swap the photo per page. */
+.gx-pagehero {
+  position: relative; isolation: isolate; overflow: hidden;
+  padding: calc(var(--nav-h) + var(--header-line) + clamp(1.75rem, 1.2rem + 1.5vw, 2.75rem)) 0 clamp(1.75rem, 1.2rem + 1.5vw, 2.75rem);
+  background: var(--navy-deep); color: var(--on-dark-muted);
+}
+.gx-pagehero__bg { position: absolute; z-index: -1; inset: 0 0 0 42%; }
+.gx-pagehero__bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 22%; opacity: .55; }
+.gx-pagehero__bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--navy-deep) 0%, rgba(5, 22, 74, .55) 45%, rgba(5, 22, 74, .25) 100%); }
+.gx-pagehero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--line-dark); }
+.gx-pagehero__inner { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: var(--space-5) var(--space-8); align-items: center; }
+.gx-pagehero h1 { margin-top: var(--space-3); color: #fff; font-size: clamp(2rem, 1.3rem + 1.8vw, 3rem); letter-spacing: -.02em; }
+.gx-pagehero__copy > p { max-width: 58ch; margin-top: var(--space-3); font-size: var(--fs-lede); font-weight: 300; }
+.gx-pagehero__aside { justify-self: end; }
+
+/* 15. Footer ----------------------------------------------------------------
+   Markup: copy <footer class="footer bkf"> ... </footer> from goldenberg-bronx.html.
+   Logo (on a white plate) with text to its right, 3 link columns, contact
+   bar (Google badge, Licensed & Insured, Call / Office / Hours), bottom row (Facebook,
+   Instagram, X, copyright, Terms & Privacy, back to top).                 */
+.footer { border-top: 4px solid var(--brand); background: var(--navy-deep); color: var(--on-dark-muted); font-size: .9rem; }
+.footer a { text-decoration: none; }
+.bkf { --bkf-head: var(--brand); --bkf-line: rgba(255, 255, 255, .12); font-size: 1rem; }
+.bkf p { margin: 0; }
+.bkf__top { display: grid; grid-template-columns: minmax(0, 2.6fr) repeat(3, minmax(max-content, 1fr)); gap: 2rem clamp(1.5rem, 1rem + 2vw, 2.85rem); padding-block: 1.5rem .75rem; }
+.bkf__brand { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 1.25rem; align-content: start; align-items: start; min-width: 0; }
+/* The logo's navy lettering needs a light plate on the navy footer. */
+.bkf__logo { grid-row: 1 / span 2; display: inline-flex; padding: .45rem .6rem; border-radius: var(--radius-sm); background: #fff; line-height: 0; box-shadow: inset 0 -3px 0 var(--brand); }
+.bkf__logo img { width: auto; height: 4.5rem; }
+.bkf__about { max-width: 46ch; color: rgba(255, 255, 255, .74); font-size: .9375rem; line-height: 1.7; }
+.bkf__cta { justify-self: start; margin-top: 1rem; min-height: 3rem; padding: .6rem 1.35rem; font-size: 1rem; }
+.bkf__col { min-width: 0; }
+.bkf .bkf__heading { max-width: none; color: var(--bkf-head); font-family: var(--font-sans); font-size: 1rem; font-weight: 700; line-height: 1.6; letter-spacing: .01em; }
+.bkf__links { display: grid; gap: 2px; margin-top: 1rem; }
+.bkf__links a { display: inline-block; padding: .5rem 0; color: rgba(255, 255, 255, .76); font-size: .9375rem; line-height: 1.4; }
+.bkf__links a:hover, .bkf__links a:focus-visible { color: #fff; text-decoration: underline; text-decoration-color: var(--brand); text-underline-offset: .2em; }
+
+.bkf__contactbar { border-top: 1px solid var(--bkf-line); }
+.bkf__midrow { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 2rem; padding-block: .75rem; }
+.bkf__badges { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.25rem; }
+.bkf__badges li { display: flex; align-items: center; gap: .5rem; }
+.bkf__rating img { width: 2rem; height: 2rem; }
+.bkf__rating span { color: #fff; font-size: .9375rem; font-weight: 700; line-height: 1.2; }
+.bkf__yelp img { width: 2.625rem; height: 2.625rem; object-fit: contain; }
+.bkf__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.bkf__contacts { display: grid; grid-auto-flow: column; justify-content: end; gap: 1.5rem; }
+.bkf__contacts li { display: grid; grid-template-columns: 2.5rem auto; align-items: start; gap: 1rem; }
+.bkf__icon { display: flex; align-items: center; justify-content: center; width: 2.5rem; height: 2.5rem; border-radius: 50%; background: var(--brand); color: var(--on-brand); }
+.bkf__icon svg { width: 1.05rem; height: 1.05rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.bkf__label { color: rgba(255, 255, 255, .62); font-size: .8125rem; letter-spacing: .14em; line-height: 1.6; text-transform: uppercase; }
+.bkf__value { margin-top: .25rem !important; color: #fff; font-size: .9375rem; font-weight: 700; line-height: 1.45; }
+.bkf__value a { color: #fff; }
+.bkf__value a:hover, .bkf__value a:focus-visible { text-decoration: underline; text-underline-offset: .2em; }
+
+.bkf__bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem 1.5rem; padding-block: .5rem .75rem; }
+.bkf__socials { display: flex; flex-wrap: wrap; gap: .25rem; margin-right: auto; }
+.bkf__socials a, .bkf__totop { display: flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; border: 1px solid rgba(255, 255, 255, .18); border-radius: var(--radius-sm); color: #fff; transition: background-color .15s, border-color .15s, color .15s; }
+.bkf__socials a:hover, .bkf__socials a:focus-visible, .bkf__totop:hover, .bkf__totop:focus-visible { background: var(--brand); border-color: var(--brand); color: var(--on-brand-cta); }
+.bkf__socials svg, .bkf__totop svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.bkf__socials a[aria-label="Facebook"] svg { width: 1.15rem; height: 1.15rem; fill: currentColor; stroke: none; }
+.bkf__totop { margin-left: .75rem; border-color: rgba(255, 255, 255, .22); }
+.bkf__copy { margin-left: auto !important; color: rgba(255, 255, 255, .62); font-size: .875rem; line-height: 1.6; }
+.bkf__legal { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.5rem; }
+.bkf__legal a { color: rgba(255, 255, 255, .72); font-size: .875rem; }
+.bkf__legal a:hover, .bkf__legal a:focus-visible { color: #fff; text-decoration: underline; text-underline-offset: .2em; }
+
+/* ==========================================================================
+   16. Homepage sections (goldenberg-bronx.html). Inner pages may reuse any of these.
+   ========================================================================== */
+
+
+/* Trust strip: a ruled ledger of four facts. ----------------------------- */
+.gx-trust { border-bottom: 1px solid var(--line); background: #fff; }
+.gx-trust__list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.gx-trust__item { display: flex; align-items: center; gap: .9rem; min-width: 0; padding: 1.15rem 1.5rem; }
+.gx-trust__item:first-child { padding-left: 0; }
+.gx-trust__item + .gx-trust__item { border-left: 1px solid var(--line); }
+.gx-trust__item strong { display: block; color: var(--navy); font-size: 1rem; line-height: 1.3; }
+.gx-trust__item span:not(.gx-ico) { display: block; color: var(--muted); font-size: var(--fs-small); line-height: 1.4; }
+
+/* About: copy | numbered approach | portrait photo. ----------------------- */
+.gx-about__inner { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr) minmax(0, .7fr); gap: var(--col-gap); align-items: stretch; }
+.gx-about__copy > p:not(.gx-kicker):not(.gx-lede) { max-width: 60ch; margin-top: var(--space-3); color: var(--muted); }
+.gx-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: var(--space-5); border-block: 1px solid var(--line); }
+.gx-facts div { min-width: 0; padding: .85rem 1rem; }
+.gx-facts div:first-child { padding-left: 0; }
+.gx-facts div + div { border-left: 1px solid var(--line); }
+.gx-facts dt { color: var(--navy); font-family: var(--font-display); font-size: clamp(1.5rem, 1.2rem + .8vw, 2rem); font-weight: 600; line-height: 1; letter-spacing: -.02em; }
+.gx-facts dd { margin-top: .35rem; color: var(--muted); font-size: var(--fs-xs); font-weight: 500; line-height: 1.4; }
+.gx-about__actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: var(--space-5); }
+.gx-approach { align-self: center; border-top: 2px solid var(--navy); }
+.gx-approach__label { padding: .8rem 0 .3rem; color: var(--muted); font-size: var(--fs-label); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.gx-approach ol { counter-reset: ap; }
+.gx-approach li { counter-increment: ap; display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); gap: .25rem .75rem; padding: .85rem 0; border-bottom: 1px solid var(--line); }
+.gx-approach li::before { content: counter(ap, decimal-leading-zero); grid-row: span 2; color: var(--brand-ink); font-family: var(--font-display); font-size: 1.375rem; font-weight: 600; line-height: 1.1; }
+.gx-approach h3 { font-size: 1.125rem; }
+.gx-approach p { color: var(--muted); font-size: var(--fs-small); line-height: 1.5; }
+.gx-about__media { position: relative; min-width: 0; }
+.gx-about__media img { width: 100%; height: 100%; max-height: 30rem; object-fit: cover; border-radius: var(--radius-media); }
+.gx-about__media figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 2rem 1rem .85rem; background: linear-gradient(180deg, transparent, rgba(5, 22, 74, .85)); color: #fff; font-size: var(--fs-xs); font-weight: 700; line-height: 1.35; }
+.gx-about__media figcaption small { display: block; color: var(--on-dark-muted); font-weight: 500; }
+
+/* Services: the index list (see 11). ------------------------------------- */
+.gx-services .gx-head { margin-bottom: var(--space-5); }
+
+/* Flat vs shingle: two tall contrasting panels. -------------------------- */
+.gx-compare__panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.gx-panel { display: flex; flex-direction: column; min-width: 0; }
+.gx-panel--flat { background: var(--navy); color: var(--on-dark-muted); }
+.gx-panel--shingle { border: 1px solid var(--amber-100); border-left: 0; background: var(--surface-warm); }
+.gx-panel__media { height: clamp(8rem, 17vh, 9.75rem); overflow: hidden; background: var(--navy-50); }
+.gx-panel__media img { width: 100%; height: 100%; object-fit: cover; }
+.gx-panel__body { display: flex; flex-direction: column; flex: 1; padding: 1.2rem clamp(1.25rem, .8rem + 1.5vw, 2.25rem) 1.4rem; }
+.gx-panel__label { color: var(--brand-ink); font-size: var(--fs-label); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.gx-panel--flat .gx-panel__label { color: var(--brand); }
+.gx-panel__title { margin-top: .35rem; font-size: clamp(1.5rem, 1.2rem + .8vw, 2rem); }
+.gx-panel--flat .gx-panel__title { color: #fff; }
+.gx-panel__text { margin-top: .4rem; max-width: 56ch; font-size: var(--fs-small); line-height: 1.55; }
+.gx-panel--shingle .gx-panel__text { color: var(--muted); }
+.gx-panel__specs { margin-top: .85rem; border-top: 1px solid var(--line-strong); }
+.gx-panel--flat .gx-panel__specs { border-color: var(--line-dark); }
+.gx-panel__specs div { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: 1rem; padding: .5rem 0; border-bottom: 1px solid var(--line); }
+.gx-panel--flat .gx-panel__specs div { border-color: var(--line-dark); }
+.gx-panel__specs dt { color: var(--navy); font-size: .6875rem; font-weight: 700; letter-spacing: .12em; line-height: 1.9; text-transform: uppercase; }
+.gx-panel--flat .gx-panel__specs dt { color: var(--amber-300); }
+.gx-panel__specs dd { font-size: var(--fs-small); line-height: 1.5; }
+.gx-panel--flat .gx-panel__specs dd { color: #fff; }
+.gx-panel__foot { margin-top: auto; padding-top: 1.1rem; }
+
+/* Building types: see 19 (homepage only). */
+
+/* Commercial: deep navy, photo left, copy + 2 x 2 coordination list right. */
+.gx-commercial__inner { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: var(--col-gap); align-items: center; }
+.gx-commercial__media { position: relative; }
+.gx-commercial__media img { width: 100%; height: clamp(20rem, 46vh, 26.25rem); object-fit: cover; border-radius: var(--radius-media); }
+.gx-commercial__media figcaption { position: absolute; left: 1rem; bottom: 1rem; padding: .4rem .75rem; border-radius: var(--radius-xs); background: var(--brand); color: var(--on-brand); font-size: var(--fs-xs); font-weight: 700; }
+.gx-commercial__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2rem; margin-top: var(--space-5); border-top: 1px solid var(--line-dark); }
+.gx-commercial__list li { display: flex; align-items: flex-start; gap: .9rem; padding: 1rem 0; border-bottom: 1px solid var(--line-dark); }
+.gx-commercial__list strong { display: block; color: #fff; font-size: 1.0625rem; line-height: 1.3; }
+.gx-commercial__list span:not(.gx-ico) { display: block; margin-top: .2rem; font-size: var(--fs-small); line-height: 1.5; }
+.gx-commercial__actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: var(--space-5); }
+
+/* Projects: four equal frames with captions underneath. ------------------ */
+.gx-projects__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; }
+.gx-project { display: flex; flex-direction: column; gap: .8rem; min-width: 0; }
+.gx-project__media { height: clamp(14rem, 34vh, 19rem); overflow: hidden; border-radius: var(--radius-media); background: var(--navy-50); }
+.gx-project__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .45s ease; }
+.gx-project:hover .gx-project__media img { transform: scale(1.04); }
+.gx-project figcaption { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .1rem .85rem; padding-top: .7rem; border-top: 1px solid var(--line-strong); }
+.gx-project__no { grid-row: span 2; color: var(--brand-ink); font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; line-height: 1.05; }
+.gx-project figcaption strong { color: var(--navy); font-size: 1rem; line-height: 1.3; }
+.gx-project figcaption span:not(.gx-project__no) { color: var(--muted); font-size: var(--fs-xs); line-height: 1.4; }
+
+/* Neighborhoods: Uptown / Midtown / Downtown columns. -------------------- */
+.gx-areas__cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 2px solid var(--navy); }
+.gx-zone { min-width: 0; padding: 1.15rem 1.75rem .25rem; }
+.gx-zone:first-child { padding-left: 0; }
+.gx-zone:last-child { padding-right: 0; }
+.gx-zone + .gx-zone { border-left: 1px solid var(--line); }
+.gx-zone__head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.gx-zone__head h3 { font-size: clamp(1.4rem, 1.15rem + .6vw, 1.75rem); }
+.gx-zone__range { color: var(--brand-ink); font-size: var(--fs-label); font-weight: 700; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
+.gx-zone__stock { margin-top: .3rem; color: var(--muted); font-size: var(--fs-small); }
+.gx-zone__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1.25rem; margin-top: .75rem; }
+.gx-zone__list li { display: flex; align-items: center; gap: .5rem; min-width: 0; padding: .6rem 0; border-top: 1px solid var(--line); color: var(--navy); font-size: var(--fs-small); font-weight: 700; line-height: 1.3; white-space: nowrap; }
+.gx-zone__list svg { width: .95rem; height: .95rem; flex: none; fill: none; stroke: var(--navy-600); stroke-width: 2; }
+.gx-zone__list .is-office svg { stroke: none; fill: var(--brand); }
+.gx-areas__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem; margin-top: var(--space-5); padding-top: 1.1rem; border-top: 1px solid var(--line); }
+.gx-areas__office { display: flex; align-items: center; gap: .6rem; color: var(--navy); font-size: var(--fs-small); font-weight: 500; }
+.gx-areas__office svg { width: 1rem; height: 1rem; flex: none; fill: var(--brand); }
+.gx-areas__office a { color: inherit; font-weight: 700; text-decoration: none; }
+.gx-areas__office a:hover { color: var(--brand-ink); text-decoration: underline; text-underline-offset: .2em; }
+
+/* Reviews (Trustindex). ---------------------------------------------------- */
+.gx-reviews .gx-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1rem 2rem; align-items: end; }
+.gx-reviews__widget { min-height: 12rem; }
+
+/* Get In Touch: copy + details row + map left, form card right. ---------- */
+.gx-contact__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 29rem); gap: var(--col-gap); align-items: stretch; }
+.gx-contact__info { display: flex; flex-direction: column; min-width: 0; }
+.gx-contact__info .gx-details { margin-top: var(--space-5); }
+.gx-contact__map { position: relative; flex: 1; min-height: 15rem; margin-top: var(--space-5); overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--navy-50); }
+.gx-contact__map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.gx-contact__form .quote-card__title { font-size: clamp(1.5rem, 1.25rem + .6vw, 1.85rem); }
+
+/* Simple CTA band for inner pages:
+   <section class="gx-ctaband gx-dark"><div class="container gx-ctaband__inner"><div><h2>..</h2><p>..</p></div><div class="gx-ctaband__actions">buttons</div></div></section> */
+.gx-ctaband { padding-block: clamp(1.75rem, 1.2rem + 1.4vw, 2.5rem); background: var(--navy); color: var(--on-dark-muted); }
+.gx-ctaband__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem; }
+.gx-ctaband h2 { color: #fff; font-size: clamp(1.4rem, 1.15rem + .7vw, 1.9rem); }
+.gx-ctaband p { margin-top: .3rem; }
+.gx-ctaband__actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+
+/* ==========================================================================
+   17. Responsive
+   ========================================================================== */
+
+@media (max-width: 88rem) {
+  .gx-about__inner { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, .62fr); }
+  .gx-index__item { grid-template-columns: 2.75rem minmax(0, 1fr) 7.5rem; gap: 1rem; }
+  .gx-zone { padding-inline: 1.25rem; }
+}
+
+@media (max-width: 75rem) {
+  .gx-head--split { grid-template-columns: minmax(0, 1fr); }
+  .gx-head--split .gx-lede, .gx-head__aside { justify-self: start; }
+  .gx-trust__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gx-trust__item:nth-child(3) { padding-left: 0; border-left: 0; }
+  .gx-trust__item:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .gx-about__inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .gx-about__media { display: none; }
+  .gx-index { grid-template-columns: minmax(0, 1fr); }
+  .gx-index__item:nth-last-child(2) { border-bottom: 0; }
+  .gx-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gx-projects__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gx-areas__cols { grid-template-columns: minmax(0, 1fr); }
+  .gx-zone, .gx-zone:first-child, .gx-zone:last-child { padding-inline: 0; }
+  .gx-zone + .gx-zone { border-left: 0; border-top: 1px solid var(--line); }
+  .gx-zone__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .bkf__top { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .bkf__brand { grid-column: 1 / -1; }
+  .bkf__about { max-width: 62ch; }
+}
+
+/* Portrait tablets and phones: everything stacks. */
+@media (max-width: 60rem) {
+  .gx-about__inner, .gx-commercial__inner, .gx-contact__inner { grid-template-columns: minmax(0, 1fr); }
+  .gx-compare__panels { grid-template-columns: minmax(0, 1fr); }
+  .gx-panel--shingle { border-left: 1px solid var(--amber-100); border-top: 0; }
+  .gx-commercial__media img { height: auto; aspect-ratio: 16 / 9; }
+  .gx-contact__map { flex: none; height: 20rem; }
+  .gx-pagehero__inner { grid-template-columns: minmax(0, 1fr); }
+  .gx-pagehero__aside { justify-self: start; }
+  .gx-pagehero__bg { inset: 0 0 0 20%; }
+}
+
+@media (max-width: 48rem) {
+  .bkf__contacts { grid-auto-flow: row; justify-content: start; gap: 1rem; }
+  .bkf__copy { margin-left: 0 !important; }
+  .gx-reviews .gx-head { grid-template-columns: minmax(0, 1fr); }
+  .gx-details--row { grid-template-columns: minmax(0, 1fr); }
+  .gx-details--row li { padding-inline: 0; }
+  .gx-details--row li + li { border-left: 0; border-top: 1px solid var(--line); }
+  .gx-zone__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 40rem) {
+  /* Swipe rows: cards scroll sideways and snap to the page edge. */
+  .slider { display: flex !important; grid-template-columns: none !important; grid-template-rows: none !important; gap: .85rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--edge); -webkit-overflow-scrolling: touch; margin-inline: calc(-1 * var(--edge)); padding: 0 var(--edge) .25rem; scrollbar-width: none; }
+  .slider::-webkit-scrollbar { display: none; }
+  .slider > * { flex: 0 0 82%; scroll-snap-align: start; }
+  .swipe-hint { display: block; }
+
+
+  .gx-trust__item { flex-direction: column; align-items: flex-start; gap: .5rem; padding: .9rem .75rem; }
+  .gx-trust__item:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .gx-trust__item:nth-child(even) { padding-left: .9rem; border-left: 1px solid var(--line); }
+  .gx-trust__item span:not(.gx-ico) { font-size: var(--fs-xs); }
+  .gx-trust .gx-ico { width: 2.25rem; height: 2.25rem; }
+
+  .gx-about__inner { grid-template-columns: minmax(0, 1fr); }
+  .gx-facts div { padding: .75rem .5rem; }
+  .gx-facts div:first-child { padding-left: 0; }
+  .gx-facts dt { font-size: 1.35rem; }
+  .gx-about__actions .btn { flex: 1 1 12rem; }
+
+  /* Index entries become swipe cards. */
+  .gx-index.slider > .gx-index__item { display: flex; flex-direction: column; gap: .5rem; padding: 0 0 1rem; border: 1px solid var(--line); border-radius: var(--radius-card); background: #fff; overflow: hidden; }
+  .gx-index__item::before { position: absolute; z-index: 1; top: .75rem; left: .75rem; padding: .3rem .5rem; background: var(--brand); color: var(--on-brand); font-size: 1rem; }
+  .gx-index__item::after { display: none; }
+  .gx-index__thumb { order: -1; border-radius: 0; aspect-ratio: 16 / 9; }
+  .gx-index__body { padding-inline: 1rem; }
+  .gx-index__text { -webkit-line-clamp: 4; }
+  .gx-index__title { white-space: normal; }
+
+  .gx-panel__body { padding: 1.15rem 1rem 1.25rem; }
+  .gx-panel__specs div { grid-template-columns: minmax(0, 1fr); gap: .1rem; }
+  .gx-panel__foot .btn { width: 100%; }
+
+  .gx-commercial__list { grid-template-columns: minmax(0, 1fr); }
+  .gx-commercial__actions .btn { flex: 1 1 12rem; }
+
+  .gx-steps.slider > .gx-step { padding: 1rem; border: 1px solid var(--line); border-radius: var(--radius-card); background: #fff; }
+  .gx-step::after { top: -1px; }
+
+  .gx-areas__cols.slider { border-top: 0; }
+  .gx-areas__cols.slider > .gx-zone { padding: 1rem; border: 1px solid var(--line); border-top: 2px solid var(--navy); border-radius: var(--radius-card); background: #fff; }
+  .gx-areas__foot .btn { width: 100%; }
+  .gx-zone__list { column-gap: .75rem; }
+  .gx-zone__list li { align-items: flex-start; white-space: normal; }
+  .gx-zone__list svg { margin-top: .15rem; }
+
+  .gx-faq__a { padding-right: 0; }
+  .gx-faq__actions .btn { flex: 1 1 12rem; }
+
+  .gx-contact__map { height: 18rem; }
+
+  .field-row { gap: .6rem; }
+  .field input::placeholder, .field textarea::placeholder { font-size: .8125rem; }
+
+  .gx-pagehero__bg { inset: 0; }
+  .gx-pagehero__bg img { opacity: .3; }
+
+  /* Footer (mobile). */
+  .bkf__top { gap: 1.75rem .75rem; padding-top: 1.25rem; }
+  .bkf__brand { column-gap: 1rem; }
+  .bkf__logo img { height: 3.75rem; }
+  .bkf__links { margin-top: .75rem; }
+  .bkf .bkf__heading { display: inline-block; padding: .2rem .5rem; border-radius: var(--radius-sm); background: var(--brand); color: var(--on-brand); font-size: .8125rem; letter-spacing: 0; white-space: nowrap; }
+  .bkf__midrow { flex-direction: column; align-items: flex-start; gap: 1rem; padding-block: 1rem; }
+  .bkf__badges { gap: 2rem; }
+  .bkf__bottom { padding-block: .25rem 1rem; }
+  .bkf__socials, .bkf__copy { flex-basis: 100%; }
+  .bkf__totop { margin-left: auto; }
+
+}
+
+/* 18. Reduced motion ------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; }
+  .gx-index__item:hover .gx-index__thumb img, .gx-project:hover img, .gx-card:hover .gx-card__media img { transform: none; }
+}
+
+/* ==========================================================================
+   19. Homepage only (goldenberg-bronx.html, body.page-gx-home)
+   Everything here is scoped to the homepage body class so the shared
+   components used by the FAQ, blog, shingle, projects and contact pages
+   (.gx-faq, .gx-contact, .gx-areas, .gx-reviews, .gx-ctaband) never change.
+   ========================================================================== */
+
+/* Hero: four real job photos crossfade behind a navy overlay (js/goldenberg-bronx.js).
+   Copy, buttons and review badges left; estimate card right; dots centred at
+   the bottom. Hero + marquee fill the screen minus a 2.5rem slice of the next
+   section.
+   <section class="gx-shero gx-dark">
+     <div class="gx-shero__visual" aria-hidden="true"><img class="gx-shero__slide is-active"> x4</div>
+     <div class="container gx-shero__inner"><div class="gx-shero__copy">..</div><form class="quote-card gx-shero__form">..</form></div>
+   </section> */
+.page-gx-home { --mq-h: 2.75rem; }
+.page-gx-home .gx-shero {
+  position: relative; isolation: isolate; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: center;
+  min-height: min(calc(100svh - var(--mq-h) - 2.5rem), 56rem);
+  padding: calc(var(--nav-h) + var(--header-line) + clamp(1.25rem, .5rem + 2.5vh, 2.75rem)) 0 clamp(2.75rem, 1.5rem + 2.5vh, 3.5rem);
+  background: var(--navy-deep); color: var(--on-dark-muted);
+}
+.page-gx-home .gx-shero__visual { position: absolute; z-index: -1; inset: 0; overflow: hidden; }
+.page-gx-home .gx-shero__visual::after {
+  content: ""; position: absolute; z-index: 1; inset: 0;
+  background: linear-gradient(180deg, rgba(5, 22, 74, .55) 0%, rgba(5, 22, 74, 0) 32%),
+              linear-gradient(90deg, rgba(5, 22, 74, .95) 0%, rgba(5, 22, 74, .84) 45%, rgba(5, 22, 74, .55) 100%);
+}
+.page-gx-home .gx-shero__slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; opacity: 0; transition: opacity .9s ease-in-out; }
+.page-gx-home .gx-shero__slide.is-active { opacity: 1; }
+.page-gx-home .gx-shero__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 27.5rem); gap: var(--col-gap); align-items: center; }
+.page-gx-home .gx-shero__copy { min-width: 0; max-width: 44rem; }
+.page-gx-home .gx-shero__title { color: #fff; font-size: var(--fs-h1); line-height: 1.04; letter-spacing: -.022em; }
+.page-gx-home .gx-shero__sub { display: flex; align-items: center; gap: .9rem; margin-top: .85rem; color: #fff; font-size: clamp(1.15rem, .95rem + .55vw, 1.5rem); font-weight: 300; line-height: 1.25; }
+.page-gx-home .gx-shero__sub::before { content: ""; width: 2.75rem; height: 2px; flex: none; background: var(--brand); }
+.page-gx-home .gx-shero__text { max-width: 52ch; margin-top: var(--space-5); color: var(--on-dark-muted); font-size: var(--fs-lede); font-weight: 300; line-height: 1.6; text-wrap: pretty; }
+.page-gx-home .gx-shero__actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: var(--space-5); }
+.page-gx-home .gx-shero__proof { display: flex; flex-wrap: wrap; align-items: stretch; gap: .6rem; margin-top: var(--space-5); padding-top: var(--space-5); border-top: 1px solid var(--line-dark); }
+.page-gx-home .gx-shero__proof .gx-badge { border-color: transparent; background: #fff; }
+/* Rating marks: Google badge with five yellow stars and NO number (rating not verified).
+   <li class="rating-mark"><img><span><strong>5.0</strong> <span class="stars">★★★★★</span><small>Google rating</small></span></li> */
+.page-gx-home .rating-mark {
+  display: inline-flex; align-items: center; gap: .6rem;
+  min-height: 3.25rem; padding: .45rem 1rem .45rem .6rem;
+  border: 1px solid rgba(255, 255, 255, .18); border-radius: var(--radius-sm);
+  background: rgba(5, 22, 74, .78); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+  color: #fff; line-height: 1.1;
+}
+.page-gx-home .rating-mark img { width: 2rem; height: 2rem; flex: none; padding: .2rem; border-radius: 50%; background: #fff; object-fit: contain; }
+.page-gx-home .rating-mark strong { font-size: 1.125rem; font-weight: 700; }
+.page-gx-home .rating-mark .stars { color: var(--amber-300); font-size: .875rem; letter-spacing: .05em; }
+.page-gx-home .rating-mark small { display: block; margin-top: .2rem; color: var(--on-dark-muted); font-size: .6875rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.page-gx-home .gx-shero__stat { display: flex; flex-direction: column; justify-content: center; min-height: 3.25rem; padding: .35rem 1rem; border: 1px solid rgba(255, 255, 255, .18); border-left: 3px solid var(--brand); border-radius: var(--radius-sm); background: rgba(5, 22, 74, .78); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); color: #fff; line-height: 1.1; }
+.page-gx-home .gx-shero__stat strong { font-size: 1.125rem; }
+.page-gx-home .gx-shero__stat small { margin-top: .2rem; color: var(--on-dark-muted); font-size: .6875rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.page-gx-home .gx-shero__form { box-shadow: var(--shadow-float); }
+
+/* Marquee strip directly under the hero: amber band, navy type, navy
+   diamonds. Three identical groups; the track moves one third, so the loop
+   has no seam. Pauses on hover/focus and under reduced motion. */
+.page-gx-home .gx-marquee { overflow: hidden; background: var(--brand); color: var(--navy); border-bottom: 1px solid rgba(7, 29, 92, .18); }
+.page-gx-home .gx-marquee__track { display: flex; width: max-content; animation: gx-marquee 55s linear infinite; }
+.page-gx-home .gx-marquee:hover .gx-marquee__track,
+.page-gx-home .gx-marquee:focus-within .gx-marquee__track { animation-play-state: paused; }
+.page-gx-home .gx-marquee__group { display: flex; flex: none; align-items: center; height: var(--mq-h); }
+.page-gx-home .gx-marquee__group:first-child { padding-left: var(--edge); }
+.page-gx-home .gx-marquee__group li { display: flex; align-items: center; font-size: .875rem; font-weight: 700; letter-spacing: .14em; line-height: 1.2; text-transform: uppercase; white-space: nowrap; }
+.page-gx-home .gx-marquee__group li::after { content: ""; flex: none; width: .4rem; height: .4rem; margin-inline: 1.75rem; background: var(--navy); transform: rotate(45deg); }
+@keyframes gx-marquee { from { transform: translateX(0); } to { transform: translateX(-33.3333%); } }
+
+/* About: a wide real photo in a yellow offset frame with a "35+ Years"
+   badge overlapping its corner (left); kicker, title, two short
+   paragraphs, a 2 x 2 grid of key points with icons, and buttons (right).
+   <div class="container gx-ab">
+     <div class="gx-ab__media"><div class="gx-ab__frame"><img></div><p class="gx-ab__badge"><strong>..</strong><span>..</span></p></div>
+     <div class="gx-ab__copy">kicker, h2, p.gx-ab__lede, p.gx-ab__text, ul.gx-ab__points (li: .gx-ico + div), .gx-ab__actions</div>
+   </div> */
+.page-gx-home .gx-ab { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); gap: var(--col-gap); align-items: center; }
+.page-gx-home .gx-ab__media { position: relative; min-width: 0; margin: 0 1.25rem 1.25rem 0; }
+.page-gx-home .gx-ab__media::before { content: ""; position: absolute; z-index: 0; inset: 1.25rem -1.25rem -1.25rem 1.25rem; border: 3px solid var(--brand); border-radius: var(--radius-media); }
+.page-gx-home .gx-ab__frame { position: relative; z-index: 1; overflow: hidden; aspect-ratio: 3 / 2; max-height: 27rem; border-radius: var(--radius-media); background: var(--navy-50); box-shadow: var(--shadow-card); }
+.page-gx-home .gx-ab__frame img { width: 100%; height: 100%; object-fit: cover; object-position: center 45%; }
+.page-gx-home .gx-ab__badge {
+  position: absolute; z-index: 2; left: -.75rem; bottom: 1.75rem;
+  display: flex; flex-direction: column; gap: .15rem; padding: .75rem 1.1rem .8rem;
+  border-left: 4px solid var(--brand); border-radius: var(--radius-sm); background: var(--navy); color: #fff; box-shadow: var(--shadow-float); line-height: 1.15;
+}
+.page-gx-home .gx-ab__badge strong { font-size: 1.375rem; letter-spacing: -.01em; }
+.page-gx-home .gx-ab__badge span { color: var(--amber-300); font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.page-gx-home .gx-ab__copy { min-width: 0; }
+.page-gx-home .gx-ab__lede { max-width: 60ch; margin-top: var(--space-3); color: var(--ink); font-size: var(--fs-lede); font-weight: 300; line-height: 1.55; text-wrap: pretty; }
+.page-gx-home .gx-ab__text { max-width: 60ch; margin-top: var(--space-3); color: var(--muted); line-height: 1.6; text-wrap: pretty; }
+.page-gx-home .gx-ab__points { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 1.5rem; margin-top: var(--space-5); padding-top: var(--space-5); border-top: 1px solid var(--line); }
+.page-gx-home .gx-ab__points li { display: flex; align-items: center; gap: .8rem; min-width: 0; }
+.page-gx-home .gx-ab__points strong { display: block; color: var(--navy); font-size: 1rem; line-height: 1.3; }
+.page-gx-home .gx-ab__points span:not(.gx-ico) { display: block; margin-top: .1rem; color: var(--muted); font-size: var(--fs-xs); line-height: 1.4; }
+.page-gx-home .gx-ab__actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: var(--space-5); }
+
+/* Services: featured Flat Roofing card (the core service) on the
+   left, spanning two rows; five equal compact cards plus a navy help tile
+   fill a 3 x 2 grid on the right. Every card: photo on top (fixed height,
+   object-fit), white body with a thin amber top rule; the featured card
+   carries a large faded number. Compact cards: one-line title with a square
+   arrow button, two-line summary written to fit (never cut). The arrow link
+   stretches over the whole card. Under 40rem the grid is a swipe row.
+   <ol class="gx-svx slider" data-slider>
+     <li class="gx-svx__card gx-svx__card--feature">..</li>
+     <li class="gx-svx__card"><div class="gx-svx__media"><img></div><div class="gx-svx__body">
+       <span class="gx-svx__no">02</span><h3 class="gx-svx__title">..</h3><p class="gx-svx__text">..</p><a class="gx-svx__go">..</a></div></li> x5
+     <li class="gx-svx__help gx-dark">h3, p, .btn--solid, phone</li>
+   </ol> */
+.page-gx-home .gx-services .gx-head { margin-bottom: var(--space-5); }
+@media (min-width: 80.01rem) {
+  /* One-line title, lede beside it: keeps the section inside one screen. */
+  .page-gx-home .gx-services .gx-head--split { grid-template-columns: max-content minmax(0, 1fr); }
+  .page-gx-home .gx-services .gx-title { max-width: none; }
+  .page-gx-home .gx-services .gx-lede { max-width: 46ch; }
+}
+.page-gx-home .gx-svx {
+  --svx-media: 9.5rem;
+  display: grid; grid-template-columns: minmax(0, 1.32fr) repeat(3, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 1.25rem;
+}
+.page-gx-home .gx-svx__card {
+  position: relative; display: flex; flex-direction: column; min-width: 0;
+  overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-card); background: #fff;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.page-gx-home .gx-svx__card:hover { transform: translateY(-3px); border-color: var(--line-strong); box-shadow: var(--shadow-card); }
+.page-gx-home .gx-svx__card:has(a:focus-visible) { outline: 3px solid var(--focus); outline-offset: 2px; }
+.page-gx-home .gx-svx__card a:focus-visible { outline: 0; }
+.page-gx-home .gx-svx__media { position: relative; flex: none; height: var(--svx-media); overflow: hidden; background: var(--navy-50); }
+.page-gx-home .gx-svx__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.page-gx-home .gx-svx__card:hover .gx-svx__media img { transform: scale(1.05); }
+.page-gx-home .gx-svx__body {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto 1fr; gap: .35rem .75rem; flex: 1;
+  padding: .85rem 1rem 1rem 1.1rem; border-top: 3px solid var(--brand);
+}
+.page-gx-home .gx-svx__no { color: var(--brand-ink); font-size: .75rem; font-weight: 700; letter-spacing: .14em; line-height: 1; }
+.page-gx-home .gx-svx__card:not(.gx-svx__card--feature) .gx-svx__no { position: absolute; z-index: 1; top: calc(var(--svx-media) - 1.85rem); left: .75rem; padding: .3rem .45rem; border-radius: var(--radius-xs); background: #fff; color: var(--navy); }
+.page-gx-home .gx-svx__title { grid-column: 1; align-self: center; min-width: 0; font-size: 1.1875rem; line-height: 1.2; white-space: nowrap; }
+.page-gx-home .gx-svx__text { grid-column: 1 / -1; color: var(--muted); font-size: var(--fs-small); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.page-gx-home .gx-svx__go {
+  grid-column: 2; grid-row: 1; display: inline-flex; align-items: center; justify-content: center;
+  width: 2.25rem; height: 2.25rem; border: 1.5px solid var(--navy); border-radius: var(--radius-sm); color: var(--navy);
+  transition: background-color .2s ease, color .2s ease;
+}
+.page-gx-home .gx-svx__go::before { content: ""; position: absolute; z-index: 2; inset: 0; }   /* whole card is clickable */
+.page-gx-home .gx-svx__go svg { width: 1.05rem; height: 1.05rem; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.page-gx-home .gx-svx__card:hover .gx-svx__go { background: var(--navy); color: #fff; }
+
+/* Featured card: photo fills the free height; bigger title, 3-line text,
+   a button, and a large faded "01" in the card's bottom-right corner. */
+.page-gx-home .gx-svx__card--feature { grid-row: span 2; }
+.page-gx-home .gx-svx__card--feature .gx-svx__media { flex: 1 1 auto; height: auto; min-height: 8rem; }
+.page-gx-home .gx-svx__card--feature .gx-svx__body { display: flex; flex: none; flex-direction: column; align-items: flex-start; gap: .4rem; padding: 1.1rem 1.35rem 1.35rem; }
+.page-gx-home .gx-svx__card--feature .gx-svx__no { position: absolute; right: 1rem; bottom: .35rem; color: var(--navy); font-size: 4rem; letter-spacing: -.04em; opacity: .07; }
+.page-gx-home .gx-svx__tag { color: var(--brand-ink); font-size: var(--fs-label); font-weight: 700; letter-spacing: .14em; line-height: 1.3; text-transform: uppercase; }
+.page-gx-home .gx-svx__card--feature .gx-svx__title { align-self: flex-start; font-size: clamp(1.4rem, 1.1rem + .7vw, 1.75rem); }
+.page-gx-home .gx-svx__card--feature .gx-svx__text { -webkit-line-clamp: 3; max-width: 46ch; font-size: 1rem; }
+.page-gx-home .gx-svx__btn { margin-top: .5rem; }
+.page-gx-home .gx-svx__btn::before { content: ""; position: absolute; z-index: 2; inset: 0; }
+
+/* Help tile: navy, amber top rule, CTA + phone, same size as a card. */
+.page-gx-home .gx-svx__help {
+  display: flex; flex-direction: column; justify-content: center; gap: .55rem; min-width: 0;
+  padding: 1.1rem 1.25rem; border-top: 3px solid var(--brand); border-radius: var(--radius-card); background: var(--navy); color: var(--on-dark-muted);
+}
+.page-gx-home .gx-svx__helptitle { color: #fff; font-size: 1.1875rem; line-height: 1.25; }
+.page-gx-home .gx-svx__helptext { font-size: var(--fs-small); line-height: 1.5; }
+.page-gx-home .gx-svx__help .btn { margin-top: .35rem; }
+.page-gx-home .gx-svx__phone { display: inline-flex; align-items: center; justify-content: center; gap: .45rem; min-height: 2.25rem; color: #fff; font-weight: 700; text-decoration: none; }
+.page-gx-home .gx-svx__phone svg { width: 1rem; height: 1rem; fill: none; stroke: var(--amber-300); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.page-gx-home .gx-svx__phone:hover { color: var(--amber-300); }
+
+/* Building types: short head left; a 2 x 2 list right, each item an amber
+   number, a thin rule, title, one line, and a "Common in" line.
+   <div class="container gx-bt"><div class="gx-bt__head">..</div>
+     <ol class="gx-bt__list slider" data-slider><li class="gx-bt__item"><span class="gx-bt__no">01</span><h3>..</h3><p class="gx-bt__text">..</p><p class="gx-bt__where"><span>Common in</span> ..</p></li> x4</ol></div> */
+.page-gx-home .gx-bt { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 2fr); gap: var(--col-gap); align-items: center; }
+.page-gx-home .gx-bt__head .gx-lede { max-width: 36ch; }
+.page-gx-home .gx-bt__head .gx-link { margin-top: var(--space-3); }
+.page-gx-home .gx-bt__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 2.5rem; }
+.page-gx-home .gx-bt__item {
+  position: relative; display: grid; grid-template-columns: 3.25rem minmax(0, 1fr); column-gap: .5rem; align-content: start; min-width: 0;
+  padding-top: 1rem; border-top: 1px solid var(--line-strong);
+}
+.page-gx-home .gx-bt__item::before { content: ""; position: absolute; top: -2px; left: 0; width: 3.25rem; height: 3px; background: var(--brand); }
+.page-gx-home .gx-bt__no { grid-row: span 3; color: var(--brand); font-size: 2rem; font-weight: 700; letter-spacing: -.03em; line-height: .95; }
+.page-gx-home .gx-bt__title { font-size: var(--fs-h3); white-space: nowrap; }
+.page-gx-home .gx-bt__text { margin-top: .3rem; color: var(--ink); font-size: var(--fs-small); line-height: 1.5; }
+.page-gx-home .gx-bt__where { margin-top: .35rem; color: var(--muted); font-size: var(--fs-xs); line-height: 1.4; }
+.page-gx-home .gx-bt__where span { margin-right: .3rem; color: var(--navy); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; font-size: .6875rem; }
+
+/* FAQ: navy help box left (eyebrow, heading, line, call + hours, buttons),
+   the shared .gx-faq accordion right. Only one answer open at a time
+   (details[name]). The .gx-faq component itself is untouched. */
+.page-gx-home .gx-faqhome__inner { display: grid; grid-template-columns: minmax(0, 26rem) minmax(0, 1fr); gap: var(--col-gap); align-items: start; }
+.page-gx-home .gx-faqhome__box { padding: clamp(1.5rem, 1rem + 1.2vw, 2.25rem); border-top: 4px solid var(--brand); border-radius: var(--radius-card); background: var(--navy); color: var(--on-dark-muted); }
+.page-gx-home .gx-faqhome__box .gx-title { color: #fff; font-size: clamp(1.6rem, 1.2rem + 1vw, 2.15rem); }
+.page-gx-home .gx-faqhome__line { margin-top: var(--space-3); font-weight: 300; line-height: 1.6; }
+.page-gx-home .gx-faqhome__contact { margin-top: var(--space-5); border-top: 1px solid var(--line-dark); }
+.page-gx-home .gx-faqhome__contact li { display: flex; align-items: center; gap: .85rem; padding: .8rem 0; border-bottom: 1px solid var(--line-dark); }
+.page-gx-home .gx-faqhome__label { color: rgba(255, 255, 255, .62); font-size: .6875rem; font-weight: 700; letter-spacing: .12em; line-height: 1.3; text-transform: uppercase; }
+.page-gx-home .gx-faqhome__value { margin-top: .1rem; color: #fff; font-size: 1.0625rem; font-weight: 700; line-height: 1.35; }
+.page-gx-home .gx-faqhome__value a { color: inherit; font-size: 1.375rem; text-decoration: none; }
+.page-gx-home .gx-faqhome__value a:hover { color: var(--amber-300); }
+.page-gx-home .gx-faqhome__actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: var(--space-5); }
+
+/* Short desktop screens (e.g. 1366 x 650): compact hero copy and card. */
+@media (min-width: 60.01rem) and (max-height: 780px) {
+  .page-gx-home .gx-shero__sub { margin-top: .5rem; }
+  .page-gx-home .gx-shero__text { margin-top: .75rem; font-size: 1rem; }
+  .page-gx-home .gx-shero__actions { margin-top: 1rem; }
+  .page-gx-home .gx-shero__actions .btn { min-height: 2.85rem; padding-block: .55rem; }
+  .page-gx-home .gx-shero__proof { margin-top: 1rem; padding-top: 1rem; }
+  .page-gx-home .gx-shero__proof .rating-mark, .page-gx-home .gx-shero__stat { min-height: 2.85rem; }
+  .page-gx-home .gx-shero__form { gap: .5rem; padding: .95rem 1.2rem; }
+  .page-gx-home .gx-shero__form .quote-card__title { font-size: 1.35rem; }
+  .page-gx-home .gx-shero__form .field { gap: .2rem; }
+  .page-gx-home .gx-shero__form .field input { min-height: 2.4rem; padding-block: .4rem; }
+  .page-gx-home .gx-shero__form .btn { min-height: 2.75rem; }
+}
+@media (max-width: 80rem) {
+  /* Featured card runs across the top (photo left, copy right); six equal tiles below. */
+  .page-gx-home .gx-svx { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: auto; }
+  .page-gx-home .gx-svx__card--feature { grid-column: 1 / -1; grid-row: auto; flex-direction: row; }
+  .page-gx-home .gx-svx__card--feature .gx-svx__media { flex: 0 0 48%; min-height: 15rem; }
+  .page-gx-home .gx-svx__card--feature .gx-svx__body { flex: 1; justify-content: center; border-top: 0; border-left: 3px solid var(--brand); }
+  .page-gx-home .gx-ab { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
+}
+@media (min-width: 60.01rem) and (max-width: 75rem) {
+  .page-gx-home .gx-shero__inner { grid-template-columns: minmax(0, 1fr) minmax(0, 23rem); }
+}
+@media (max-width: 60rem) {
+  .page-gx-home .gx-shero { min-height: 0; }
+  .page-gx-home .gx-shero__inner { grid-template-columns: minmax(0, 1fr); gap: 1.75rem; }
+  .page-gx-home .gx-shero__form { max-width: 36rem; }
+  .page-gx-home .gx-faqhome__inner { grid-template-columns: minmax(0, 1fr); gap: var(--space-5); }
+}
+@media (max-width: 60rem) {
+  .page-gx-home .gx-ab { grid-template-columns: minmax(0, 1fr); gap: 2.75rem; }
+  .page-gx-home .gx-ab__media { max-width: 40rem; }
+  .page-gx-home .gx-bt { grid-template-columns: minmax(0, 1fr); gap: var(--head-gap); }
+  .page-gx-home .gx-bt__head .gx-lede { max-width: 62ch; }
+}
+@media (max-width: 52rem) {
+  .page-gx-home .gx-svx { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 40rem) {
+  .page-gx-home { --mq-h: 2.5rem; }
+  .page-gx-home .gx-shero { padding: calc(var(--nav-h) + var(--header-line) + 1.5rem) 0 3rem; }
+  .page-gx-home .gx-shero__title { font-size: clamp(2.1rem, 1.6rem + 2.4vw, 2.5rem); }
+  .page-gx-home .gx-shero__sub { font-size: 1.125rem; }
+  .page-gx-home .gx-shero__sub::before { width: 1.75rem; }
+  .page-gx-home .gx-shero__text { margin-top: 1rem; font-size: 1rem; }
+  .page-gx-home .gx-shero__actions .btn { flex: 1 1 12rem; }
+  .page-gx-home .gx-shero__proof { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .4rem; }
+  .page-gx-home .gx-shero__proof > * { justify-content: center; min-width: 0; }
+  .page-gx-home .gx-shero__proof .rating-mark { gap: .35rem; padding: .35rem .4rem; }
+  .page-gx-home .gx-shero__proof .rating-mark img { width: 1.4rem; height: 1.4rem; padding: .12rem; }
+  .page-gx-home .gx-shero__proof .rating-mark strong { font-size: .875rem; }
+  .page-gx-home .gx-shero__proof .rating-mark .stars { font-size: .625rem; letter-spacing: 0; }
+  .page-gx-home .gx-shero__proof small { font-size: .5625rem; letter-spacing: .06em; }
+  .page-gx-home .gx-shero__stat { align-items: center; padding: .35rem .4rem; border-left: 0; border-top: 3px solid var(--brand); text-align: center; }
+  .page-gx-home .gx-shero__stat strong { font-size: .875rem; }
+  .page-gx-home .gx-marquee__group li { font-size: .75rem; }
+  .page-gx-home .gx-marquee__group li::after { margin-inline: 1.1rem; }
+
+  /* About: the offset frame and badge tuck in; key points stay 2 x 2. */
+  .page-gx-home .gx-ab__media { margin: 0 .75rem .75rem 0; }
+  .page-gx-home .gx-ab__media::before { inset: .75rem -.75rem -.75rem .75rem; }
+  .page-gx-home .gx-ab__badge { left: .75rem; bottom: .75rem; padding: .55rem .8rem; }
+  .page-gx-home .gx-ab__badge strong { font-size: 1.125rem; }
+  .page-gx-home .gx-ab__badge span { font-size: .6875rem; }
+  .page-gx-home .gx-ab__points { gap: .9rem .75rem; }
+  .page-gx-home .gx-ab__points li { flex-direction: column; align-items: flex-start; gap: .5rem; }
+  .page-gx-home .gx-ab__points .gx-ico { width: 2.25rem; height: 2.25rem; }
+  .page-gx-home .gx-ab__actions .btn { flex: 1 1 12rem; }
+
+  /* Service cards: one swipe row of equal upright cards (the featured card
+     becomes the first card, the help tile the last). */
+  .page-gx-home .gx-svx { --svx-media: 10.5rem; }
+  .page-gx-home .gx-svx.slider > * { flex: 0 0 82%; }
+  .page-gx-home .gx-svx__card--feature { flex-direction: column; }
+  .page-gx-home .gx-svx__card--feature .gx-svx__media { flex: none; height: var(--svx-media); min-height: 0; }
+  .page-gx-home .gx-svx__card--feature .gx-svx__body { flex: 1; justify-content: flex-start; padding: .85rem 1rem 1rem 1.1rem; border-top: 3px solid var(--brand); border-left: 0; }
+  .page-gx-home .gx-svx__card--feature .gx-svx__text { font-size: var(--fs-small); }
+  .page-gx-home .gx-svx__card--feature .gx-svx__btn { margin-top: auto; }
+  .page-gx-home .gx-svx__card--feature .gx-svx__no { display: none; }
+  .page-gx-home .gx-svx__text { -webkit-line-clamp: 3; }
+
+  /* Building types: a swipe row of four small white panels. */
+  .page-gx-home .gx-bt__list.slider > .gx-bt__item { padding: 1rem; border: 1px solid var(--line); border-radius: var(--radius-card); background: #fff; }
+  .page-gx-home .gx-bt__item::before { top: -1px; left: -1px; }
+  .page-gx-home .gx-bt__title { white-space: normal; }
+
+  .page-gx-home .gx-faqhome__actions .btn { flex: 1 1 10rem; }
+  .page-gx-home .gx-faqhome .gx-faq__a { padding-right: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-gx-home .gx-marquee__track { animation: none; }
+  .page-gx-home .gx-shero__slide { transition: none; }
+  .page-gx-home .gx-svx__card:hover, .page-gx-home .gx-svx__card:hover .gx-svx__media img { transform: none; }
+}
+
+/* Homepage map: Google only shows the business place card (name, address,
+   rating) when the embed is at least ~300px tall, so keep it there. */
+.page-gx-home .gx-contact__map { min-height: 19rem; }
+
+/* Short laptop screens (1366 x 650): the taller homepage sections tighten
+   so each one still fits the screen. Homepage only. */
+@media (min-width: 60.01rem) and (max-height: 780px) {
+  .page-gx-home .gx-compare .gx-head, .page-gx-home .gx-commercial .gx-head { margin-bottom: 1.25rem; }
+  .page-gx-home .gx-panel__media { height: 5.5rem; }
+  .page-gx-home .gx-panel__body { padding-block: 1rem 1.1rem; }
+  .page-gx-home .gx-panel__specs div { padding-block: .3rem; }
+  .page-gx-home .gx-panel__foot { padding-top: .8rem; }
+  .page-gx-home .gx-commercial__media img { height: 18rem; }
+  .page-gx-home .gx-commercial .gx-lede { font-size: 1rem; }
+  .page-gx-home .gx-commercial__list { margin-top: 1rem; }
+  .page-gx-home .gx-commercial__list li { padding-block: .6rem; }
+  .page-gx-home .gx-commercial__actions { margin-top: 1rem; }
+  .page-gx-home .gx-contact__info .gx-details, .page-gx-home .gx-contact__map { margin-top: 1rem; }
+  .page-gx-home .gx-contact__form { gap: .6rem; }
+  .page-gx-home .gx-faqhome .gx-faq__item summary { min-height: 3.4rem; padding-block: .7rem; }
+  /* About + services fit a 650px-tall laptop screen. */
+  .page-gx-home .gx-ab { grid-template-columns: minmax(0, .9fr) minmax(0, 1.15fr); }
+  .page-gx-home .gx-ab__frame { max-height: 20rem; }
+  .page-gx-home .gx-ab__lede { font-size: 1rem; }
+  .page-gx-home .gx-ab__text { margin-top: .5rem; font-size: var(--fs-small); }
+  .page-gx-home .gx-ab__points { gap: .75rem 1.25rem; margin-top: 1rem; padding-top: 1rem; }
+  .page-gx-home .gx-ab__actions { margin-top: 1rem; }
+  .page-gx-home .gx-ab__actions .btn { min-height: 2.85rem; padding-block: .55rem; }
+  .page-gx-home .gx-services .gx-head { margin-bottom: 1rem; }
+  .page-gx-home .gx-services .gx-lede { font-size: 1rem; }
+  .page-gx-home .gx-svx { --svx-media: 4.25rem; gap: 1rem; }
+  .page-gx-home .gx-svx__body { padding-block: .7rem .8rem; }
+  .page-gx-home .gx-svx__card--feature .gx-svx__body { padding-block: .85rem 1rem; }
+  .page-gx-home .gx-svx__help { gap: .35rem; padding-block: .8rem; }
+  .page-gx-home .gx-svx__helptext { display: none; }
+}
+
+/* ---- Oct 16 (Nitesh): footer brand stacks: logo on top, the paragraph under it, then the button. ---- */
+.bkf__brand { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
+.bkf__logo { grid-row: auto; align-self: flex-start; }
+.bkf__about { max-width: 42ch; margin-top: 0 !important; }
+.bkf__brand .bkf__cta { margin-top: .25rem; }
+.bkf__rating > span { white-space: nowrap; }
+.bkf__rating strong { font-size: 1.125rem; }
+.bkf__stars { margin-left: .2rem; color: var(--amber-500); font-size: 1rem; letter-spacing: .04em; }
+.bkf__rating small { margin-left: .4rem; color: #fff; font-size: .9375rem; font-weight: 700; }
+.bkf__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Oct 16 (Nitesh): the footer paragraph under the logo runs a little wider. */
+.bkf__about { max-width: 52ch; }
+@media (max-width: 75rem) { .bkf__about { max-width: 62ch; } }
+
+/* ==== Oct 19 call (Sean) ==== */
+/* MH-H1: the short line before the hero sub-line is a third of its old length. */
+.page-gx-home .gx-shero__sub::before { width: .9rem; }
+/* MH-H30: no yellow line on the "35+ Years" hero chip; a 1px border like the other chips. */
+.page-gx-home .gx-shero__stat { border-left: 1px solid rgba(255, 255, 255, .18); }
+/* MH-H3, MH-H23, R7: estimate form headings are centered. */
+.quote-card__title { text-align: center; }
+.mc-form .quote-card__title { text-align: left; } /* contact page form keeps its left kicker; its layout moves to contact v2 */
+/* MH-H10: the phone number in the "Not sure which service" tile is bigger and spans the card. */
+.page-gx-home .gx-svx__phone { width: 100%; font-size: 1.25rem; }
+.page-gx-home .gx-svx__phone svg { width: 1.2rem; height: 1.2rem; }
+/* MH-H12: "Get a Free Estimate" button in the building-types head. */
+.page-gx-home .gx-bt__head .gx-bt__cta { margin-top: var(--space-4); }
+/* MH-H25: footer text and button sit to the right of the logo (Bronx layout). */
+.bkf__brand { flex-direction: row; align-items: flex-start; gap: 1.25rem; }
+.bkf__logo { flex: none; }
+.bkf__brandtext { min-width: 0; }
+.bkf__brandtext .bkf__cta { margin-top: .85rem; }
+/* Footer: Licensed & Insured badge beside the Google badge. */
+.bkf__licensed { color: #fff; font-size: .9375rem; font-weight: 700; line-height: 1.2; white-space: nowrap; }
+.bkf__licensed .bkf__icon { width: 2.25rem; height: 2.25rem; }
+/* Phone numbers never wrap. */
+a[href^="tel:"], .bkf__value a[href^="tel:"] { white-space: nowrap; }
+/* No sideways scroll on phones (iOS ignores overflow-x on body alone). */
+html { overflow-x: hidden; }
+@media (max-width: 40rem) {
+  .page-gx-home .gx-shero__sub::before { width: .6rem; }
+  .page-gx-home .gx-shero__stat { border-top: 1px solid rgba(255, 255, 255, .18); }
+  .bkf__brand { gap: 1rem; }
+  .bkf__logo img { height: 3.5rem; }
+  .bkf__about { font-size: .875rem; line-height: 1.6; }
+  /* MH-H31: footer button centered on mobile. */
+  .bkf__brand { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: start; }
+  .bkf__brandtext { display: contents; }
+  .bkf__brandtext .bkf__cta { grid-column: 1 / -1; justify-self: center; margin-top: .25rem; }
+}
+
+
+/* ==========================================================================
+   20. Goldenberg Bronx additions
+   ========================================================================== */
+
+/* Trustindex slot (reviews). The widget ID is pending; until the loader
+   <script> is dropped inside .gx-ti-slot, the Google fallback card shows.
+   js/goldenberg-bronx.js hides the fallback once the widget renders.
+   <!-- Trustindex widget: ID pending from Nitesh -->
+   <div class="gx-ti-slot gx-reviews__widget" data-trustindex-id="PENDING"><div class="gx-ti-fallback">..</div></div> */
+.gx-reviews__widget.gx-ti-slot { min-height: 0; }
+.gx-ti-slot.is-loaded .gx-ti-fallback { display: none; }
+.gx-ti-fallback {
+  position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 1rem 1.5rem;
+  padding: 1.25rem 1.5rem; border: 1px solid var(--line); border-radius: var(--radius-card); background: #fff;
+}
+.gx-ti-fallback::before { content: ""; position: absolute; top: -1px; left: -1px; width: 3rem; height: 3px; background: var(--brand); }
+.gx-ti-fallback__logo { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border: 1px solid var(--line); border-radius: 50%; background: #fff; }
+.gx-ti-fallback__logo img { width: 1.9rem; height: 1.9rem; }
+.gx-ti-fallback__title { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .75rem; color: var(--navy); font-size: 1.25rem; font-weight: 700; line-height: 1.25; }
+.gx-ti-fallback__title .stars { color: var(--amber-500); font-size: 1.05rem; letter-spacing: .06em; }
+.gx-ti-fallback__text { margin-top: .25rem; color: var(--muted); font-size: var(--fs-small); }
+@media (max-width: 48rem) {
+  .gx-ti-fallback { grid-template-columns: auto minmax(0, 1fr); padding: 1rem; }
+  .gx-ti-fallback .btn { grid-column: 1 / -1; width: 100%; }
+}
+
+/* Review badge stars (Google badge in section heads) */
+.gx-badge .stars { display: block; margin-top: .2rem; color: var(--amber-500); font-size: .75rem; letter-spacing: .06em; line-height: 1; }
+
+/* Building-type numerals: blue (yellow is too faint on the light tint). */
+.page-gx-home .gx-bt__no { color: var(--brand-ink); }
+
+/* Form thank-you state (js/goldenberg-bronx.js swaps it in after a valid submit). */
+.form-thanks { display: grid; justify-items: center; gap: .35rem; padding: 1.5rem .5rem 1rem; text-align: center; }
+.form-thanks svg { width: 2.5rem; height: 2.5rem; fill: none; stroke: #1E9E5A; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.form-thanks strong { margin: 0; color: var(--navy); font-size: 1.25rem; }
+.form-thanks p { max-width: 30ch; color: var(--muted); }
+.form-thanks a { color: var(--brand-ink); font-weight: 700; white-space: nowrap; }
+
+/* Footer: Google badge with stars, no number. */
+.bkf__rating .bkf__stars { margin-left: 0; }
+
+/* Phones: drawer rows compact so About and Contact show without scrolling at 375 x 560. */
+@media (max-width: 48rem) {
+  .drawer { padding-top: .25rem; padding-bottom: .9rem; }
+  .drawer__link, .drawer__group { padding: .7rem 0; font-size: 1.0625rem; }
+  .drawer__actions { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; margin-top: .75rem; }
+  .drawer__actions .btn { min-height: 2.9rem; padding-inline: .5rem; font-size: .95rem; }
+}
+form.quote-card > [hidden] { display: none !important; }
+
+/* Phones: a zone's range drops under its heading when both don't fit. */
+@media (max-width: 40rem) {
+  .gx-zone__head { flex-wrap: wrap; gap: .15rem 1rem; }
+}
+
+/* Google badge (Nitesh, Nov 20): Google logo, one star, then "5.0 Reviews".
+   Both Goldenberg locations are 5.0 on Google (checked on Google Maps Nov 20). */
+.gx-greview { display: inline-flex; align-items: center; gap: .4rem; white-space: nowrap; line-height: 1.2; }
+.gx-greview__star { color: #F9D22C; font-size: 1.1em; line-height: 1; }
+.gx-greview strong { font-size: 1.05em; font-weight: 800; }
+.gx-greview__label { font-weight: 600; }
+.page-gx-home .rating-mark .gx-greview { font-size: 1rem; }
+.gx-ti-fallback__title .gx-greview { font-size: 1.125rem; }
+.bkf__rating .gx-greview { font-size: 1rem; }
+@media (max-width: 40rem) {
+  .page-gx-home .gx-shero__proof .rating-mark .gx-greview { font-size: .8125rem; gap: .25rem; }
+}
+
+/* Footer brand block (Nitesh, Nov 20): the description and button sit
+   BELOW the logo at every width (the Royal source put them to its side). */
+.bkf__brand { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
+.bkf__brandtext { display: block; min-width: 0; }
+.bkf__brandtext .bkf__cta { margin-top: .85rem; justify-self: auto; }
+
+/* Footer Google badge: keep the star yellow (a footer rule turned it white). */
+.bkf__rating .gx-greview__star { color: #F9D22C; }

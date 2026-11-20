@@ -1,0 +1,291 @@
+/* ==========================================================================
+   Goldenberg Roofing Brooklyn: About page (goldenberg-brooklyn-about.html)
+   Loaded after the kit (css/goldenberg-brooklyn.css). Prefix gk-ab-.
+   Section order matches bestroofing4-about.html:
+   hero, who we are, mission/vision/values, expertise, services, who we serve,
+   what to expect, recent work, areas, reviews, FAQs, closing CTA.
+
+    1. Hero credentials row
+    2. Shared bits: photo chip, icon point list
+    3. Who we are
+    4. Mission, vision, values (navy)
+    5. Expertise
+    6. Services (feature + rows)
+    7. Who we serve + building rail
+    8. What to expect (blue)
+    9. Recent work
+   10. Areas (navy card + map)
+   11. FAQs
+   12. Closing CTA card
+   ========================================================================== */
+
+
+/* 1. Hero credentials row --------------------------------------------------- */
+.gk-ab-hero { padding-bottom: clamp(1.25rem, 1rem + 1vw, 1.75rem); }
+.gk-ab-hero .gk-hero__eyebrow { margin-bottom: 12px; }
+.gk-ab-creds {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px;
+  margin-top: clamp(1.25rem, 1rem + 1vw, 1.75rem); list-style: none;
+}
+.gk-ab-creds > li { display: flex; }
+.gk-ab-cred {
+  display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, .2); border-radius: var(--gk-radius);
+  background: rgba(5, 15, 51, .38); color: #fff;
+  -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+}
+a.gk-ab-cred { transition: border-color .18s ease, background-color .18s ease; }
+a.gk-ab-cred:hover { border-color: #fff; background: rgba(5, 15, 51, .55); color: #fff; }
+.gk-ab-cred__icon {
+  flex: none; display: grid; place-items: center; width: 42px; height: 42px;
+  border-radius: var(--gk-radius); background: var(--gk-yellow); color: var(--gk-ink); font-size: 17px;
+}
+.gk-ab-cred__icon--g { background: #fff; border-radius: 50%; }
+.gk-ab-cred__icon--g img { width: 22px; height: 22px; }
+.gk-ab-cred__body { display: grid; gap: 2px; min-width: 0; }
+.gk-ab-cred__body strong { color: #fff; font-size: 16px; font-weight: 800; line-height: 1.25; }
+.gk-ab-cred__body .gk-greview { gap: .3em; }
+.gk-ab-cred__body .gk-greview__label { font-weight: 800; }
+.gk-ab-cred__body small { color: var(--gk-on-dark); font-size: 13px; font-weight: 500; line-height: 1.3; }
+
+
+/* 2. Shared bits ------------------------------------------------------------- */
+/* Caption chip on a photo: white card with a blue icon square and a yellow edge. */
+.gk-ab-chip {
+  position: absolute; left: 14px; bottom: 14px; z-index: 1; max-width: calc(100% - 28px);
+  display: flex; align-items: center; gap: 12px; padding: 9px 14px 9px 9px;
+  background: #fff; border-left: 4px solid var(--gk-yellow); border-radius: var(--gk-radius);
+  box-shadow: var(--gk-shadow); color: var(--gk-ink); font-size: 15px; font-weight: 700; line-height: 1.3;
+}
+.gk-ab-chip small { display: block; color: var(--gk-muted); font-size: 11.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.gk-ab-chip__icon { flex: none; display: grid; place-items: center; width: 38px; height: 38px; border-radius: var(--gk-radius-sm); background: var(--gk-blue); color: var(--gk-yellow); font-size: 16px; }
+/* Dark caption chip: navy glass with the yellow edge. */
+.gk-ab-chip--dark { gap: 9px; padding: 8px 12px; background: rgba(5, 15, 51, .88); color: #fff; font-size: 13.5px; }
+.gk-ab-chip--dark i { color: var(--gk-yellow); }
+
+/* Icon point list: blue square icon, bold label, small line under it. */
+.gk-ab-points { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 18px; list-style: none; }
+.gk-ab-points li {
+  display: flex; align-items: center; gap: 12px; padding: 11px 12px;
+  background: #fff; border: 1px solid var(--gk-line); border-radius: var(--gk-radius);
+}
+.gk-ab-points__icon { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: var(--gk-radius); background: var(--gk-blue); color: var(--gk-yellow); font-size: 16px; }
+.gk-ab-points strong { display: block; color: var(--gk-ink); font-size: 15.5px; font-weight: 800; line-height: 1.3; }
+.gk-ab-points small { display: block; color: var(--gk-muted); font-size: 13.5px; line-height: 1.4; }
+
+
+/* 3. Who we are -------------------------------------------------------------- */
+.gk-ab-who { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap: clamp(24px, 4.5vw, 64px); align-items: center; }
+.gk-ab-who__photo { position: relative; margin: 14px 0 0 14px; }
+.gk-ab-who__photo::before { content: ""; position: absolute; left: -14px; top: -14px; width: 46%; height: 52%; border-radius: var(--gk-radius); background: var(--gk-yellow); }
+.gk-ab-who__photo img { position: relative; width: 100%; aspect-ratio: 5 / 4; object-fit: cover; object-position: center 40%; border-radius: var(--gk-radius); box-shadow: var(--gk-shadow); }
+.gk-ab-who__lede { margin-top: 12px; max-width: 54ch; color: var(--gk-ink); font-size: 1.125rem; font-weight: 600; line-height: 1.5; }
+.gk-ab-who__text { margin-top: 8px; max-width: 58ch; color: var(--gk-muted); font-size: 16px; line-height: 1.65; }
+.gk-ab-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 18px 0; list-style: none; }
+.gk-ab-stats li {
+  display: grid; gap: 2px; padding: 12px 14px;
+  background: var(--gk-pale); border-top: 4px solid var(--gk-yellow); border-radius: var(--gk-radius);
+}
+.gk-ab-stats strong { color: var(--gk-blue); font-size: clamp(1.6rem, 1.2rem + 1.2vw, 2.1rem); font-weight: 800; line-height: 1; letter-spacing: -.03em; }
+.gk-ab-stats span { color: var(--gk-ink); font-size: 13.5px; font-weight: 600; line-height: 1.35; }
+
+
+/* 4. Mission, vision, values (navy) ---------------------------------------- */
+.gk-ab-mvv { position: relative; overflow: hidden; }
+.gk-ab-mvv::before {             /* faint logo peaks, as on the homepage process band */
+  content: ""; position: absolute; right: -6%; bottom: -1px; width: 46%; aspect-ratio: 640 / 180; pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 180'%3E%3Cpath d='M0 180 L120 70 L150 92 L210 40 L262 96 L300 66 L330 98 L420 0 L520 104 L560 78 L640 180 Z' fill='%23ffffff' fill-opacity='.04'/%3E%3C/svg%3E") no-repeat right bottom / 100% 100%;
+}
+.gk-ab-mvv .gk-container { position: relative; }
+.gk-ab-mvv__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gk-gap); list-style: none; }
+.gk-ab-mvv__card {
+  position: relative; display: grid; align-content: start; gap: 10px; padding: 22px 20px 20px;
+  background: rgba(255, 255, 255, .05); border: 1px solid rgba(255, 255, 255, .14); border-radius: var(--gk-radius);
+}
+.gk-ab-mvv__card::before { content: ""; position: absolute; left: 20px; top: -1px; width: 48px; height: 4px; border-radius: 0 0 3px 3px; background: var(--gk-yellow); }
+.gk-ab-mvv__icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: var(--gk-radius); background: var(--gk-yellow); color: var(--gk-ink); font-size: 20px; }
+.gk-ab-mvv__title { color: #fff; font-size: 1.25rem; font-weight: 800; }
+.gk-ab-mvv__text { color: var(--gk-on-dark); font-size: 15.5px; line-height: 1.6; }
+.gk-ab-mvv__list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; list-style: none; }
+.gk-ab-mvv__list li {
+  display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px;
+  border: 1px solid rgba(255, 255, 255, .18); border-radius: var(--gk-radius-sm);
+  color: #fff; font-size: 13px; font-weight: 700; line-height: 1.3;
+}
+.gk-ab-mvv__list i { color: var(--gk-yellow); font-size: 11px; }
+
+
+/* 5. Expertise ---------------------------------------------------------------- */
+.gk-ab-exp { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(24px, 4.5vw, 64px); align-items: center; }
+.gk-ab-exp__photo { position: relative; margin: 0 14px 14px 0; }
+.gk-ab-exp__photo::before { content: ""; position: absolute; right: -14px; bottom: -14px; width: 58%; height: 60%; border-radius: var(--gk-radius); background: var(--gk-blue); }
+.gk-ab-exp__photo img { position: relative; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--gk-radius); box-shadow: var(--gk-shadow); }
+
+
+/* 6. Services ----------------------------------------------------------------- */
+.gk-ab-svcs { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.3fr); gap: 16px; }
+.gk-ab-feat {
+  position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: flex-end; min-height: 380px;
+  border-radius: var(--gk-radius); background: var(--gk-navy); color: #fff; box-shadow: var(--gk-shadow-sm);
+}
+.gk-ab-feat__media { position: absolute; inset: 0; z-index: -1; }
+.gk-ab-feat__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.gk-ab-feat:hover .gk-ab-feat__media img { transform: scale(1.04); }
+.gk-ab-feat__body {
+  display: grid; justify-items: start; gap: 8px; width: 100%; padding: 70px 22px 22px;
+  background: linear-gradient(to top, rgba(5, 15, 51, .96) 0%, rgba(5, 15, 51, .78) 50%, rgba(5, 15, 51, 0) 100%);
+}
+.gk-ab-feat__kicker { padding: 3px 9px; border-radius: var(--gk-radius-sm); background: var(--gk-yellow); color: var(--gk-ink); font-size: 11.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; line-height: 1.3; }
+.gk-ab-feat__title { color: #fff; font-size: clamp(1.45rem, 1.2rem + .9vw, 1.9rem); font-weight: 800; line-height: 1.15; letter-spacing: -.02em; }
+.gk-ab-feat__text { max-width: 46ch; color: var(--gk-on-dark); font-size: 15px; line-height: 1.55; }
+.gk-ab-feat__more { display: inline-flex; align-items: center; gap: 8px; margin-top: 4px; color: var(--gk-yellow); font-size: 15px; font-weight: 700; }
+.gk-ab-feat__more i { transition: transform .18s ease; }
+.gk-ab-feat:hover { color: #fff; }
+.gk-ab-feat:hover .gk-ab-feat__more i { transform: translateX(3px); }
+
+.gk-ab-svcs__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; list-style: none; }
+.gk-ab-svcs__list > li { display: flex; }
+.gk-ab-svc {
+  display: flex; align-items: center; gap: 14px; width: 100%; padding: 16px;
+  background: #fff; border: 1px solid var(--gk-line); border-radius: var(--gk-radius); box-shadow: var(--gk-shadow-sm);
+  color: inherit; transition: border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+.gk-ab-svc:hover { border-color: var(--gk-blue); transform: translateY(-2px); box-shadow: var(--gk-shadow); color: inherit; }
+.gk-ab-svc__icon { flex: none; display: grid; place-items: center; width: 46px; height: 46px; border-radius: var(--gk-radius); background: var(--gk-blue); color: var(--gk-yellow); font-size: 18px; }
+.gk-ab-svc__body { display: grid; gap: 3px; flex: 1; min-width: 0; }
+.gk-ab-svc__title { color: var(--gk-ink); font-size: 16.5px; font-weight: 800; line-height: 1.25; }
+.gk-ab-svc__text { color: var(--gk-muted); font-size: 14px; line-height: 1.5; }
+.gk-ab-svc__go { flex: none; color: var(--gk-blue); font-size: 14px; transition: transform .18s ease; }
+.gk-ab-svc:hover .gk-ab-svc__go { transform: translateX(3px); }
+
+
+/* 7. Who we serve + building rail ------------------------------------------- */
+.gk-ab-serve { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(24px, 4.5vw, 64px); align-items: center; }
+.gk-ab-serve__photo { margin: 0; }
+.gk-ab-serve__photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--gk-radius); box-shadow: var(--gk-shadow); }
+.gk-ab-points--serve li { background: var(--gk-pale-2); }
+
+.gk-ab-rail {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; margin-top: 20px; padding: 14px 18px;
+  background: var(--gk-pale); border-radius: var(--gk-radius); border-left: 4px solid var(--gk-yellow);
+}
+.gk-ab-rail__label { color: var(--gk-blue); font-size: 12.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.gk-ab-rail__list { display: flex; flex-wrap: wrap; gap: 8px 22px; list-style: none; }
+.gk-ab-rail__list li { display: inline-flex; align-items: center; gap: 8px; color: var(--gk-ink); font-size: 15px; font-weight: 700; white-space: nowrap; }
+.gk-ab-rail__list i { color: var(--gk-blue); }
+
+
+/* 8. What to expect (blue) --------------------------------------------------- */
+.gk-ab-expect .gk-head--split { align-items: end; }
+.gk-ab-expect__actions { justify-self: end; }
+
+
+/* 9. Recent work ---------------------------------------------------------------- */
+.gk-ab-work { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 270px; gap: 14px; list-style: none; }
+.gk-ab-work > li > .gk-tile { height: 100%; }
+
+
+/* 10. Areas: navy card | map + office --------------------------------------- */
+.gk-ab-areas { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(16px, 2.5vw, 28px); align-items: stretch; }
+.gk-ab-areas__card {
+  position: relative; overflow: hidden; padding: clamp(20px, 1rem + 1.4vw, 32px);
+  border-radius: var(--gk-radius); background: linear-gradient(150deg, var(--gk-blue) 0%, var(--gk-blue-700) 45%, var(--gk-navy) 100%);
+  border-top: 4px solid var(--gk-yellow); box-shadow: var(--gk-shadow);
+}
+.gk-ab-areas__label { margin: 18px 0 10px; color: var(--gk-yellow); font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.gk-ab-areas__place { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.gk-ab-areas__map { flex: 1 1 auto; height: auto; min-height: 300px; }
+.gk-ab-office {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 14px; padding: 12px 14px;
+  background: #fff; border: 1px solid var(--gk-line); border-radius: var(--gk-radius); box-shadow: var(--gk-shadow-sm); color: var(--gk-ink);
+}
+.gk-ab-office:hover { border-color: var(--gk-blue); color: var(--gk-ink); }
+.gk-ab-office__icon { display: grid; place-items: center; width: 42px; height: 42px; border-radius: var(--gk-radius); background: var(--gk-blue); color: var(--gk-yellow); font-size: 16px; }
+.gk-ab-office__body { font-size: 15.5px; font-weight: 700; line-height: 1.35; }
+.gk-ab-office__body small { display: block; color: var(--gk-muted); font-size: 11.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.gk-ab-office__go { display: inline-flex; align-items: center; gap: 8px; color: var(--gk-blue); font-size: 14.5px; font-weight: 700; white-space: nowrap; }
+
+
+/* 11. FAQs (same layout as the homepage FAQ) --------------------------------- */
+.gk-ab-faq { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(24px, 4.5vw, 64px); align-items: start; }
+.gk-ab-faq__side { position: sticky; top: calc(var(--gk-header-h) + 16px); }
+.gk-ab-faq__card { margin-top: 18px; padding: 16px; border-radius: var(--gk-radius); background: var(--gk-pale); border-top: 4px solid var(--gk-yellow); }
+.gk-ab-faq__card-label { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; color: var(--gk-ink); font-weight: 700; }
+.gk-ab-faq__card-label i { color: var(--gk-blue); }
+.gk-faq__a a { font-weight: 700; }
+
+
+/* 12. Closing CTA card --------------------------------------------------------- */
+.gk-ab-cta {
+  position: relative; overflow: hidden; isolation: isolate;
+  display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr);
+  border-radius: var(--gk-radius); background: linear-gradient(130deg, var(--gk-blue) 0%, var(--gk-blue-700) 50%, var(--gk-navy) 100%);
+  box-shadow: var(--gk-shadow);
+}
+.gk-ab-cta::before {             /* faint logo peaks behind the copy */
+  content: ""; position: absolute; z-index: -1; left: -4%; bottom: -2px; width: 60%; aspect-ratio: 640 / 180; pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 180'%3E%3Cpath d='M0 180 L120 70 L150 92 L210 40 L262 96 L300 66 L330 98 L420 0 L520 104 L560 78 L640 180 Z' fill='%23ffffff' fill-opacity='.05'/%3E%3C/svg%3E") no-repeat left bottom / 100% 100%;
+}
+.gk-ab-cta__copy { padding: clamp(22px, 1rem + 2vw, 40px); }
+.gk-ab-cta__title { color: #fff; font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.3rem); font-weight: 800; line-height: 1.12; letter-spacing: -.02em; }
+.gk-ab-cta__title em { font-style: normal; color: var(--gk-yellow); }
+.gk-ab-cta__text { margin-top: 10px; max-width: 52ch; color: var(--gk-on-dark); font-size: 1.0625rem; }
+.gk-ab-cta .gk-actions { margin-top: 20px; }
+.gk-ab-cta__badges { margin-top: 18px; }
+/* Photo with a slanted left cut and a yellow edge along the cut. */
+/* The photo is set 5% taller at both ends to hide the thin black bars in the
+   original upload; the clip points are adjusted so the cut still meets the stripe. */
+.gk-ab-cta__photo { position: relative; overflow: hidden; margin: 0; min-height: 100%; }
+.gk-ab-cta__photo img { position: absolute; left: 0; top: -5%; width: 100%; height: 110%; object-fit: cover; clip-path: polygon(16.8% 0, 100% 0, 100% 100%, -0.8% 100%); }
+.gk-ab-cta__photo::before {
+  content: ""; position: absolute; z-index: 1; inset: 0; pointer-events: none;
+  background: var(--gk-yellow); clip-path: polygon(calc(16% - 9px) 0, 16% 0, 0 100%, -9px 100%);
+}
+
+
+/* Responsive ----------------------------------------------------------------- */
+@media (max-width: 1099px) {
+  .gk-ab-svcs { grid-template-columns: minmax(0, 1fr); }
+  .gk-ab-feat { min-height: 320px; }
+}
+@media (max-width: 959px) {
+  .gk-ab-creds { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gk-ab-who, .gk-ab-exp, .gk-ab-serve, .gk-ab-areas, .gk-ab-faq { grid-template-columns: minmax(0, 1fr); }
+  .gk-ab-who__photo, .gk-ab-exp__photo, .gk-ab-serve__photo { max-width: 640px; }
+  .gk-ab-faq__side { position: static; }
+  .gk-ab-work { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 230px; }
+  .gk-ab-expect__actions { justify-self: start; }
+  .gk-ab-cta { grid-template-columns: minmax(0, 1fr); }
+  .gk-ab-cta__photo { order: -1; height: 220px; min-height: 0; }
+  .gk-ab-cta__photo img { clip-path: none; }
+  .gk-ab-cta__photo::before { inset: auto 0 0 0; height: 4px; clip-path: none; }
+}
+@media (max-width: 859px) {
+  .gk-ab-mvv__grid { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+}
+@media (max-width: 559px) {
+  .gk-ab-creds { gap: 8px; }
+  .gk-ab-cred { gap: 10px; padding: 10px; }
+  .gk-ab-cred__icon { width: 36px; height: 36px; font-size: 15px; }
+  .gk-ab-cred__icon--g img { width: 20px; height: 20px; }
+  .gk-ab-cred__body strong { font-size: 14.5px; }
+  .gk-ab-cred__body small { font-size: 12px; }
+  .gk-ab-points { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .gk-ab-stats { gap: 8px; }
+  .gk-ab-stats li { padding: 10px; }
+  .gk-ab-stats span { font-size: 12.5px; }
+  .gk-ab-svcs__list { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .gk-ab-svc { padding: 12px; }
+  .gk-ab-work { grid-auto-rows: 170px; gap: 10px; }
+  .gk-ab-work .gk-tile { min-height: 0; }
+  .gk-ab-work .gk-tile figcaption { padding: 34px 10px 10px; gap: 4px; }
+  .gk-ab-work .gk-tile__title { font-size: 13.5px; }
+  .gk-ab-work .gk-tile__tag { font-size: 10.5px; }
+  .gk-ab-chip { left: 10px; bottom: 10px; max-width: calc(100% - 20px); font-size: 14px; }
+  .gk-ab-office { grid-template-columns: auto minmax(0, 1fr); }
+  .gk-ab-office__go { grid-column: 2; }
+  .gk-ab-areas__map { flex: none; height: 280px; }
+  .gk-ab-rail { gap: 8px 16px; }
+  .gk-ab-rail__list { gap: 8px 16px; }
+  .gk-ab-rail__list li { font-size: 14px; }
+}

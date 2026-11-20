@@ -1,0 +1,275 @@
+/* ==========================================================================
+   Goldenberg Roofing Brooklyn: Flat Roofing page (goldenberg-brooklyn-flat-roofing.html)
+   Loaded after the kit (css/goldenberg-brooklyn.css). Prefix gk-fr-.
+   Section order matches bestroofing4-flat-roofing.html:
+   hero, services, systems, 24/7 banner, repair or replace, where flat roofs
+   leak, process, recent work, why us, areas, reviews, FAQs, estimate form, CTA.
+
+    0. Current-page marks in the dropdown and drawer (not styled by the kit)
+    1. Hero: blue panel, copy | framed photo + systems card
+    2. Services cards
+    3. Systems
+    4. 24/7 banner
+    5. Repair or replace
+    6. Where flat roofs leak
+    7. Process
+    8. Recent work mosaic
+    9. Why us (navy)
+   10. Areas + map
+   11. FAQs
+   12. Estimate form
+   13. Final CTA card
+   ========================================================================== */
+
+
+/* 0. Current-page marks ----------------------------------------------------- */
+.gk-drop__link[aria-current="page"] { background: var(--gk-yellow-wash); font-weight: 700; box-shadow: inset 3px 0 0 var(--gk-yellow); }
+.gk-drawer__link.is-current { font-weight: 700; }
+.gk-drawer__sub a[aria-current="page"] { color: var(--gk-blue); font-weight: 700; }
+
+
+/* 1. Hero ---------------------------------------------------------------------- */
+.gk-fr-hero { padding-block: clamp(1.75rem, 1.2rem + 2vw, 3rem) clamp(2rem, 1.4rem + 2.2vw, 3.25rem); }
+.gk-fr-hero__grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 28px clamp(32px, 4.5vw, 72px); align-items: center; }
+.gk-fr-hero .gk-hero__title { font-size: clamp(2.1rem, 1.2rem + 2.6vw, 3.3rem); }
+
+/* Framed photo: yellow offset outline behind, a tag on top, the systems card overlapping. */
+.gk-fr-frame { position: relative; isolation: isolate; margin: 0 18px 18px 0; }
+.gk-fr-frame::before {
+  content: ""; position: absolute; z-index: -1; inset: 18px -18px -18px 18px;
+  border: 3px solid var(--gk-yellow); border-radius: var(--gk-radius);
+}
+.gk-fr-frame > img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--gk-radius); box-shadow: var(--gk-shadow-lg); }
+.gk-fr-frame__tag {
+  position: absolute; left: 14px; top: 14px;
+  display: inline-flex; align-items: center; gap: 8px; padding: 6px 11px;
+  border-radius: var(--gk-radius-sm); background: var(--gk-yellow); color: var(--gk-ink);
+  font-size: 13.5px; font-weight: 800; line-height: 1.2;
+}
+.gk-fr-frame__systems {
+  position: absolute; left: -26px; bottom: 22px;
+  padding: 12px 16px 13px; background: #fff; color: var(--gk-ink);
+  border-radius: var(--gk-radius); border-left: 4px solid var(--gk-yellow); box-shadow: var(--gk-shadow-lg);
+}
+.gk-fr-frame__systems p { margin-bottom: 7px; color: var(--gk-muted); font-size: 11.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.gk-fr-frame__systems ul { display: grid; gap: 6px; list-style: none; }
+.gk-fr-frame__systems li { display: flex; align-items: center; gap: 9px; font-size: 14.5px; font-weight: 700; line-height: 1.25; white-space: nowrap; }
+.gk-fr-frame__systems i { width: 16px; color: var(--gk-blue); text-align: center; }
+
+
+/* 2. Services cards ----------------------------------------------------------- */
+.gk-fr-do { list-style: none; }
+.gk-fr-do > li { display: flex; }
+.gk-fr-do > li > .gk-card { width: 100%; }
+.gk-fr-do .gk-checks { gap: 7px; margin-top: 4px; }
+.gk-fr-do .gk-checks li { font-size: 14.5px; }
+
+
+/* 3. Systems ------------------------------------------------------------------- */
+.gk-fr-systems { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gk-gap); list-style: none; }
+.gk-fr-sys {
+  position: relative; display: flex; flex-direction: column; gap: 12px; padding: 20px;
+  background: #fff; border: 1px solid var(--gk-line); border-radius: var(--gk-radius); box-shadow: var(--gk-shadow-sm);
+}
+.gk-fr-sys::before { content: ""; position: absolute; left: 20px; top: -1px; width: 48px; height: 4px; border-radius: 0 0 3px 3px; background: var(--gk-yellow); }
+.gk-fr-sys__top { display: flex; align-items: center; gap: 14px; }
+.gk-fr-sys__icon { flex: none; display: grid; place-items: center; width: 50px; height: 50px; border-radius: var(--gk-radius); background: var(--gk-blue); color: var(--gk-yellow); font-size: 20px; }
+.gk-fr-sys__name { font-size: 1.2rem; font-weight: 800; line-height: 1.2; }
+.gk-fr-sys__sub { margin-top: 2px; color: var(--gk-muted); font-size: 14px; font-weight: 600; }
+.gk-fr-sys__text { min-height: 4.8em; color: var(--gk-text); font-size: 15px; line-height: 1.6; }   /* 3 lines, so the fact tables line up */
+.gk-fr-facts { display: grid; margin: 0; border-radius: var(--gk-radius-sm); background: var(--gk-pale-2); border: 1px solid var(--gk-line); }
+.gk-fr-facts > div { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 10px; padding: 9px 12px; }
+.gk-fr-facts > div + div { border-top: 1px solid var(--gk-line); }
+.gk-fr-facts dt { color: var(--gk-blue); font-size: 11.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; line-height: 1.6; }
+.gk-fr-facts dd { margin: 0; color: var(--gk-ink); font-size: 14.5px; font-weight: 600; line-height: 1.4; }
+.gk-fr-sys__link { margin-top: auto; padding-top: 4px; font-size: 15px; }
+
+
+/* 4. 24/7 banner: the kit photo banner, kept short ---------------------------- */
+.gk-fr-banner { min-height: clamp(280px, 14vw + 130px, 340px); }
+.gk-fr-banner .gk-photo-banner__img { object-position: center 40%; }
+
+
+/* 5. Repair or replace ------------------------------------------------------- */
+.gk-fr-choice { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.12fr); gap: var(--gk-gap); }
+.gk-fr-choice__card { padding: 20px; background: var(--gk-pale-2); border: 1px solid var(--gk-line); border-radius: var(--gk-radius); }
+.gk-fr-choice__top { display: flex; align-items: center; gap: 14px; padding-bottom: 14px; margin-bottom: 14px; border-bottom: 1px solid var(--gk-line); }
+.gk-fr-choice__top h3 { font-size: 1.2rem; font-weight: 800; }
+.gk-fr-choice__top p { margin-top: 2px; color: var(--gk-muted); font-size: 14px; font-weight: 600; }
+.gk-fr-choice__icon { flex: none; display: grid; place-items: center; width: 48px; height: 48px; border-radius: var(--gk-radius); background: var(--gk-yellow); color: var(--gk-ink); font-size: 19px; }
+.gk-fr-choice__icon--blue { background: var(--gk-blue); color: var(--gk-yellow); }
+.gk-fr-dots { display: grid; gap: 9px; list-style: none; }
+.gk-fr-dots li { position: relative; padding-left: 22px; color: var(--gk-ink); font-size: 15.5px; font-weight: 600; line-height: 1.45; }
+.gk-fr-dots li::before { content: ""; position: absolute; left: 2px; top: .5em; width: 9px; height: 9px; border-radius: 2px; background: var(--gk-yellow); }
+.gk-fr-choice__card:nth-child(2) .gk-fr-dots li::before { background: var(--gk-blue); }
+.gk-fr-choice__help {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 22px;
+  border-radius: var(--gk-radius); border-top: 4px solid var(--gk-yellow);
+  background: linear-gradient(150deg, var(--gk-blue) 0%, var(--gk-blue-700) 50%, var(--gk-navy) 100%); color: var(--gk-on-dark);
+  box-shadow: var(--gk-shadow);
+}
+.gk-fr-choice__help-icon { color: var(--gk-yellow); font-size: 28px; line-height: 1; }
+.gk-fr-choice__help h3 { color: #fff; font-size: 1.3rem; font-weight: 800; }
+.gk-fr-choice__help p { font-size: 15.5px; line-height: 1.6; }
+.gk-fr-choice__help .gk-actions { margin-top: auto; padding-top: 6px; gap: 10px; }
+.gk-fr-choice__help .gk-btn { padding-inline: 18px; }
+
+
+/* 6. Where flat roofs leak --------------------------------------------------- */
+.gk-fr-leaks { display: grid; grid-template-columns: minmax(0, 2.15fr) minmax(0, 1fr); gap: var(--gk-gap); align-items: stretch; }
+.gk-fr-leaks__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; list-style: none; }
+.gk-fr-leak {
+  display: flex; align-items: flex-start; gap: 12px; padding: 16px;
+  background: #fff; border: 1px solid var(--gk-line); border-radius: var(--gk-radius); box-shadow: var(--gk-shadow-sm);
+}
+.gk-fr-leak__icon { flex: none; display: grid; place-items: center; width: 42px; height: 42px; border-radius: var(--gk-radius); background: var(--gk-blue); color: var(--gk-yellow); font-size: 17px; }
+.gk-fr-leak h3 { font-size: 1.02rem; font-weight: 800; line-height: 1.3; }
+.gk-fr-leak p { margin-top: 3px; color: var(--gk-muted); font-size: 14.5px; line-height: 1.5; }
+.gk-fr-signs {
+  display: flex; flex-direction: column; gap: 10px; padding: 22px;
+  border-radius: var(--gk-radius); background: var(--gk-navy); color: var(--gk-on-dark); border-top: 4px solid var(--gk-yellow);
+}
+.gk-fr-signs__icon { display: grid; place-items: center; width: 46px; height: 46px; border-radius: var(--gk-radius); background: var(--gk-yellow); color: var(--gk-ink); font-size: 18px; }
+.gk-fr-signs h3 { color: #fff; font-size: 1.25rem; font-weight: 800; }
+.gk-fr-signs p { font-size: 15px; line-height: 1.55; }
+.gk-fr-signs .gk-checks { margin-top: 4px; }
+.gk-fr-signs .gk-checks li { font-size: 15px; }
+
+
+/* 7. Process: the kit steps with a connecting line --------------------------- */
+.gk-fr-steps { position: relative; }
+.gk-fr-steps .gk-step { background: var(--gk-pale-2); border-top: 4px solid var(--gk-blue); }
+.gk-fr-steps .gk-step__num { font-size: 15px; letter-spacing: .02em; }
+
+
+/* 8. Recent work mosaic: lead tile 2x2, four smaller tiles ---------------------- */
+.gk-fr-work { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 210px; gap: 14px; list-style: none; }
+.gk-fr-work__item--lead { grid-column: span 2; grid-row: span 2; }
+.gk-fr-work__item > .gk-tile { height: 100%; min-height: 0; }   /* the row sets the height (kit tile has min-height 220px) */
+.gk-fr-work__item--lead .gk-tile__title { font-size: 1.2rem; }
+.gk-fr-work__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; margin-top: 16px; }
+.gk-fr-work__note { display: flex; align-items: center; gap: 10px; color: var(--gk-ink); font-size: 16px; font-weight: 700; }
+.gk-fr-work__note i { color: var(--gk-blue); }
+
+
+/* 9. Why us (navy) --------------------------------------------------------------- */
+.gk-fr-why { position: relative; overflow: hidden; }
+.gk-fr-why::before {
+  content: ""; position: absolute; right: -6%; bottom: -1px; width: 46%; aspect-ratio: 640 / 180; pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 180'%3E%3Cpath d='M0 180 L120 70 L150 92 L210 40 L262 96 L300 66 L330 98 L420 0 L520 104 L560 78 L640 180 Z' fill='%23ffffff' fill-opacity='.04'/%3E%3C/svg%3E") no-repeat right bottom / 100% 100%;
+}
+.gk-fr-why .gk-container { position: relative; }
+.gk-fr-why__badges { justify-self: end; }
+.gk-fr-why__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; list-style: none; }
+.gk-fr-why__grid li {
+  display: flex; align-items: flex-start; gap: 14px; padding: 18px;
+  background: rgba(255, 255, 255, .05); border: 1px solid rgba(255, 255, 255, .14); border-radius: var(--gk-radius);
+}
+.gk-fr-why__icon { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: var(--gk-radius); background: var(--gk-yellow); color: var(--gk-ink); font-size: 18px; }
+.gk-fr-why__grid h3 { color: #fff; font-size: 1.06rem; font-weight: 800; line-height: 1.3; }
+.gk-fr-why__grid p { margin-top: 4px; color: var(--gk-on-dark); font-size: 14.5px; line-height: 1.55; }
+
+
+/* 10. Areas + map --------------------------------------------------------------- */
+.gk-fr-areas { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(20px, 3.5vw, 48px); align-items: center; }
+.gk-fr-areas__chips { margin-top: 16px; }
+.gk-fr-areas__map { height: 360px; box-shadow: var(--gk-shadow-sm); }
+.gk-fr-areas__pin {
+  position: absolute; left: 12px; bottom: 12px; z-index: 1; max-width: calc(100% - 24px);
+  display: flex; align-items: center; gap: 10px; padding: 8px 12px 8px 8px;
+  background: #fff; border-radius: var(--gk-radius); border-left: 4px solid var(--gk-yellow); box-shadow: var(--gk-shadow);
+  color: var(--gk-ink); font-size: 14px; font-weight: 700; line-height: 1.3;
+}
+.gk-fr-areas__pin:hover { color: var(--gk-blue); }
+.gk-fr-areas__pin small { display: block; color: var(--gk-muted); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.gk-fr-areas__pin-icon { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: var(--gk-radius-sm); background: var(--gk-blue); color: var(--gk-yellow); font-size: 14px; }
+
+
+/* 11. FAQs (same layout as the homepage FAQ) ---------------------------------- */
+.gk-fr-faq { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(24px, 4.5vw, 64px); align-items: start; }
+.gk-fr-faq__side { position: sticky; top: calc(var(--gk-header-h) + 16px); }
+.gk-fr-faq__card { margin-top: 18px; padding: 16px; border-radius: var(--gk-radius); background: var(--gk-pale); border-top: 4px solid var(--gk-yellow); }
+.gk-fr-faq__card-label { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; color: var(--gk-ink); font-weight: 700; }
+.gk-fr-faq__card-label i { color: var(--gk-blue); }
+.gk-fr-faq__more { margin-top: 14px; }
+
+
+/* 12. Estimate form ------------------------------------------------------------ */
+.gk-fr-quote { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 560px); gap: clamp(24px, 4.5vw, 64px); align-items: center; }
+.gk-fr-quote__checks { margin-top: 18px; }
+.gk-fr-quote__tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 20px; max-width: 520px; }
+.gk-fr-quote__form { align-self: start; }
+
+
+/* 13. Final CTA card: the homepage CTA band's look, as a card ---------------- */
+.gk-fr-cta {
+  position: relative; overflow: hidden; isolation: isolate;
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 18px 28px;
+  padding: clamp(20px, 1rem + 1.6vw, 34px); border-radius: var(--gk-radius);
+  background: var(--gk-blue); color: var(--gk-on-dark); box-shadow: var(--gk-shadow);
+}
+.gk-fr-cta::before {             /* navy slab with a yellow edge on the right */
+  content: ""; position: absolute; z-index: -1; right: -60px; top: 0; bottom: 0; width: 36%;
+  background: var(--gk-navy); transform: skewX(-14deg); transform-origin: top;
+}
+.gk-fr-cta::after { content: ""; position: absolute; z-index: -1; right: calc(36% - 60px); top: 0; bottom: 0; width: 10px; background: var(--gk-yellow); transform: skewX(-14deg); transform-origin: top; }
+.gk-fr-cta__icon { display: grid; place-items: center; width: 64px; height: 64px; border-radius: var(--gk-radius); background: var(--gk-yellow); color: var(--gk-ink); font-size: 26px; }
+.gk-fr-cta .gk-eyebrow { margin-bottom: 6px; color: var(--gk-yellow); }
+.gk-fr-cta .gk-eyebrow::before { background: #fff; }
+.gk-fr-cta__title { color: #fff; font-size: clamp(1.4rem, 1.05rem + 1.1vw, 2.05rem); font-weight: 800; line-height: 1.15; letter-spacing: -.015em; }
+.gk-fr-cta__title em { font-style: normal; color: var(--gk-yellow); }
+.gk-fr-cta__text { margin-top: 6px; color: var(--gk-on-dark); font-size: 15.5px; }
+.gk-fr-cta__facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 12px; list-style: none; }
+.gk-fr-cta__facts li { display: inline-flex; align-items: center; gap: 8px; color: #fff; font-size: 14px; font-weight: 700; white-space: nowrap; }
+.gk-fr-cta__facts i { color: var(--gk-yellow); }
+
+
+/* Responsive ------------------------------------------------------------------ */
+@media (max-width: 1199px) {
+  .gk-fr-choice { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .gk-fr-choice__help { grid-column: 1 / -1; }
+  .gk-fr-leaks { grid-template-columns: minmax(0, 1fr); }
+  .gk-fr-leaks__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 1023px) {
+  .gk-fr-do { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gk-fr-systems { grid-template-columns: minmax(0, 1fr); }
+  .gk-fr-why__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 959px) {
+  .gk-fr-hero__grid, .gk-fr-areas, .gk-fr-faq, .gk-fr-quote { grid-template-columns: minmax(0, 1fr); }
+  .gk-fr-frame { max-width: 620px; margin: 0 12px 12px 0; }
+  .gk-fr-frame::before { inset: 12px -12px -12px 12px; }
+  .gk-fr-frame__systems { left: 12px; bottom: 12px; }
+  .gk-fr-faq__side { position: static; }
+  .gk-fr-work { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 200px; }
+  .gk-fr-work__item--lead { grid-row: span 1; }
+  .gk-fr-cta { grid-template-columns: auto minmax(0, 1fr); }
+  .gk-fr-cta::before, .gk-fr-cta::after { display: none; }
+  .gk-fr-cta { border-top: 4px solid var(--gk-yellow); }
+  .gk-fr-cta__actions { grid-column: 1 / -1; }
+  .gk-fr-why__badges { justify-self: start; }
+}
+@media (max-width: 759px) {
+  .gk-fr-do { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 599px) {
+  .gk-fr-frame__systems { position: relative; left: auto; bottom: auto; margin: -34px 12px 0; }
+  .gk-fr-frame__systems li { font-size: 14px; }
+  .gk-fr-choice { grid-template-columns: minmax(0, 1fr); }
+  .gk-fr-leaks__grid { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .gk-fr-leak { padding: 12px; }
+  .gk-fr-why__grid { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .gk-fr-why__grid li { padding: 14px; }
+  .gk-fr-facts > div { grid-template-columns: 5.5rem minmax(0, 1fr); }
+  .gk-fr-work { grid-auto-rows: 160px; gap: 10px; }
+  .gk-fr-work .gk-tile { min-height: 0; }
+  .gk-fr-work .gk-tile figcaption { padding: 34px 10px 10px; gap: 4px; }
+  .gk-fr-work .gk-tile__title, .gk-fr-work__item--lead .gk-tile__title { font-size: 13.5px; }
+  .gk-fr-work .gk-tile__tag { font-size: 10.5px; }
+  .gk-fr-work__note { font-size: 15px; }
+  .gk-fr-areas__map { height: 300px; }
+  .gk-fr-quote__tiles { grid-template-columns: minmax(0, 1fr); }
+  .gk-fr-cta { grid-template-columns: minmax(0, 1fr); }
+  .gk-fr-cta__icon { width: 50px; height: 50px; font-size: 21px; }
+}

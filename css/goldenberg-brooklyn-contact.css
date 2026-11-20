@@ -1,0 +1,174 @@
+/* ==========================================================================
+   Goldenberg Roofing Brooklyn: Contact page (goldenberg-brooklyn-contact.html)
+   The contact pattern (gb-inner-brief.md) in the Brooklyn look. Loaded after
+   the kit (css/goldenberg-brooklyn.css); the form, badges, reviews, map, FAQ
+   and footer come from the kit. Prefix gk-ct-.
+
+    1. Hero: copy + call line + badges + photo left, form card right
+    2. 3-step strip
+    3. Office: map left, thin info box right
+    4. FAQs
+    5. Responsive
+   ========================================================================== */
+
+
+/* 1. Hero ------------------------------------------------------------------- */
+.gk-ct-hero {
+  position: relative; isolation: isolate; overflow: hidden;
+  padding-block: clamp(1rem, .7rem + 1vw, 1.5rem) clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem);
+  background: var(--gk-pale); border-bottom: 1px solid var(--gk-line);
+}
+.gk-ct-hero::before {            /* the logo peaks, very faint, along the bottom */
+  content: ""; position: absolute; z-index: -1; left: -4%; bottom: -2px; width: 64%; aspect-ratio: 640 / 180; pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 180'%3E%3Cpath d='M0 180 L120 70 L150 92 L210 40 L262 96 L300 66 L330 98 L420 0 L520 104 L560 78 L640 180 Z' fill='%230036AC' fill-opacity='.05'/%3E%3C/svg%3E") no-repeat left bottom / 100% 100%;
+}
+.gk-ct-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 480px);
+  grid-template-areas: "copy form" "photo form";
+  grid-template-rows: auto 1fr;
+  gap: 1.15rem clamp(1.5rem, 3.5vw, 3.5rem);
+}
+
+.gk-ct-hero__copy { grid-area: copy; display: grid; gap: .8rem; justify-items: start; min-width: 0; }
+.gk-ct-hero__copy .gk-eyebrow { margin-bottom: 0; }
+.gk-ct-hero__title {
+  font-size: clamp(2.1rem, 1.3rem + 2.4vw, 3.3rem); font-weight: 800; line-height: 1.06; letter-spacing: -.03em; color: var(--gk-ink);
+}
+.gk-ct-hero__title .gk-hl { white-space: nowrap; }
+.gk-ct-hero__sub { max-width: 46rem; color: var(--gk-muted); font-size: clamp(16px, 15px + .3vw, 17.5px); line-height: 1.55; }
+
+/* Big phone line: yellow icon tile, the number, a note under it. */
+.gk-ct-call { display: flex; align-items: center; gap: .85rem; margin-top: .15rem; }
+.gk-ct-call__icon {
+  flex: none; display: grid; place-items: center; width: 52px; height: 52px;
+  border-radius: var(--gk-radius); background: var(--gk-yellow); color: var(--gk-ink); font-size: 20px;
+  box-shadow: 0 8px 18px -10px rgba(226, 188, 18, .95);
+}
+.gk-ct-call__body { display: grid; gap: .1rem; }
+.gk-ct-call__phone { color: var(--gk-ink); font-size: clamp(1.65rem, 1.35rem + .9vw, 2.1rem); font-weight: 800; line-height: 1.05; letter-spacing: -.02em; }
+.gk-ct-call__phone:hover { color: var(--gk-blue); }
+.gk-ct-call__note { color: var(--gk-muted); font-size: 14px; line-height: 1.3; }
+
+/* Badge row with thin dividers: [G] ★ 5.0 Reviews | Licensed & Insured | Open 24/7 */
+.gk-ct-proof { display: flex; flex-wrap: wrap; align-items: center; row-gap: .5rem; margin-top: .1rem; list-style: none; }
+.gk-ct-proof li {
+  display: inline-flex; align-items: center; gap: .45rem; padding: .15rem 1rem;
+  color: var(--gk-ink); font-size: 14.5px; font-weight: 700; line-height: 1.2; white-space: nowrap;
+}
+.gk-ct-proof li:first-child { padding-left: 0; }
+.gk-ct-proof li + li { border-left: 1px solid var(--gk-line-strong); }
+.gk-ct-proof a { display: inline-flex; align-items: center; gap: .45rem; color: var(--gk-ink); }
+.gk-ct-proof a:hover { color: var(--gk-blue); }
+.gk-ct-proof img { width: 18px; height: 18px; }
+.gk-ct-proof li > i { color: var(--gk-blue); font-size: 15px; }
+
+/* Job photo: a blue block behind the bottom-right corner, dark caption chip. */
+.gk-ct-hero__photo { grid-area: photo; align-self: start; position: relative; min-width: 0; margin: 4px 14px 14px 0; }
+.gk-ct-hero__photo::before { content: ""; position: absolute; z-index: -1; right: -14px; bottom: -14px; width: 42%; height: 70%; border-radius: var(--gk-radius); background: var(--gk-blue); }
+.gk-ct-hero__photo img {
+  width: 100%; aspect-ratio: 2.4 / 1; object-fit: cover; object-position: center 42%;
+  border-radius: var(--gk-radius); box-shadow: var(--gk-shadow);
+}
+.gk-ct-hero__photo figcaption {
+  position: absolute; left: .85rem; bottom: .85rem; max-width: calc(100% - 1.7rem);
+  padding: .45rem .8rem; border-left: 3px solid var(--gk-yellow); border-radius: var(--gk-radius-sm);
+  background: rgba(5, 15, 51, .88); color: #fff; font-size: 13.5px; font-weight: 700; line-height: 1.3;
+}
+
+/* Form card: the kit quote card with a 4px yellow top border, sized to its content. */
+.gk-ct-form { grid-area: form; align-self: start; padding: 18px 22px 16px; border: 1px solid var(--gk-line); border-top: 4px solid var(--gk-yellow); }
+.gk-ct-form .gk-quote__title { margin-bottom: 2px; font-size: clamp(1.35rem, 1.2rem + .5vw, 1.6rem); }
+.gk-ct-form__sub { margin-bottom: 12px; color: var(--gk-muted); font-size: 14.5px; }
+.gk-ct-form:has(.gk-quote__done:not([hidden])) .gk-ct-form__sub { display: none; }   /* thank-you state */
+
+
+/* 2. 3-step strip ----------------------------------------------------------- */
+.gk-ct-strip { background: #fff; border-bottom: 1px solid var(--gk-line); }
+.gk-ct-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); list-style: none; }
+.gk-ct-steps li { display: flex; align-items: center; justify-content: center; gap: .8rem; padding: 1rem; }
+.gk-ct-steps li + li { border-left: 1px solid var(--gk-line); }
+.gk-ct-steps__num {
+  flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%;
+  background: var(--gk-yellow); color: var(--gk-ink); font-size: 16px; font-weight: 800;
+  box-shadow: 0 0 0 4px rgba(249, 210, 44, .25);
+}
+.gk-ct-steps__text { color: var(--gk-ink); font-size: 16.5px; font-weight: 700; line-height: 1.3; }
+
+
+/* 3. Office: map left (wide), thin info box right -------------------------- */
+.gk-ct-office { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 380px); gap: clamp(1rem, 2.5vw, 1.5rem); align-items: stretch; }
+.gk-ct-office__map { height: auto; min-height: 360px; }
+.gk-ct-office__map iframe { position: absolute; inset: 0; }
+.gk-ct-office__info {
+  display: flex; flex-direction: column; align-items: flex-start; min-width: 0; padding: 18px 22px 22px;
+  background: #fff; border: 1px solid var(--gk-line); border-top: 4px solid var(--gk-yellow);
+  border-radius: var(--gk-radius); box-shadow: var(--gk-shadow-sm);
+}
+.gk-ct-office__title { font-size: clamp(1.35rem, 1.2rem + .5vw, 1.6rem); font-weight: 800; line-height: 1.15; letter-spacing: -.02em; }
+.gk-ct-details { display: grid; width: 100%; margin: 8px 0 16px; list-style: none; }
+.gk-ct-details li { display: grid; grid-template-columns: 42px minmax(0, 1fr); align-items: center; gap: 14px; padding: 12px 0; }
+.gk-ct-details li + li { border-top: 1px solid var(--gk-line); }
+.gk-ct-details__icon { display: grid; place-items: center; width: 42px; height: 42px; border-radius: var(--gk-radius); background: var(--gk-blue); color: var(--gk-yellow); font-size: 16px; }
+.gk-ct-details__label { color: var(--gk-muted); font-size: 11.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; line-height: 1.3; }
+.gk-ct-details__value { color: var(--gk-ink); font-size: 16px; font-weight: 700; line-height: 1.35; }
+.gk-ct-details__value--lg { font-size: 22px; font-weight: 800; letter-spacing: -.01em; }
+.gk-ct-details__value a { color: inherit; }
+.gk-ct-details__value a:hover { color: var(--gk-blue); }
+.gk-ct-office__cta { margin-top: auto; }
+
+
+/* 4. FAQs (same layout as the homepage FAQ) ---------------------------------- */
+.gk-ct-faq { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(24px, 4.5vw, 64px); align-items: start; }
+.gk-ct-faq__side { position: sticky; top: calc(var(--gk-header-h) + 16px); }
+.gk-ct-faq__card { margin-top: 18px; padding: 16px; border-radius: var(--gk-radius); background: #fff; border-top: 4px solid var(--gk-yellow); box-shadow: var(--gk-shadow-sm); }
+.gk-ct-faq__card-label { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; color: var(--gk-ink); font-weight: 700; }
+.gk-ct-faq__card-label i { color: var(--gk-blue); }
+.gk-faq__a a { font-weight: 700; }
+
+
+/* 5. Responsive ------------------------------------------------------------- */
+@media (max-width: 1199px) {
+  .gk-ct-hero__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 440px); }
+}
+/* Tablets and phones: copy, then the form, then the photo. */
+@media (max-width: 959px) {
+  .gk-ct-hero__grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "copy" "form" "photo";
+    grid-template-rows: none; gap: 1.25rem;
+  }
+  .gk-ct-form { max-width: 640px; width: 100%; }
+  .gk-ct-hero__photo { max-width: 640px; }
+  .gk-ct-hero__photo img { aspect-ratio: 16 / 9; }
+  .gk-ct-office { grid-template-columns: minmax(0, 1fr); }
+  .gk-ct-office__info { order: -1; }
+  .gk-ct-office__map { min-height: 300px; }
+  .gk-ct-faq { grid-template-columns: minmax(0, 1fr); }
+  .gk-ct-faq__side { position: static; }
+}
+/* Phones: the three steps stay in one row, number above the words. */
+@media (max-width: 767px) {
+  .gk-ct-steps li { flex-direction: column; justify-content: flex-start; gap: .45rem; padding: .8rem .4rem; text-align: center; }
+  .gk-ct-steps__num { width: 30px; height: 30px; font-size: 14px; }
+  .gk-ct-steps__text { font-size: 13.5px; }
+}
+@media (max-width: 479px) {
+  .gk-ct-hero__copy .gk-eyebrow { font-size: 12px; letter-spacing: .08em; }   /* keeps the long eyebrow on one line */
+  .gk-ct-call__icon { width: 46px; height: 46px; font-size: 18px; }
+  .gk-ct-proof li { padding-inline: .75rem; font-size: 13.5px; }
+  /* Google on its own line; the two credentials share the next one. */
+  .gk-ct-proof li:first-child { flex-basis: 100%; }
+  .gk-ct-proof li:nth-child(2) { padding-left: 0; border-left: 0; }
+  .gk-ct-form { padding: 16px 16px 14px; }
+  .gk-ct-hero__photo { margin: 0 10px 10px 0; }
+  .gk-ct-hero__photo::before { right: -10px; bottom: -10px; }
+  .gk-ct-office__info { padding: 16px 16px 18px; }
+  .gk-ct-office__map { min-height: 260px; }
+}
+
+/* Nitesh, Nov 20: the office map was too wide (about 70% of the row).
+   Desktop split is now about 55/45 so the info box gets more room. */
+@media (min-width: 64.0625rem) {
+  .gk-ct-office { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+}

@@ -1,0 +1,217 @@
+/* ==========================================================================
+   Goldenberg Roofing Brooklyn: Projects page (goldenberg-brooklyn-projects.html)
+   Loaded after css/goldenberg-brooklyn.css (the kit) and built only from its
+   tokens. Reused as-is from the kit: page hero panel, crumbs, badges, section
+   heads, project tile (gk-tile), steps, reviews slot, CTA band, buttons.
+   Everything here is prefixed gk-pj-.
+
+   Sections, as on bestroofing4-projects.html:
+     1. Hero (blue panel) with a photo mosaic (plain images, no dialog)
+     2. Gallery (white): filter chips, tiles, pager
+     3. Scope (navy)
+     4. Process (pale): kit steps
+     5. Reviews (white): kit slot
+     6. CTA (pale): kit CTA band as a card
+     7. Photo dialog
+   ========================================================================== */
+
+
+/* 1. Hero: copy left, photo mosaic right ----------------------------------- */
+.gk-pj-hero { padding-block: clamp(1.75rem, 1.3rem + 2vw, 3rem); }
+.gk-pj-hero__grid {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  align-items: center; gap: 28px clamp(2rem, 4vw, 4rem);
+}
+.gk-pj-hero .gk-crumbs { margin-bottom: 14px; }
+
+/* One tall photo and three smaller ones, on a yellow frame. */
+.gk-pj-mosaic {
+  position: relative;
+  display: grid; grid-template-columns: 1.2fr .8fr .8fr; grid-template-rows: 1fr 1fr; gap: 10px;
+  height: clamp(20rem, 27vw, 25rem); margin: 0 14px 14px 0;
+}
+.gk-pj-mosaic::before {
+  content: ""; position: absolute; inset: 14px -14px -14px 14px; z-index: 0;
+  border-radius: var(--gk-radius); background: var(--gk-yellow);
+}
+.gk-pj-mosaic__tile {
+  position: relative; z-index: 1; overflow: hidden;
+  border-radius: var(--gk-radius); background: var(--gk-navy);
+  box-shadow: 0 18px 40px -22px rgba(5, 15, 51, .8);
+}
+.gk-pj-mosaic__tile img { width: 100%; height: 100%; object-fit: cover; }
+.gk-pj-mosaic__tile--a { grid-column: 1; grid-row: 1 / 3; }
+.gk-pj-mosaic__tile--b { grid-column: 2 / 4; grid-row: 1; }
+.gk-pj-mosaic__tile--c { grid-column: 2; grid-row: 2; }
+.gk-pj-mosaic__tile--d { grid-column: 3; grid-row: 2; }
+
+
+/* 2. Gallery: filter chips, project tiles, pager --------------------------- */
+.gk-pj-filter { display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; margin-bottom: 16px; }
+.gk-pj-filter__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.gk-pj-chip {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 42px; padding: 0 6px 0 14px;
+  border: 1px solid var(--gk-line-strong); border-radius: var(--gk-radius); background: #fff;
+  color: var(--gk-ink); font-size: 14.5px; font-weight: 700; white-space: nowrap; cursor: pointer;
+  transition: background-color .18s ease, border-color .18s ease, color .18s ease;
+}
+.gk-pj-chip:hover { border-color: var(--gk-blue); color: var(--gk-blue); }
+.gk-pj-chip__n {
+  display: inline-grid; place-items: center; min-width: 28px; height: 28px; padding: 0 6px;
+  border-radius: var(--gk-radius-sm); background: var(--gk-pale); color: var(--gk-blue);
+  font-size: 12.5px; font-weight: 800;
+}
+.gk-pj-chip[aria-pressed="true"] { border-color: var(--gk-blue); background: var(--gk-blue); color: #fff; }
+.gk-pj-chip[aria-pressed="true"] .gk-pj-chip__n { background: var(--gk-yellow); color: var(--gk-ink); }
+.gk-pj-filter__count { flex: none; color: var(--gk-muted); font-size: 14.5px; font-weight: 600; }
+
+.gk-pj-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; list-style: none; }
+.gk-pj-tile { aspect-ratio: 4 / 3; min-height: 0; }
+/* The whole tile is the button that opens the dialog. */
+.gk-pj-tile__open {
+  position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; padding: 0;
+  border: 0; border-radius: inherit; background: transparent; cursor: zoom-in;
+}
+.gk-pj-tile__open:focus-visible { outline: 3px solid var(--gk-yellow); outline-offset: -3px; }
+.gk-pj-tile__zoom {
+  position: absolute; top: 12px; right: 12px;
+  display: grid; place-items: center; width: 38px; height: 38px; border-radius: var(--gk-radius-sm);
+  background: rgba(255, 255, 255, .92); color: var(--gk-blue); font-size: 15px;
+  opacity: 0; transform: translateY(-4px); transition: opacity .2s ease, transform .2s ease;
+}
+.gk-pj-tile:hover .gk-pj-tile__zoom, .gk-pj-tile__open:focus-visible .gk-pj-tile__zoom { opacity: 1; transform: none; }
+@media (hover: none) { .gk-pj-tile__zoom { opacity: 1; transform: none; } }
+
+/* Pager: Prev, 1..N, Next */
+.gk-pj-pager { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; margin-top: 20px; }
+.gk-pj-pager__btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-width: 44px; height: 44px; padding: 0 14px;
+  border: 1px solid var(--gk-line-strong); border-radius: var(--gk-radius-sm); background: #fff;
+  color: var(--gk-ink); font-family: var(--gk-font); font-size: 15px; font-weight: 800; cursor: pointer;
+  transition: background-color .18s ease, border-color .18s ease, color .18s ease;
+}
+.gk-pj-pager__btn:hover:not(:disabled) { border-color: var(--gk-blue); color: var(--gk-blue); }
+.gk-pj-pager__btn[aria-current="page"] { border-color: var(--gk-blue); background: var(--gk-blue); color: #fff; }
+.gk-pj-pager__btn:disabled { opacity: .4; cursor: default; }
+
+
+/* 3. Scope (navy) ---------------------------------------------------------- */
+.gk-pj-scope__grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.6fr); align-items: center; gap: 22px clamp(2rem, 5vw, 4.5rem); }
+.gk-pj-scope__cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.gk-pj-scope__col { padding: 18px 18px 12px; border: 1px solid rgba(255, 255, 255, .14); border-radius: var(--gk-radius); background: rgba(255, 255, 255, .05); }
+.gk-pj-scope__h { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; color: #fff; font-size: 1.05rem; font-weight: 800; }
+.gk-pj-scope__icon { display: grid; place-items: center; width: 34px; height: 34px; border-radius: var(--gk-radius-sm); background: var(--gk-yellow); color: var(--gk-ink); font-size: 14px; }
+.gk-pj-scope__col ul { list-style: none; }
+.gk-pj-scope__col li { padding: 8px 0; border-top: 1px solid rgba(255, 255, 255, .12); color: var(--gk-on-dark); font-size: 15px; line-height: 1.45; }
+.gk-pj-scope__col li:first-child { border-top: 0; }
+
+
+/* 4. Process note ---------------------------------------------------------- */
+.gk-pj-note { display: inline-flex; align-items: center; gap: 8px; color: var(--gk-ink); font-size: 15.5px; font-weight: 700; white-space: nowrap; }
+.gk-pj-note i { color: var(--gk-blue); }
+
+
+/* 6. CTA: the kit band as a card (pale section around it) ------------------ */
+.gk-pj-cta .gk-cta-band { border-radius: var(--gk-radius); box-shadow: var(--gk-shadow); }
+.gk-pj-cta .gk-cta-band__inner { padding-inline: clamp(1.25rem, 1rem + 1.6vw, 2.5rem); }
+
+
+/* 7. Photo dialog ---------------------------------------------------------- */
+.gk-pj-lb {
+  width: min(64rem, calc(100vw - 2rem)); max-width: none; max-height: calc(100dvh - 2rem);
+  padding: 0; border: 0; border-top: 6px solid var(--gk-yellow); border-radius: var(--gk-radius);
+  background: var(--gk-navy); color: #fff; overflow: hidden; box-shadow: var(--gk-shadow-lg);
+}
+.gk-pj-lb::backdrop { background: rgba(5, 15, 51, .86); }
+.gk-pj-lb__inner { display: grid; grid-template-rows: minmax(0, 1fr) auto; max-height: calc(100dvh - 2rem - 6px); }
+.gk-pj-lb__stage { position: relative; display: grid; place-items: center; min-height: 0; margin: 0; background: var(--gk-navy-900); }
+.gk-pj-lb__img { width: auto; max-width: 100%; height: auto; max-height: calc(100dvh - 12rem); object-fit: contain; }
+.gk-pj-lb__nav, .gk-pj-lb__close {
+  display: grid; place-items: center; width: 44px; height: 44px; padding: 0;
+  border: 0; border-radius: var(--gk-radius-sm); background: #fff; color: var(--gk-ink);
+  font-size: 16px; cursor: pointer; transition: background-color .18s ease;
+}
+.gk-pj-lb__nav:hover, .gk-pj-lb__close:hover { background: var(--gk-yellow); }
+.gk-pj-lb__nav { position: absolute; top: 50%; transform: translateY(-50%); box-shadow: 0 6px 18px rgba(0, 0, 0, .3); }
+.gk-pj-lb__nav--prev { left: 14px; }
+.gk-pj-lb__nav--next { right: 14px; }
+.gk-pj-lb__panel {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "tag top" "title actions" "alt actions";
+  align-items: center; gap: 4px 20px; padding: 14px 18px 16px;
+}
+.gk-pj-lb__top { grid-area: top; display: flex; align-items: center; justify-content: flex-end; gap: 12px; }
+.gk-pj-lb__count { color: var(--gk-on-dark); font-size: 13px; font-weight: 700; letter-spacing: .06em; }
+.gk-pj-lb__close { width: 40px; height: 40px; }
+.gk-pj-lb__tag { grid-area: tag; justify-self: start; }
+.gk-pj-lb__title { grid-area: title; margin-top: 4px; color: #fff; font-size: 1.35rem; font-weight: 800; line-height: 1.2; }
+.gk-pj-lb__alt { grid-area: alt; color: var(--gk-on-dark); font-size: 14.5px; line-height: 1.5; }
+.gk-pj-lb__actions { grid-area: actions; justify-self: end; flex-wrap: nowrap; }
+
+
+/* Responsive ---------------------------------------------------------------- */
+@media (max-width: 1099px) {
+  .gk-pj-scope__grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 1023px) {
+  .gk-pj-hero__grid { grid-template-columns: minmax(0, 1fr); }
+  .gk-pj-mosaic { height: clamp(17rem, 46vw, 24rem); }
+  .gk-pj-filter { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 859px) {
+  .gk-pj-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .gk-pj-note { white-space: normal; }
+  .gk-pj-lb__panel { grid-template-areas: "tag top" "title title" "alt alt" "actions actions"; }
+  .gk-pj-lb__actions { justify-self: stretch; margin-top: 10px; }
+  .gk-pj-lb__actions .gk-btn { flex: 1 1 auto; }
+}
+@media (max-width: 759px) {
+  .gk-pj-scope__cols { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+}
+@media (max-width: 559px) {
+  .gk-pj-hero__copy .gk-actions .gk-btn { flex: 1 1 100%; }
+  .gk-pj-hero .gk-badges { gap: 6px; }
+  .gk-pj-hero .gk-badge { min-height: 34px; padding: 5px 10px; font-size: 13px; }
+  .gk-pj-mosaic {
+    grid-template-columns: 1.15fr .85fr; grid-template-rows: 1fr 1fr 1fr;
+    height: 18rem; gap: 8px; margin: 0 10px 10px 0;
+  }
+  .gk-pj-mosaic::before { inset: 10px -10px -10px 10px; }
+  .gk-pj-mosaic__tile--a { grid-column: 1; grid-row: 1 / 4; }
+  .gk-pj-mosaic__tile--b { grid-column: 2; grid-row: 1; }
+  .gk-pj-mosaic__tile--c { grid-column: 2; grid-row: 2; }
+  .gk-pj-mosaic__tile--d { grid-column: 2; grid-row: 3; }
+
+  /* Chips scroll sideways inside their own row; the page never does. */
+  .gk-pj-filter { gap: 10px; }
+  .gk-pj-filter__chips {
+    flex-wrap: nowrap; width: calc(100% + var(--gk-edge)); margin-right: calc(-1 * var(--gk-edge));
+    padding: 0 var(--gk-edge) 4px 0; overflow-x: auto; scrollbar-width: none;
+  }
+  .gk-pj-filter__chips::-webkit-scrollbar { display: none; }
+  .gk-pj-chip { min-height: 40px; font-size: 14px; }
+
+  /* Two square tiles per row, with a smaller caption (as the homepage mosaic). */
+  .gk-pj-grid { gap: 10px; }
+  .gk-pj-tile { aspect-ratio: 1 / 1; }
+  .gk-pj-tile figcaption { padding: 34px 10px 10px; gap: 4px; }
+  .gk-pj-tile .gk-tile__title { font-size: 13.5px; }
+  .gk-pj-tile .gk-tile__tag { font-size: 10.5px; }
+  .gk-pj-tile__zoom { top: 8px; right: 8px; width: 32px; height: 32px; font-size: 13px; }
+
+  .gk-pj-pager { gap: 6px; }
+  .gk-pj-pager__btn { min-width: 42px; height: 42px; padding: 0 12px; font-size: 14.5px; }
+  .gk-pj-pager__btn span { display: none; }
+
+  .gk-pj-lb { width: calc(100vw - 1rem); max-height: calc(100dvh - 1rem); }
+  .gk-pj-lb__inner { max-height: calc(100dvh - 1rem - 6px); }
+  .gk-pj-lb__img { max-height: calc(100dvh - 17rem); }
+  .gk-pj-lb__nav { width: 40px; height: 40px; }
+  .gk-pj-lb__nav--prev { left: 8px; }
+  .gk-pj-lb__nav--next { right: 8px; }
+  .gk-pj-lb__panel { padding: 12px 14px 14px; }
+  .gk-pj-lb__title { font-size: 1.125rem; }
+  .gk-pj-lb__actions { flex-wrap: wrap; }
+  .gk-pj-lb__actions .gk-btn { padding-inline: 12px; font-size: 14.5px; }
+}
