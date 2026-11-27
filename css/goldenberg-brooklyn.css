@@ -788,3 +788,8 @@ a.gk-badge:hover { border-color: var(--gk-blue); color: var(--gk-blue); }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
+
+/* Trustindex widget (Nov 27): once the Google reviews widget renders inside
+   the slot, the fallback Google card hides. If it fails to load, the card stays. */
+.gk-ti-slot:has([class*="ti-widget"]) .gk-gcard { display: none; }
+.gk-ti-slot:has([class*="ti-widget"]) { min-height: 0; }
