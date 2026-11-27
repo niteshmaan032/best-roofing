@@ -163,3 +163,14 @@
   .gk-home-blog__list .gk-post__title { font-size: 15px; }
   .gk-home-blog__list .gk-post__topic { display: none; }
 }
+
+/* Contact section (Sean via Nitesh, Nov 27): Call us + Hours side by side,
+   the office address full width under them, and a taller map so Google's
+   place card with "Goldenberg Roofing Brooklyn" shows on the map. */
+.gk-contact-list--split { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.gk-contact-list--split .gk-contact-list__wide { grid-column: 1 / -1; }
+.gk-contact__map--tall { flex: none; height: 420px; min-height: 420px; }
+@media (max-width: 40rem) {
+  .gk-contact-list--split { grid-template-columns: minmax(0, 1fr); }
+  .gk-contact__map--tall { height: 380px; min-height: 380px; }
+}
